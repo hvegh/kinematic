@@ -1,0 +1,2348 @@
+Configure: RawName=(null) Rinex=(null) Rtcm=(null) Receiver=SIRF port=/com5
+NewReceiver: model=SIRF  port=/com5  raw=(null)
+GetBaud - baud=57600
+CLEAR errors
+GetBaud - baud=57600
+QueryResponse  query=$PSRF100,0*3A
+  response=∞≥
+Write: len=15  buf= 24($)  50(P)  53(S)  52(R)  46(F)  31(1)  30(0)  30(0)  2c(,)  30(0)  2a(*)  33(3)  41(A)  0d()  0a(
+) 
+AwaitString: response=∞≥  TooMany=1000
+Rs232::Read: count=2
+Read:  count=2 actual=2  buf=a0(†) a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=05() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=21(!) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=11() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=9c(ú) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=d5(’) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=12() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=56(V) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=58(X) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=15() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f2(Ú) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=86(Ü) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=4d(M) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+CommSirf: Talking at baud 57600
+Writing Sirf block - Id=128(0x80)  Length=23
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 10                                .......         
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 18() 
+Write: len=1  buf= 80(Ä) 
+Write: len=23  buf= 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 00( 10() 
+Write: len=1  buf= 00(
+Write: len=1  buf= 90(ê) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=132(0x84)  Length=1
+00                                                  .               
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 02() 
+Write: len=1  buf= 84(Ñ) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= 84(Ñ) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=170(0xaa)  Length=3
+00 01 00                                            ...             
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 04() 
+Write: len=1  buf= aa(™) 
+Write: len=3  buf= 00( 01()  00(
+Write: len=1  buf= 00(
+Write: len=1  buf= ab(´) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=133(0x85)  Length=6
+01 00 00 00 00 00                                   ......          
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 07() 
+Write: len=1  buf= 85(Ö) 
+Write: len=6  buf= 01()  00( 00( 00( 00( 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= 86(Ü) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=166(0xa6)  Length=7
+00 1c 01 00 00 00 00                                .......         
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 08() 
+Write: len=1  buf= a6(¶) 
+Write: len=7  buf= 00( 1c()  01()  00( 00( 00( 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= c3(√) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=166(0xa6)  Length=7
+00 02 01 00 00 00 00                                .......         
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 08() 
+Write: len=1  buf= a6(¶) 
+Write: len=7  buf= 00( 02()  01()  00( 00( 00( 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= a9(©) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=166(0xa6)  Length=7
+00 07 01 00 00 00 00                                .......         
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 08() 
+Write: len=1  buf= a6(¶) 
+Write: len=7  buf= 00( 07()  01()  00( 00( 00( 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= ae(Æ) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+Writing Sirf block - Id=166(0xa6)  Length=7
+00 08 01 00 00 00 00                                .......         
+Write: len=1  buf= a0(†) 
+Write: len=1  buf= a2(¢) 
+Write: len=1  buf= 00(
+Write: len=1  buf= 08() 
+Write: len=1  buf= a6(¶) 
+Write: len=7  buf= 00( 08()  01()  00( 00( 00( 00(
+Write: len=1  buf= 00(
+Write: len=1  buf= af(Ø) 
+Write: len=1  buf= b0(∞) 
+Write: len=1  buf= b3(≥) 
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b3(≥) 8f(è) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(07() 1c() 70(p) e0(‡) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 75(u) b0(∞) b3(≥) a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=e1(·) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=38(8) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=70(p) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=76(v) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f6(ˆ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=e0(‡) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=e0(‡) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c0(¿) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c5(≈) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=ec(Ï) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 07() 91(ë) 07() d5(’) 03() 06() 00(12() 5a(Z) 4d(M) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=3f(?) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 07 91 07 d5 03 06 00 12     .....!..........
+5a 4d 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ZM..............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b3(≥) f4(Ù) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=da(⁄) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b3 f4 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b3(≥) fc(¸) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=30(0) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b3 fc 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=111612 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b3(≥) f4(Ù) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 07() d5(’) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=33(3) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b3 f4 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 07 d5                                            ...             
+Sirf Clock: Week=1313 TOW=111604 SVs=0 ClockDrift=96249 ClockBias=0 Time=1116117
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 0b() 6c(l) 07() d5(’) 03() 06() 00(12() 5e(^) 28(() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=fd(˝) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 0b 6c 07 d5 03 06 00 12     .....!...l......
+5e 28 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ^(..............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b4(¥) 57(W) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=3e(>) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b4 57 0c 00 00 00 00 00 00 00 00 00     .!...W..........
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b4(¥) 5e(^) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=93(ì) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b4 5e 00 00 00 00 00     ......!...^.....
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=111710 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b4(¥) 57(W) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 0b() b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=76(v) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b4 57 00 00 01 77 f9 00 00 00 00 00     .!...W...w......
+11 0b b0                                            ...             
+Sirf Clock: Week=1313 TOW=111703 SVs=0 ClockDrift=96249 ClockBias=0 Time=1117104
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 0f() 54(T) 07() d5(’) 03() 06() 00(12() 62(b) 10() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=d5(’) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 0f 54 07 d5 03 06 00 12     .....!...T......
+62 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00     b...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b4(¥) bb(ª) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b4 bb 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b4(¥) c2(¬) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f7(˜) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b4 c2 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=111810 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b4(¥) bb(ª) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 0f() 98(ò) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c6(∆) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b4 bb 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 0f 98                                            ...             
+Sirf Clock: Week=1313 TOW=111803 SVs=0 ClockDrift=96249 ClockBias=0 Time=1118104
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 13() 48(H) 07() d5(’) 03() 06() 00(12() 66(f) 04() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c5(≈) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 13 48 07 d5 03 06 00 12     .....!...H......
+66 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00     f...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b5(µ) 20( ) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=08() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b5 20 0c 00 00 00 00 00 00 00 00 00     .!... ..........
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b5(µ) 28(() 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5e(^) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b5 28 00 00 00 00 00     ......!...(.....
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=111912 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b5(µ) 20( ) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 13() 8c(å) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=24($) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b5 20 00 00 01 77 f9 00 00 00 00 00     .!... ...w......
+11 13 8c                                            ...             
+Sirf Clock: Week=1313 TOW=111904 SVs=0 ClockDrift=96249 ClockBias=0 Time=1119116
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 17() 24($) 07() d5(’) 03() 06() 00(12() 69(i) e0(‡) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=84(Ñ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 17 24 07 d5 03 06 00 12     .....!...$......
+69 e0 00 00 00 00 00 00 00 00 00 00 00 00 00 00     i...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b5(µ) 83(É) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=6b(k) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b5 83 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b5(µ) 8a(ä) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c0(¿) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b5 8a 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112010 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b5(µ) 83(É) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 17() 68(h) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=67(g) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b5 83 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 17 68                                            ..h             
+Sirf Clock: Week=1313 TOW=112003 SVs=0 ClockDrift=96249 ClockBias=0 Time=1120104
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 1b() 0c() 07() d5(’) 03() 06() 00(12() 6d(m) c8(») 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5c(\) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 1b 0c 07 d5 03 06 00 12     .....!..........
+6d c8 00 00 00 00 00 00 00 00 00 00 00 00 00 00     m...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b5(µ) e7(Á) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=cf(œ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b5 e7 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b5(µ) ee(Ó) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=24($) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b5 ee 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112110 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b5(µ) e7(Á) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 1b() 50(P) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b7(∑) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b5 e7 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 1b 50                                            ..P             
+Sirf Clock: Week=1313 TOW=112103 SVs=0 ClockDrift=96249 ClockBias=0 Time=1121104
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 1e() ff(ˇ) 07() d5(’) 03() 06() 00(12() 71(q) bc(º) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=05() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=4a(J) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 1e ff 07 d5 03 06 00 12     .....!..........
+71 bc 00 00 00 00 00 00 00 00 00 00 00 00 00 00     q...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b6(∂) 4c(L) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=35(5) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b6 4c 0c 00 00 00 00 00 00 00 00 00     .!...L..........
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b6(∂) 54(T) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=8b(ã) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b6 54 00 00 00 00 00     ......!...T.....
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112212 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b6(∂) 4c(L) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 1f() 44(D) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=15() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b6 4c 00 00 01 77 f9 00 00 00 00 00     .!...L...w......
+11 1f 44                                            ..D             
+Sirf Clock: Week=1313 TOW=112204 SVs=0 ClockDrift=96249 ClockBias=0 Time=1122116
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 22(") dc(‹) 07() d5(’) 03() 06() 00(12() 75(u) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=05() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=0c() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 22 dc 07 d5 03 06 00 12     .....!..".......
+75 99 00 00 00 00 00 00 00 00 00 00 00 00 00 00     u...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b6(∂) af(Ø) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=98(ò) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b6 af 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b6(∂) b7(∑) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=ee(Ó) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b6 b7 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112311 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b6(∂) af(Ø) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 23(#) 21(!) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=59(Y) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b6 af 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 23 21                                            .#!             
+Sirf Clock: Week=1313 TOW=112303 SVs=0 ClockDrift=96249 ClockBias=0 Time=1123105
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 26(&) c4(ƒ) 07() d5(’) 03() 06() 00(12() 79(y) 81(Å) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=e4(‰) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 26 c4 07 d5 03 06 00 12     .....!..&.......
+79 81 00 00 00 00 00 00 00 00 00 00 00 00 00 00     y...............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b7(∑) 13() 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=fd(˝) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b7 13 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b7(∑) 1b() 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=53(S) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b7 1b 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112411 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b7(∑) 13() 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 27(') 09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=aa(™) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b7 13 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 27 09                                            .'.             
+Sirf Clock: Week=1313 TOW=112403 SVs=0 ClockDrift=96249 ClockBias=0 Time=1124105
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 2a(*) b8(∏) 07() d5(’) 03() 06() 00(12() 7d(}) 75(u) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=d4(‘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 2a b8 07 d5 03 06 00 12     .....!..*.......
+7d 75 00 00 00 00 00 00 00 00 00 00 00 00 00 00     }u..............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b7(∑) 78(x) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=62(b) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b7 78 0c 00 00 00 00 00 00 00 00 00     .!...x..........
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b7(∑) 80(Ä) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b8(∏) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b7 80 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112512 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b7(∑) 78(x) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 2a(*) fd(˝) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b7 78 00 00 01 77 f9 00 00 00 00 00     .!...x...w......
+11 2a fd                                            .*.             
+Sirf Clock: Week=1313 TOW=112504 SVs=0 ClockDrift=96249 ClockBias=0 Time=1125117
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 2e(.) 94(î) 07() d5(’) 03() 06() 00(12() 81(Å) 51(Q) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=94(î) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 2e 94 07 d5 03 06 00 12     .....!..........
+81 51 00 00 00 00 00 00 00 00 00 00 00 00 00 00     .Q..............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b7(∑) db(€) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=c5(≈) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b7 db 0c 00 00 00 00 00 00 00 00 00     .!..............
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b7(∑) e3(„) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b7 e3 00 00 00 00 00     ......!.........
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112611 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b7(∑) db(€) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 2e(.) d9(Ÿ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=49(I) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b7 db 00 00 01 77 f9 00 00 00 00 00     .!.......w......
+11 2e d9                                            ...             
+Sirf Clock: Week=1313 TOW=112603 SVs=0 ClockDrift=96249 ClockBias=0 Time=1126105
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0a 6c 20 0b 6c 20      .l .l .l .l .l 
+0c 6c 20                                            .l              
+Sirf Got Message id 27
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=5b([) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=90
+Read:  count=90 actual=90  buf=00(01() 00(00(05() 21(!) 00(11() 32(2) 7c(|) 07() d5(’) 03() 06() 00(12() 85(Ö) 39(9) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(15() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(1b() f2(Ú) 86(Ü) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=6c(l) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=41(0x29)  Length=90
+00 01 00 00 05 21 00 11 32 7c 07 d5 03 06 00 12     .....!..2|......
+85 39 00 00 00 00 00 00 00 00 00 00 00 00 00 00     .9..............
+00 00 00 00 00 00 15 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 1b f2 86 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00                       ..........      
+Sirf Got Message id 41
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=bc(º) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=04() 
+Rs232::Read: count=187
+Read:  count=187 actual=187  buf=01() 21(!) 00(01() b8(∏) 3f(?) 0c() 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=01() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=2a(*) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=4(0x4)  Length=187
+01 21 00 01 b8 3f 0c 00 00 00 00 00 00 00 00 00     .!...?..........
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+00 00 00 00 00 00 00 00 00 00 00                    ...........     
+Sirf Got Message id 4
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=29()) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=40
+Read:  count=40 actual=40  buf=00(61(a) 52(R) 99(ô) 00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(10() 01() 21(!) 00(01() b8(∏) 47(G) 00(00(00(00(00(00(00(00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=02() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=80(Ä) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=2(0x2)  Length=40
+00 61 52 99 00 00 00 00 00 00 00 00 00 00 00 00     .aR.............
+00 00 00 00 10 01 21 00 01 b8 47 00 00 00 00 00     ......!...G.....
+00 00 00 00 00 00 00 00                             ........        
+Sirf Position: TimeTag=112711 x=6378137  y=0  z=0 mode1=0x0  mode2=0x10
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=09(	) 
+Rs232::Read: count=8
+Read:  count=8 actual=8  buf=00(0e() 00(00(00(00(00(00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=17() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=9(0x9)  Length=8
+00 0e 00 00 00 00 00 00                             ........        
+Sirf Got Message id 9
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=14() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=07() 
+Rs232::Read: count=19
+Read:  count=19 actual=19  buf=05() 21(!) 00(01() b8(∏) 3f(?) 00(00(01() 77(w) f9(˘) 00(00(00(00(00(11() 32(2) c1(¡) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=03() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=9a(ö) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=7(0x7)  Length=19
+05 21 00 01 b8 3f 00 00 01 77 f9 00 00 00 00 00     .!...?...w......
+11 32 c1                                            .2.             
+Sirf Clock: Week=1313 TOW=112703 SVs=0 ClockDrift=96249 ClockBias=0 Time=1127105
+CommSirf::GetBlock - starts
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a0(†) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=a2(¢) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=00(
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=34(4) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=1b() 
+Rs232::Read: count=51
+Read:  count=51 actual=51  buf=00(00(00(00(00(00(00(00(00(00(00(00(00(00(00(01() 6c(l) 20( ) 02() 6c(l) 20( ) 03() 6c(l) 20( ) 04() 6c(l) 20( ) 05() 6c(l) 20( ) 06() 6c(l) 20( ) 07() 6c(l) 20( ) 08() 6c(l) 20( ) 09(	) 6c(l) 20( ) 0a(
+) 6c(l) 20( ) 0b() 6c(l) 20( ) 0c() 6c(l) 20( ) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=06() 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=f9(˘) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b0(∞) 
+Rs232::Read: count=1
+Read:  count=1 actual=1  buf=b3(≥) 
+Read Sirf Block - Id=27(0x1b)  Length=51
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01     ................
+6c 20 02 6c 20 03 6c 20 04 6c 20 05 6c 20 06 6c     l .l .l .l .l .l
+20 07 6c 20 08 6c 20 09 6c 20 0

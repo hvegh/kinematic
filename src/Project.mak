@@ -40,9 +40,9 @@ CreateDir = $(eval $1 : | $(dir $1))$(call eval,$(dir $1) :: ; @ mkdir -p $(dir 
 
 
 # Where to put generated files
-OBJDIR := $(PROJECT_ROOT)Obj/
-BINDIR := $(PROJECT_ROOT)Bin/
-INCDIR := $(PROJECT_ROOT)Include/
+OBJDIR := $(PROJECT_ROOT)/../Obj/
+BINDIR := $(PROJECT_ROOT)/../Bin/
+INCDIR := $(PROJECT_ROOT)/../Include/
 
 # 
 CPPFLAGS += -I$(INCDIR) 

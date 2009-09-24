@@ -1,9 +1,8 @@
-PROCESS = Process
-ACQUIRE = Acquire
+APPS = Process Acquire
 
-all: $(PROCESS) $(ACQUIRE)
+all: $(APPS)
 
 
-$(PROCESS) $(ACQUIRE) : $(BINDIR)kinematic.a
+$(APPS) : $(BINDIR)kinematic.a
 
 

@@ -24,7 +24,7 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-GpsReceiver::GpsReceiver() : Pos(0,0,0), GpsTime(0), LeapSec(0)
+GpsReceiver::GpsReceiver() : Pos(0,0,0), GpsTime(0), LeapSec(0), Vel(0,0,0), Cep(0)
 {
 	strcpy(Description, "Unknown-Receiver");
 }

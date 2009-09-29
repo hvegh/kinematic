@@ -47,4 +47,4 @@ INCDIR := $(PROJECT_ROOT)/../Include/
 # 
 CPPFLAGS += -I$(INCDIR) 
 CXXFLAGS += -g
-LDFLAGS += -lsetupapi -static-libgcc
+LDFLAGS +=  -static-libgcc

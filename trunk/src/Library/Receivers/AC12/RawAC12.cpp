@@ -45,10 +45,11 @@ RawAC12::RawAC12(Stream& s)
 	//ErrCode = Command("SMI,0");   if (ErrCode != OK) return;
 	Command("SMI,0");  // Older firmware doesn't recognize it
 
-	// Enable the Position, raw measurements and ephemeris
+	// Enable the Position, raw measurements, ephemeris and error
 	ErrCode = Command("NME,PBN,A,ON,1");  if (ErrCode != OK) return;
-    ErrCode = Command("NME,SNV,A,ON,1");  if (ErrCode != OK) return;
+      ErrCode = Command("NME,SNV,A,ON,1");  if (ErrCode != OK) return;
 	ErrCode = Command("NME,MCA,A,ON,1");  if (ErrCode != OK) return;
+      ErrCode = Command("NME,RRE,A,ON,1");  if (ErrCode != OK) return;
 }
 
 
@@ -61,6 +62,8 @@ bool RawAC12::NextEpoch()
 	PositionTag = -2;
 
 	// Repeat until we have a complete epoch
+        //  An epoch is when we receive some raw measurements followed by
+        //  a matching position.
 	do {
 
 		// Read a block of data
@@ -70,6 +73,7 @@ bool RawAC12::NextEpoch()
 		if      (b.Id == 'PBN')   ProcessPosition(b);
 		else if (b.Id == 'MCA')   ProcessMeasurement(b);
 		else if (b.Id == 'SNV')   ProcessEphemeris(b);
+                else if (b.Id == 'RRE')   ProcessResiduals(b);
 		else                      b.Display("AC12: Unknown block");
 
 	} while (MeasurementTag != PositionTag);
@@ -120,6 +124,7 @@ bool RawAC12::ProcessPosition(Block& blk)
 	debug("  GpsTow(old)=%.3f  rcvtime=%.3f  t=%.9f  tdot=%.9f\n", 
 		GpsTow(GpsTime), rcvtime/1000.0, (double)t, (double)tdot);
 	Pos = Position(x, y, z);
+      Vel = Position(xdot, ydot, zdot);
 	GpsTime = UpdateGpsTime(GpsTime, rcvtime / 1000.0);
 
 	// Create a position tag akin to the raw measurement tag
@@ -205,7 +210,7 @@ bool RawAC12::ProcessEphemeris(Block& blk)
 
 	// Get the clock information
 	e.iodc = b.Get4();           // clock issue data
-    double tow_oc = b.Get4();    // reference time of clock corrections
+      double tow_oc = b.Get4();    // reference time of clock corrections
 	e.t_oc = ConvertGpsTime(WN, tow_oc); 
 	e.a_f2 = b.GetFloat();      // clock correction (sec/sec/sec)
 	e.a_f1 = b.GetFloat();      // clock correction (sec/sec)
@@ -253,6 +258,37 @@ bool RawAC12::ProcessEphemeris(Block& blk)
 
 	return OK;
 }
+
+bool RawAC12::ProcessResiduals(Block& blk)
+{
+
+
+    NmeaBlock b(blk);
+
+    // Get the nmea message type
+    char type[sizeof(b)];
+    b.GetField(type, sizeof(type));
+
+    // Get the number of satellites
+    int nsat = b.GetInt();
+    
+    // Skip the satellite residuals
+    for (int i=0; i<nsat; i++) {
+        int sat = b.GetInt();
+        double resid = b.GetFloat();
+        debug("%d(%.2f) ",sat,resid);
+    }
+
+    // Get the position error
+    double hpos = b.GetFloat();  // RMS horizontal
+    double vpos = b.GetFloat();  // RMS vertical
+    debug("hpos=%.2f  vpos=%.2f\n",hpos,vpos);
+
+    Cep = hpos;  // Conversion???
+
+    return OK;
+}
+
 
 
 bool RawAC12::Command(const char* cmd)

@@ -43,7 +43,6 @@ bool CommAntaris::Open()
 	// When Antaris starts, it sends a whole bunch of messages.
 	//   Let them go by before trying to talk to the antaris
 	//   Otherwise, we may not see the response to the commands we sent
-	Sleep(100);
 	com.Purge();
 
 	// Find Nmea messages at some baud rate. (Query and get response)

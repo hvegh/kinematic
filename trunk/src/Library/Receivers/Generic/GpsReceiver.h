@@ -29,6 +29,8 @@ public:
 	Time GpsTime;  // Gps Epoch.  Nearest second.
 	int LeapSec;
 	Position Pos;
+      Position Vel;
+      double Cep;
 	char Description[21];
 
 	virtual bool NextEpoch() = 0;

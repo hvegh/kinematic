@@ -30,6 +30,7 @@ protected:
     CommAntaris comm;
 	Time NavTime, NavEpoch;   // Last known NAV-SOL time
 	Position NavPos, NavVel;  // Last known position and velocity
+      double NavPacc;            // Last known position accuracy
 	Time RawTime, RawEpoch;   // Time of the RAW-RAW record
 	Time PrevNavTime, PrevNavEpoch; // Time of the previous NAV-SOL record
 	double ClockDrift;        // time(nsec) per second

@@ -148,7 +148,7 @@ bool SysError(const char *fmt, ...);
 bool Verror(const char* fmt, va_list args);
 inline bool Error() {return true;}
 void ClearError();
-void ShowErrors();
+int ShowErrors();
 static const bool OK = false;
 
 

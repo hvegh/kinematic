@@ -33,12 +33,12 @@ public:
     bool GetError() {return ErrCode;}
     bool Read(byte& b)
 	    {return Read(&b, 1);}
-	bool Read(byte* buf, int len)
-	    {size_t actual; return this->Read(buf, len, actual) || actual!=len;}
+    bool Read(byte* buf, size_t len);
     bool Write(byte b)
 	    {byte buf=b; return this->Write(&buf, 1);}	
 	bool Write(const char* buf)
 	    {return Write((byte*)buf, strlen(buf));}
+
 
     bool ReadLine(char* line, size_t max=128);
     bool WriteLine(const char* line);

@@ -24,6 +24,19 @@ int StreamValidBaud[] = {38400, 19200, 9600, 4800, 56000,
 		  115200, 2400, 1200, 57600, 256000, 128000, 300, 110, 0};
 
 
+// Fixed length read
+bool Stream::Read(byte* buf, size_t len)
+{
+    size_t actual;
+    for (size_t remaining=len; remaining > 0; remaining-=actual, buf+=actual) {
+        if (Read(buf, remaining, actual) != OK) return Error();
+        if (actual == 0) return Error("Stream::fixed length read timed out\n");
+    }
+
+    return OK;
+}
+
+
 
 bool Stream::ReadLine(char *buf, size_t len)
 {
@@ -111,7 +124,7 @@ bool Stream::QueryResponse(const char *query, const char* response, int TooMany)
 
 	// Await the response
 	if (AwaitString(response, TooMany) != OK)
-		return Error("Did not get expected response to query");
+		return Error("Did not get expected response to query\n");
 
 	return OK;
 }

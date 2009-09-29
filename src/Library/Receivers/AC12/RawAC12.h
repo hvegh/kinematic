@@ -39,6 +39,7 @@ private:
 	bool ProcessPosition(Block& b);
 	bool ProcessMeasurement(Block& b);
 	bool ProcessEphemeris(Block& b);
+      bool ProcessResiduals(Block& b);
 	bool Command(const char* cmd);
 	bool AckOrNak();
 };

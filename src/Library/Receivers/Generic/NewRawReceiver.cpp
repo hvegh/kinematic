@@ -26,7 +26,7 @@
 #include "RawFuruno.h"
 #include "RawSSF.h"
 //#include "RawGarmin.h"
-#include "CommGarminUsb.h"
+//#include "CommGarminUsb.h"
 #include "CommWriteLog.h"
 #include "CommReadLog.h"
 

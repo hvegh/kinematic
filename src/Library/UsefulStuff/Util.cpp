@@ -18,8 +18,21 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "util.h"
 #include <math.h>
+
+#ifdef Windows
 #include <windows.h>
 #include <winioctl.h>
+
+#else
+
+#include <strings.h>
+#include <errno.h>
+
+const char * GetLastError()
+{
+    return strerror(errno);
+}
+#endif
 
 
 int SvidToSat(int svid)
@@ -195,6 +208,8 @@ bool SysError(const char* fmt, ...)
 }
 
 
+
+
 bool Error(const char *fmt, ...)
 {
 	va_list arglist;
@@ -227,7 +242,7 @@ void ClearError()
 }
 
 
-void ShowErrors()
+int ShowErrors()
 {
 	for (int i=0; i<ErrCount; i++)
 		printf("%5d: %s", i, ErrSlot[i]);
@@ -237,6 +252,9 @@ void ShowErrors()
 		while (getchar() != '\n')
 			;
 	}
+
+        if (ErrCount > 0) return 1;
+        else              return 0;
 
 }
 

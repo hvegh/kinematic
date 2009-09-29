@@ -119,7 +119,7 @@ bool RawAntaris::ProcessSolution(Block& block)
 ///////////////////////////////////////////////////////////////////
 {
 	LittleEndian b(block);
-    uint32 ITOW = b.Get4();   // GPS Mllisecond Time of Week
+      uint32 ITOW = b.Get4();   // GPS Mllisecond Time of Week
 	int32  Frac = b.Get4();   // Nanoseconds remainder of rounded ms
 	int16 week = b.Get2();    // GPS week
 	uint8 GPSfix = b.Get();   // GPS fix Type, (3="3D-Fix")
@@ -128,14 +128,14 @@ bool RawAntaris::ProcessSolution(Block& block)
 	int32 ECEF_X = b.Get4();  // ECEF X coordinate (cm)
 	int32 ECEF_Y = b.Get4();  // ECEF Y coordinate (cm)
 	int32 ECEF_Z = b.Get4();  // ECEF Z coordinate (cm)
-    uint32 Pacc = b.Get4();   // ED Position Accuracy Estimate (cm)
+      uint32 Pacc = b.Get4();   // ED Position Accuracy Estimate (cm)
 
 	int32 ECEFVX = b.Get4();  // ECEF X Velocity (cm/s)
 	int32 ECEFVY = b.Get4();  // ECEF Y Velocity (cm/s)
 	int32 ECEFVZ = b.Get4();  // ECEF Z Velocity (cm/s)
 	uint32 SAcc  = b.Get4();  // Speed Accuracy Estimate (cm/s)
 
-	uint16 PDOP =  b.Get2();  // Position DOP
+	uint16 pdop =  b.Get2();  // Position DOP
 	uint8 res1 = b.Get();     // reserved
 	uint8 numSV = b.Get();    // Number of SVs used in Nav Solution
 	uint32 res2 = b.Get4();   // reserved
@@ -159,6 +159,7 @@ bool RawAntaris::ProcessSolution(Block& block)
 	// Get the position and time information
 	NavPos = Position(ECEF_X/100.0, ECEF_Y/100.0, ECEF_Z/100.0);
 	NavVel = Position(ECEFVX/100.0, ECEFVY/100.0, ECEFVZ/100.0);
+      NavPacc = Pacc/100.0;
 	NavTime = ConvertGpsTime(week, ITOW/1000.0) + Frac;
 	NavEpoch = NearestHz(NavTime);
 	debug("     x=%.3f  y=%.3f  z=%.3f Pacc=%g\n", 
@@ -229,6 +230,8 @@ bool RawAntaris::ProcessRawMeasurement(Block& block)
 		// ... Extrapolate the navigation information to match the raw data
 		GpsTime = NavTime + (RawEpoch-NavEpoch) + (Time)(Adjust*ClockDrift);
 		Pos = NavPos + Adjust*NavVel;
+            Vel = NavVel;
+            Cep = NavPacc;  // TODO:  Conversion??? 
 		debug("RawAntaris (interpolating):  RawTime=%lld  RawEpoch=%lld\n",RawTime,RawEpoch);
 		debug("    NavTime=%lld  NavEpoch=%lld\n",NavTime,NavEpoch);
 		debug("    Adjust=%.9f ClockDrift=%.0f\n",Adjust,ClockDrift);

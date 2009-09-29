@@ -97,18 +97,18 @@ bool DisplayOptions();
 
 
 // run string parameters
-const char* BaseModel;
-const char* BasePortName;
-const char* RovingModel;
-const char* RovingPortName;
-const char* Sp3Name;
-const char* OutputName;
-enum {SPACES, COMMAS} OutputType;
-bool Static;
+static const char* BaseModel;
+static const char* BasePortName;
+static const char* RovingModel;
+static const char* RovingPortName;
+static const char* Sp3Name;
+static const char* OutputName;
+static enum {SPACES, COMMAS} OutputType;
+static bool Static;
 extern bool CodeOnly;
 extern int DebugLevel;
-enum {WGS84, ECEF, ENU, TEST} PositionType;
-bool Simulator;
+static enum {WGS84, ECEF, ENU, TEST} PositionType;
+static bool Simulator;
 
 
 

@@ -51,7 +51,7 @@ protected:
 public:
 	BlockPacker(Block& blk) :b(blk) {Reader=0;}
 	byte Get() {return b.Data[Reader++];}
-    void Put(byte i) {b.Data[b.Length++] = i;}
+      void Put(byte i) {b.Data[b.Length++] = i;}
 	void Put(const char* s) {for (; *s!='\0'; s++) Put(*s);}
 };
 
@@ -160,6 +160,17 @@ public:
 	void PutDouble(double d) {Put8(*(uint64*)&d);}
 };
 
+
+class NmeaBlock: public BlockPacker {
+public:
+    NmeaBlock(Block& b): BlockPacker(b) {}
+    void GetField(char *buf, int size);
+    int GetInt();
+    double GetFloat();
+    void PutField(char *buf);
+    void PutInt(int value);
+    void PutFloat(double value);
+};
 
 
 

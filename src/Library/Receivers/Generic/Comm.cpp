@@ -101,6 +101,45 @@ void Block::Display(int level, const char* s)
 
 
 
+void NmeaBlock::GetField(char *buf, int size)
+{
+    int i;
+    for (i=0; i<size-1; i++) {
+        buf[i] = (char)Get();
+        if (buf[i] == ',' || buf[i] == '\0') break;
+    }
+
+    buf[i] = '\0';
+}
+
+void NmeaBlock::PutField(char *buf)
+{
+}
+
+int NmeaBlock::GetInt()
+{
+    char buf[sizeof(NmeaBlock)];
+    GetField(buf, sizeof(buf));
+    return atoi(buf);
+}
+
+double NmeaBlock::GetFloat()
+{
+    char buf[sizeof(NmeaBlock)];
+    GetField(buf, sizeof(buf));
+    return atof(buf);
+}
+
+void NmeaBlock::PutInt(int value)
+{
+    Error("NmeaBlock::PutInt not implemented\n");
+}
+
+void NmeaBlock::PutFloat(double value)
+{
+}
+
+
 Comm::~Comm()
 {
 }

@@ -95,8 +95,11 @@ bool CommAC12::GetBlock(Block& b)
 	}
 
 	// Otherwise, this is a regular NMEA message
-	else
+	else {
 	    ReadNmeaData(b);
+          if (Match(b, 0, "$GPRRE")) b.Id = 'RRE';
+          else                       b.Id = 'NMEA';
+      }
 
 	b.Display("Get Block");
 	return ErrCode;

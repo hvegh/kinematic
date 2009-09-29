@@ -49,7 +49,7 @@ int main(int argc, const char** argv)
 	// Get configured according to arguments
 	if (Configure(argc, argv) != OK) {
 		DisplayHelp();
-		goto err;
+		return ShowErrors();
 	}
 
 	// Initialize the gps receiver
@@ -57,24 +57,24 @@ int main(int argc, const char** argv)
 	RawReceiver* gps = NewRawReceiver(Model, PortName, RawName);
 	if (gps == NULL || gps->GetError() != OK) {
 		Error("Unable to initialize the %s gps on port %s\n", Model,PortName);
-		goto err;
+		return ShowErrors();
 	}
 
 	// Create the RINEX output file
 	Rinex* rinex = NewRinex(RinexName, *gps);
-	if (rinex == NULL && RinexName != NULL) goto err;
+	if (rinex == NULL && RinexName != NULL) return ShowErrors();
 
 	// Create the RTCM output file
 	RtcmStation* rtcm = NewRtcm(RtcmName, *gps);
-	if (rtcm == NULL && RtcmName != NULL) goto err;
+	if (rtcm == NULL && RtcmName != NULL) return ShowErrors();
 
 	// Create the DGPS output file
 	//DgpsStation* dgps= NewDgps(DgpsName, *gps);
-	//if (dgps == NULL && DgpsName != NULL) goto err;
+	//if (dgps == NULL && DgpsName != NULL) return ShowErrors();
 
 	// Get first epoch
 	printf("Waiting for data from %s on port %s\n", Model, PortName);
-	if (gps->NextEpoch() != OK) goto err;
+	if (gps->NextEpoch() != OK) return ShowErrors();
 
 	// if configured to override the first position, use the override
 	if (InitialPos.x != 0 || InitialPos.y != 0 || InitialPos.z != 0)
@@ -99,18 +99,18 @@ int main(int argc, const char** argv)
 
 		// Write it out as Rinex
 		if (rinex != NULL)
-		    if (rinex->OutputEpoch() != OK) goto err;
+		    if (rinex->OutputEpoch() != OK) return ShowErrors();
 
 		// Write it out as RTCM
 		if (rtcm != NULL)
-			if (rtcm->OutputEpoch() != OK) goto err;
+			if (rtcm->OutputEpoch() != OK) return ShowErrors();
 
 		// Write it out as DGPS
 //		if (dgps != NULL)
-//			if (dgps->OutputEpoch() != OK) goto err;
+//			if (dgps->OutputEpoch() != OK) return ShowErrors();
 
 		// Read next epoch of data
-		if (gps->NextEpoch() != OK) goto err;
+		if (gps->NextEpoch() != OK) return ShowErrors();
 	}
 
 	// Done

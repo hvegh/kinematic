@@ -53,6 +53,8 @@ public:
 	byte Get() {return b.Data[Reader++];}
       void Put(byte i) {b.Data[b.Length++] = i;}
 	void Put(const char* s) {for (; *s!='\0'; s++) Put(*s);}
+      byte UnPut() {return b.Data[--b.Length];}
+      void UnGet() {Reader--;}
 };
 
 // A BigEndian block has numeric fields represented MSB first
@@ -171,6 +173,18 @@ public:
     void PutInt(int value);
     void PutFloat(double value);
 };
+
+
+class Bits: public BlockPacker {
+public:
+    Bits(Block& b): BlockPacker(b), ExtraBits(0) {}
+    void PutBits(int32 value, int bits);
+    uint32 GetBits(int bits);
+    int32 GetSignedBits(int bits);
+protected:
+    int ExtraBits;
+};
+
 
 
 

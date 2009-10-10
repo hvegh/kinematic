@@ -27,11 +27,19 @@
 
 #include <strings.h>
 #include <errno.h>
+#include <unistd.h>
 
 const char * GetLastError()
 {
     return strerror(errno);
 }
+
+void Sleep(int msec)
+{
+    usleep(msec*1000);
+}
+
+
 #endif
 
 
@@ -113,7 +121,7 @@ double Normal(double mean, double dev)
 
 #include "stdio.h"
 
-int DebugLevel = 0;
+extern int DebugLevel;
 
 #ifdef DEBUG
 void vdebug(int level, const char* fmt, va_list args);
@@ -247,11 +255,13 @@ int ShowErrors()
 	for (int i=0; i<ErrCount; i++)
 		printf("%5d: %s", i, ErrSlot[i]);
 
+/***********************************
 	if (ErrCount > 0) {
 		printf("\nHit ""enter"" to continue.\n");
 		while (getchar() != '\n')
 			;
 	}
+*******************************/
 
         if (ErrCount > 0) return 1;
         else              return 0;

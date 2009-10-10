@@ -41,15 +41,15 @@ RawAC12::RawAC12(Stream& s)
 	// Turn off NMEA messages
 
 	// Configure the unit to use WAAS and no smoothing of pseudoranges
-	ErrCode = Command("WAS,ON");  if (ErrCode != OK) return;
-	//ErrCode = Command("SMI,0");   if (ErrCode != OK) return;
-	Command("SMI,0");  // Older firmware doesn't recognize it
+	ErrCode = Command("$PASHS,WAS,ON");  if (ErrCode != OK) return;
+	//ErrCode = Command("$PASHS,SMI,0");   if (ErrCode != OK) return;
+	Command("$PASHS,SMI,0");  // Older firmware doesn't recognize it
 
 	// Enable the Position, raw measurements, ephemeris and error
-	ErrCode = Command("NME,PBN,A,ON,1");  if (ErrCode != OK) return;
-      ErrCode = Command("NME,SNV,A,ON,1");  if (ErrCode != OK) return;
-	ErrCode = Command("NME,MCA,A,ON,1");  if (ErrCode != OK) return;
-      ErrCode = Command("NME,RRE,A,ON,1");  if (ErrCode != OK) return;
+	ErrCode = Command("$PASHS,NME,PBN,A,ON,1");  if (ErrCode != OK) return;
+	ErrCode = Command("$PASHS,NME,MCA,A,ON,1");  if (ErrCode != OK) return;
+        ErrCode = Command("$PASHS,NME,RRE,A,ON,1");  if (ErrCode != OK) return;
+        ErrCode = Command("$PASHS,NME,SNV,A,ON,2");  if (ErrCode != OK) return;
 }
 
 
@@ -297,7 +297,6 @@ bool RawAC12::Command(const char* cmd)
 	BlockPacker b(blk);
 
 	// Copy the command into the block
-	b.Put("$PASHS,");
 	b.Put(cmd);
 	b.Put("\r\n");
 

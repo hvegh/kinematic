@@ -17,7 +17,7 @@
 
 #include "InputFile.h"
 #include "Rinex.h"
-#include "RtcmStation.h"
+#include "Rtcm3Station.h"
 #include "DgpsStation.h"
 #include "NewRawReceiver.h" 
 #include <stdio.h>
@@ -209,13 +209,13 @@ Rinex* NewRinex(const char* name, RawReceiver& gps)
 	return r;
 }
 
-RtcmStation* NewRtcm(const char* name, RawReceiver& gps)
+Rtcm3Station* NewRtcm(const char* name, RawReceiver& gps)
 {
 	if (name == NULL) return NULL;
 	if (gps.GetError() != OK) return NULL;
 	Stream* s = NewOutputStream(name);
 	if (s == NULL) return NULL;
-	RtcmStation* r = new RtcmStation(*s, gps);
+	Rtcm3Station* r = new Rtcm3Station(*s, gps);
 	if (r == NULL || r->GetError() != OK) return NULL;
 	return r;
 }

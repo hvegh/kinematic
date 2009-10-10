@@ -7,9 +7,6 @@
 #include <fcntl.h>
 
 
-static void Sleep(int msec);
-
-
 
 
 Rs232::Rs232(const char* name)
@@ -272,15 +269,6 @@ bool Rs232::Flush()
 		return SysError("Unable to flush serial port %s\n", Name);
 
     return OK;
-}
-
-
-static void Sleep(int msec)
-{
-    struct timeval tv[1];
-    tv->tv_sec = msec / 1000;
-    tv->tv_usec = (msec % 1000) * 1000;
-    select(0,NULL,NULL,NULL, tv);
 }
 
 

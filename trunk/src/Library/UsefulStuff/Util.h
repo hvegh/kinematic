@@ -250,6 +250,10 @@ bool Match(const char* str, const char* pat, const char*& nxt)
 }
 
 
+#ifndef Windows
+void Sleep(int msec);
+const char* GetLastError();
+#endif
 
 #endif // !defined(AFX_UTIL_H__DAB7AFBC_C1AF_44A4_9619_5D69508077F9__INCLUDED_)
 

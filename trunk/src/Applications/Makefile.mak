@@ -1,4 +1,4 @@
-APPS = Process Acquire
+APPS = Process Acquire NtripAc12
 
 all: $(APPS)
 

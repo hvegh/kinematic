@@ -15,21 +15,23 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#include "OutputFile.h"
-#include "RtcmStation.h"
+#include "NtripServer.h"
+#include "Rtcm3Station.h"
 #include "Rs232.h"
 #include "RawAC12.h"
 #include <stdio.h>
 
 bool Configure(int argc, const char** argv);
 void DisplayHelp();
-bool GpsSession(const char *PortName, const char *RtcmName);
+bool GpsSession(const char *PortName, const char *CasterName, int Port, const char* Mount);
 void Display(RawReceiver& gps);
 
 // Globals which are set up by "configure"
-const char *RtcmName;
+const char *CasterName;
+int Port;
+const char *Mount;
 const char *SerialName;
-Position StationPos;
+Rtcm3Station::Attributes Station;
 extern int DebugLevel;
 
 
@@ -46,7 +48,7 @@ int main(int argc, const char** argv)
 
         // Start a GPS session
         printf("Starting Session\n");
-        GpsSession(SerialName, RtcmName);
+        GpsSession(SerialName, CasterName, Port, Mount);
 
         ShowErrors();
         ClearError();
@@ -62,7 +64,7 @@ int main(int argc, const char** argv)
 
 
 
-bool GpsSession(const char *SerialName, const char *RtcmName)
+bool GpsSession(const char *SerialName, const char *Castername, int Port, const char *Mount)
 {
     // Initialize the gps receiver
     Rs232   in(SerialName);
@@ -71,20 +73,22 @@ bool GpsSession(const char *SerialName, const char *RtcmName)
         return Error("Unable to init the AC12  on port %s\n", SerialName);
 
     // Create the RTCM output file
-    OutputFile out(RtcmName);
-    RtcmStation rtcm(out, gps);
+    //OutputFile out(RtcmName);
+    Socket::Address  addr( (127<<24)|1, Port);
+    NtripServer out(addr, "mnt", "", "password");
+    Rtcm3Station rtcm(out, gps, Station);
     if (rtcm.GetError() != OK) 
-        return Error("Unable to open RTCM output %s\n", RtcmName);
+        return Error();
 
     // Repeat forever
     for (;;) {
         // Read next epoch of data
-        if (gps.NextEpoch() != OK) return ShowErrors();
+        if (gps.NextEpoch() != OK) return Error("Can't get gps data\n");
 
         Display(gps);
 
         // Write it out as RTCM
-        if (rtcm.OutputEpoch() != OK) return ShowErrors();
+        if (rtcm.OutputEpoch() != OK) return Error("Can't send RTCM to caster\n");
     }
 
     // Done
@@ -113,28 +117,30 @@ void Display(RawReceiver& gps)
 bool Configure(int argc, const char** argv)
 {
 	// Set the defaults
-	StationPos = Position(0,0,0);
+	Station.ARP = Position(0,0,0);
 	SerialName = NULL;
-	RtcmName = NULL;
+        Port = 0;
+        Mount = NULL;
+        CasterName = NULL;
 
 	// Process each option
 	int i;
 	const char* val;
-	for (i=1; i<argc&& argv[i][0] == '-'; i++) {
-		if      (Match(argv[i], "-rtcm=", RtcmName))      ;
-                else if (Match(argv[i], "-serial=", SerialName))      ;
-		else if (Match(argv[i], "-x=", val))  StationPos.x = atof(val);
-		else if (Match(argv[i], "-y=", val))  StationPos.y = atof(val);
-		else if (Match(argv[i], "-z=", val))  StationPos.z = atof(val);
-		else if (Match(argv[i], "-debug=", val)) DebugLevel = atoi(val);
+	for (i=1; i<argc; i++) {
+		if      (Match(argv[i], "caster=", CasterName))      ;
+                else if (Match(argv[i], "port=", val)) Port=atoi(val);
+                else if (Match(argv[i], "mount=", Mount)) ;
+                else if (Match(argv[i], "serial=", SerialName))      ;
+		else if (Match(argv[i], "x=", val))  Station.ARP.x = atof(val);
+		else if (Match(argv[i], "y=", val))  Station.ARP.y = atof(val);
+		else if (Match(argv[i], "z=", val))  Station.ARP.z = atof(val);
+		else if (Match(argv[i], "debug=", val)) DebugLevel = atoi(val);
 		else    return Error("Didn't recognize option %s\n", argv[i]);
 	}
 	
-	debug("Configure: Rtcm=%s port=%s\n", RtcmName, SerialName);
 
-        if (RtcmName == NULL || SerialName == NULL 
-          || StationPos.x == 0 || StationPos.y == 0 || StationPos.z == 0)
-            return Error("Must specify RtcmName, PortName and x,y,z\n");
+        if (SerialName == NULL  || Mount == NULL || Port == 0)
+            return Error("Must specify SerialName, PortName and mount\n");
 
 	return OK;
 }
@@ -143,12 +149,11 @@ bool Configure(int argc, const char** argv)
 void DisplayHelp()
 {
 	printf("\n");
-	printf("NtripAc12 -rtcm=RtcmFile -serial=SerialPort -x=xxx -y=yyyy -z=zzz\n");
+	printf("NtripAc12 caster=CasterName port=PortNr mount=MountPoint serial=SerialPort x=xxx y=yyyy z=zzz\n");
 	printf("   Acquires rtcm data from an AC12 GPS receiver.\n");
 	printf("\n");
 	printf("   SerialPort  - the name of the Rs-232 port to talk to the receiver\n");
 	printf("               eg. /dev/ttyUSB0\n");
-	printf("   RtcmFile - output file for Rtcm data\n");
         printf("   x, y, z  are ECEF station coordinates\n");
 	printf("\n");
 

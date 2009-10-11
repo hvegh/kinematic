@@ -1,4 +1,4 @@
-APPS = ZeroBase
+APPS = NtripServer ZeroBase
 
 all: $(APPS)
 

@@ -178,9 +178,9 @@ public:
 class Bits: public BlockPacker {
 public:
     Bits(Block& b): BlockPacker(b), ExtraBits(0) {}
-    void PutBits(int32 value, int bits);
-    uint32 GetBits(int bits);
-    int32 GetSignedBits(int bits);
+    void PutBits(int64 value, int bits);
+    uint64 GetBits(int bits);
+    int64 GetSignedBits(int bits);
 protected:
     int ExtraBits;
 };

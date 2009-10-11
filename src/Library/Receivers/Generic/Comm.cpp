@@ -140,30 +140,31 @@ void NmeaBlock::PutFloat(double value)
 }
 
 
-void Bits::PutBits(int32 value, int bits)
+void Bits::PutBits(int64 value, int bits)
 {
+    debug(9, "PutBits: value=0x%llx  bits=%d ExtraBits=%d\n", value, bits,ExtraBits);
     // Align the value to the far left
     uint64 word =  value<<(64-bits);
     
     // If there are leftover bits, shift right and add them in
     if (ExtraBits > 0)
-        word = (word >> ExtraBits) | ((uint64)UnPut() << 54);
+        word = (word >> ExtraBits) | ((uint64)UnPut() << 56);
 
     // Starting from left, store each full byte
     int nbits = bits + ExtraBits;
     for (; nbits >= 8; nbits -= 8) {
-        Put(word>>54);
+        Put(word>>56);
         word <<= 8;
     }
 
    // If there are new leftover bits, store them as well
    ExtraBits = nbits;
    if (ExtraBits > 0)
-       Put(word>>54);
+       Put(word>>56);
 }
 
 
-uint32 Bits::GetBits(int bits)
+uint64 Bits::GetBits(int bits)
 {
 
     // Fetch enough bytes to hold the desired value
@@ -180,14 +181,14 @@ uint32 Bits::GetBits(int bits)
     ExtraBits = nbits;
     if (ExtraBits > 0)  UnGet();
 
-    return (uint32) word;
+    return word;
 }
 
 
-int32 Bits::GetSignedBits(int bits)
+int64 Bits::GetSignedBits(int bits)
 {
     int64 word = (int64)GetBits(bits);
-    return (int32) ((word << (64 - bits)) >> (64 - bits));
+    return ((word << (64 - bits)) >> (64 - bits));
 }
 
 

@@ -8,7 +8,7 @@ class NtripServer: public Socket
 {
 public:
 
-    NtripServer(Socket::Address addr, char *user, char *password, char *mount);
+    NtripServer(Socket::Address addr, char *mount, char *user, char *password);
     ~NtripServer();
 
 protected:

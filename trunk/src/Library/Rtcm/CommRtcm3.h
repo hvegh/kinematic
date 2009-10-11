@@ -19,25 +19,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "Stream.h"
-#include "Frame.h"
+#include "Comm.h"
 
 
-class RtcmOut
+class CommRtcm3 : public Comm
 {
-protected:
-	Stream& Out;
-	bool ErrCode;
-	uint32 PreviousWord;
-
 public:
-	RtcmOut(Stream& out);
-	bool GetError() {return ErrCode;}
-	virtual bool WriteFrame(Frame& f);
-	virtual ~RtcmOut(void);
-
-private:
-	bool WriteWord(uint32 word);
+	CommRtcm3(Stream& out);
+	virtual bool PutBlock(Block& blk);
+        virtual bool GetBlock(Block& blk);
+	virtual ~CommRtcm3(void);
 };
 
 

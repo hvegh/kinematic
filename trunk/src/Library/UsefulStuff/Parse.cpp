@@ -16,14 +16,22 @@ Parse::~Parse()
 {
 }
 
+bool Parse::operator!=(const char* str)
+{
+    bool equal = (*this == str);
+    debug("Parse::operator!=  equal=%d\n", equal);
+    return !equal;
+}
+
+
 bool Parse::operator==(const char* str)
 {
     debug("Parse == (%s)\n", str);
     int i;
     for (i=TokenBegin; i<=TokenEnd; i++)
-        if (Buf[i] != str[i])
+        if (Buf[i] != *str++)
             return false;
-    return str[i] == '\0';
+    return *str == '\0';
 }
 
 byte Parse::GetDelimiter()

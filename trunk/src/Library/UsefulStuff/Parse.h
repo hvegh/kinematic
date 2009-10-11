@@ -19,6 +19,7 @@ public:
     bool Next(const char* delimiters);
 
     bool operator==(const char* str);
+    bool operator!=(const char* str);
     bool GetToken(char *str, int len);
     byte GetDelimiter();
 

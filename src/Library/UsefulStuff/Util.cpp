@@ -18,6 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "util.h"
 #include <math.h>
+#include <ctype.h>
 
 #ifdef Windows
 #include <windows.h>
@@ -127,16 +128,19 @@ extern int DebugLevel;
 void vdebug(int level, const char* fmt, va_list args);
 void debug_write(const char* buffer, size_t len);
 
-void debug_buf(int level, byte* buf, size_t size)
+void debug_buf(int level, const byte* buf, size_t size)
 {   
-	if (level > DebugLevel) return;
-	if (size > 256) size=256;
-	size_t i;
-	for (i=0; i<size; i++) {
-		debug(" %02x", buf[i]);
-		if (i%16 == 15) debug("\n");
-	}
-	if (i%16 != 0) debug("\n");
+    if (level > DebugLevel) return;
+    if (size > 200) size=200;
+    for (size_t i=0; i<size+9; i+=10) {
+        for (size_t j=i; j<i+10; j++) 
+            if (j<size) debug(" %02x", buf[j]);
+            else        debug("   ");
+        debug("  ");
+        for (size_t j=i; j<i+10; j++) 
+            if (j<size) debug("%c", isprint(buf[j])?buf[j]:'.');
+        debug("\n");
+    }
 }
 
 
@@ -179,6 +183,7 @@ void debug_write(const char* buf, size_t len)
 	}
 
 	fwrite(buf, len, 1, DebugFile);
+        fflush(DebugFile);
     return;
 }
 
@@ -206,7 +211,7 @@ char   ErrSlot[ErrMax][ErrMaxStr];  // Make this thread specific later
 
 bool SysError(const char* fmt, ...)
 {
-	Error("System error %d\n", GetLastError());
+	Error("System error %s\n", GetLastError());
 
 	va_list arglist;
 	va_start(arglist, fmt);
@@ -232,8 +237,8 @@ bool Verror(const char *fmt, va_list arglist)
 	debug("ERROR: "); vdebug(1, fmt, arglist);
 
 	// Format into the slot
-	ErrSlot[ErrCount][ErrMaxStr-1] = '\0';
 	vsnprintf(ErrSlot[ErrCount], ErrMaxStr-1, fmt, arglist);
+	ErrSlot[ErrCount][ErrMaxStr-1] = '\0';
 
 	// if we have more room in the error list, then allocate a slot
 	if (ErrCount < ErrMax)

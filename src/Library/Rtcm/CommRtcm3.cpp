@@ -1,3 +1,4 @@
+
 //    Part of Kinematic, a utility for GPS positioning
 //
 // Copyright (C) 2005  John Morris    www.precision-gps.org
@@ -16,28 +17,45 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#ifndef RTCMIN_INCLUDED
-#define RTCMIN_INCLUDED
-#include "Stream.h"
-#include "Frame.h"
 
-class RtcmIn  // Later, make this CommRtcm
+#include "CommRtcm3.h"
+#include "Crc.h"
+
+static const byte preamble = 0xd3;
+
+
+CommRtcm3::CommRtcm3(Stream& com)
+: Comm(com)
 {
-protected:
-	Stream& In;
-	uint64 RawWord;
-	int BitShift;
-	bool ErrCode;
+}
 
-public:
-	RtcmIn(Stream& in);
-	bool ReadFrame(Frame& f, bool& slip);
-	bool GetError() {return ErrCode;}
-	virtual ~RtcmIn(void);
-private:
-	bool ReadWord(uint32& word, bool& slip);
-	bool Synchronize(uint32& word);
-};
+bool CommRtcm3::PutBlock(Block& blk)
+{
+    byte LenHi = (blk.Length>>8) & 0x3;
+    byte LenLo = blk.Length;
 
-#endif // RTCMIN_INCLUDED
+    // Send the header and body
+    if (com.Write(preamble) != OK
+     || com.Write(LenHi) != OK
+     || com.Write(LenLo) != OK
+     || com.Write(blk.Data, blk.Length) != OK) return Error();
+
+    // Send the crc
+    Crc24 crc;
+    crc.Add(preamble); crc.Add(LenHi); crc.Add(LenLo);
+    crc.Add(blk.Data, blk.Length);
+    if (com.Write(crc.AsBytes(), 3) != OK) return Error();
+
+    return OK;
+}
+
+
+bool CommRtcm3::GetBlock(Block& blk)
+{
+}
+
+
+CommRtcm3::~CommRtcm3()
+{
+}
 

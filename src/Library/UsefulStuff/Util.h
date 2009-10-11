@@ -34,6 +34,10 @@
 namespace std {};
 using namespace std;
 
+// some looping conditions to use in place of "while(xxx)"
+#define until(condition) while (!(condition))
+#define forever while(true)
+
 // Standard integer types
 typedef char int8;
 typedef unsigned char uint8;
@@ -50,12 +54,11 @@ typedef uint64_t uint64;
 // Special integer types
 typedef uint8 byte;
 
-
 extern int DebugLevel;
 #ifndef DEBUG
 inline static void debug(const char* fmt, ...){}
 inline static void debug(int level, const char* fmt, ...){}
-inline static void debug_buf (int level, byte* buf, size_t size) {}
+inline static void debug_buf (int level, const byte* buf, size_t size) {}
 inline static void vdebug(int level, const char* fmt, va_list args){}
 template<typename Ta, typename Tb> inline static
 void DebugArray(Ta& A, int32 MinRow, int32 MaxRow, int32 MinCol, 
@@ -65,7 +68,7 @@ void DebugArray(Ta& A, int32 MinRow, int32 MaxRow, int32 MinCol,
 #else
 void debug(const char* fmt, ...);
 void debug(int level, const char* fmt, ...);
-void debug_buf(int level, byte* buf, size_t size);
+void debug_buf(int level, const byte* buf, size_t size);
 void vdebug(int level, const char* fmt, va_list args);
 template<typename Ta, typename Tb>
 static void DebugArray(Ta& A, int32 MinRow, int32 MaxRow, int32 MinCol, 
@@ -142,7 +145,6 @@ void XYZToGeod(double a, double finv,
 			   double& lat, double& lon, double& alt);
 
 bool Event(const char *fmt, ...);
-
 bool Error(const char *fmt, ...);
 bool SysError(const char *fmt, ...);
 bool Verror(const char* fmt, va_list args);

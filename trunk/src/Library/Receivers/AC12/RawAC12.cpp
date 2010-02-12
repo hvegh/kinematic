@@ -58,14 +58,18 @@ bool RawAC12::NextEpoch()
 {
 	Block b;
 
-	MeasurementTag = -1;
+	MeasurementTag = -1; 
 	PositionTag = -2;
+
+        // Assume no valid measurements until proven otherwise
+        for (int s=0; s<MaxSats; s++)
+            obs[s].Valid = false;
 
 	// Repeat until we have a complete epoch
         //  An epoch is when we receive some raw measurements followed by
-        //  a matching position.
+        //  a matching position. 
+        //  For now, session ends with position
 	do {
-
 		// Read a block of data
 		if (comm.GetBlock(b) != OK) return Error();
 
@@ -76,7 +80,7 @@ bool RawAC12::NextEpoch()
                 else if (b.Id == 'RRE')   ProcessResiduals(b);
 		else                      b.Display("AC12: Unknown block");
 
-	} while (MeasurementTag != PositionTag);
+	} until (b.Id == 'PBN');  // while (MeasurementTag != PositionTag);
 
 	debug("AC12 NextEpoch: GpsTime=%.1f\n", S(GpsTime));
 

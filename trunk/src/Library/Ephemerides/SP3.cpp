@@ -19,7 +19,7 @@
 
 #include "util.h"
 #include "SP3.h"
-#include "Parse.h"
+#include "RinexParse.h"
 
 bool SkipLine(FILE* f);
 

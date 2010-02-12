@@ -20,7 +20,7 @@
 
 
 #include "RawRinex.h"
-#include "Parse.h"
+#include "RinexParse.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction

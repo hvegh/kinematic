@@ -251,6 +251,15 @@ bool Match(const char* str, const char* pat, const char*& nxt)
 	return *pat == '\0';
 }
 
+inline
+bool IsEmpty(const char* str)
+{
+    return str[0] == 0;
+}
+
+
+void Encode(char* buf, const char* user, const char* pwd);
+
 
 #ifndef Windows
 void Sleep(int msec);

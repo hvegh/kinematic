@@ -274,3 +274,10 @@ int ShowErrors()
 }
 
 
+
+
+void Encode(char *buf, const char* user, const char* pwd)
+{
+    strcpy(buf, "Encode not implemented");
+}
+

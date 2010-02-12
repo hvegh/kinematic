@@ -63,7 +63,7 @@ struct EphemerisXmit: public Ephemeris
 
 	// Status
 	int PrnId;
-    int Health;
+     int Health;
 	int iode;
 	int iodc;
 	double acc;       // accuracy in meters

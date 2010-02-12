@@ -16,10 +16,10 @@ public:
     Parse(const char* str);
     ~Parse();
 
-    bool Next(const char* delimiters);
+    Parse& Next(const char* delimiters);
 
     bool operator==(const char* str);
-    bool operator!=(const char* str);
+    bool operator!=(const char* str) {return !(*this == str);}
     bool GetToken(char *str, int len);
     byte GetDelimiter();
 

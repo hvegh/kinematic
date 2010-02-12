@@ -16,13 +16,6 @@ Parse::~Parse()
 {
 }
 
-bool Parse::operator!=(const char* str)
-{
-    bool equal = (*this == str);
-    debug("Parse::operator!=  equal=%d\n", equal);
-    return !equal;
-}
-
 
 bool Parse::operator==(const char* str)
 {
@@ -59,11 +52,12 @@ bool Parse::GetToken(char* token, int size)
 }
 
 
-
-bool Parse::Next(const char* delimiters)
+// Next token, allows chaining ...
+//    eg.   p.Next(" ").Next(" ")
+Parse& Parse::Next(const char* delimiters)
 {
     // If we are at the end of the buffer, then done
-    if (Delimiter >= Len)  return !OK;
+    if (Delimiter >= Len)  return *this;
 
     // The previous delimiter is not part of the token
     TokenBegin = Delimiter + 1;
@@ -102,7 +96,7 @@ bool Parse::Next(const char* delimiters)
         debug("%c", Buf[i]);
     debug("\n");
 
-    return OK;
+    return  *this;
 }
     
 

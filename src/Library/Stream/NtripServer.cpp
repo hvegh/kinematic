@@ -29,19 +29,13 @@ bool NtripServer::ParseHeader()
 
         // Look for "ICY 200". Good news. 
         if (p == "ICY") {
-           p.Next(" ");
-           if (p != "200") {
-               p.GetToken(msg,sizeof(msg));
-               return Error("ParseHeader: Bad code - ICY %s\n", msg);
-           }
+           if (p.Next(" "), p != "200") 
+               return Error("ParseHeader: Bad code - %s\n", line);
         }
 
         // Look for "ERROR - ...."  Bad news
-        else if (p == "ERROR") {
-            p.Next("");
-            p.GetToken(msg, sizeof(msg));
-            return Error("Ntrip Caster says: ERROR %s\n", msg);
-        }
+        else if (p == "ERROR") 
+            return Error("Ntrip Caster says: %s\n", line);
 
         else if (p == "")
             break;

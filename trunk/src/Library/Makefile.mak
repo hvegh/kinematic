@@ -2,7 +2,7 @@
 all : $(BINDIR)Kinematic.a 
 
 
-OBJECTS := $(call CompileTree,%.cpp,$(OBJDIR)Library/)
+OBJECTS := $(call CompileTree,%.cpp,$(OBJDIR)Library/) $(call CompileTree,%.c,$(OBJDIR)Library/)
 
 HEADERS := $(call HeaderTree,,$(INCDIR))
 

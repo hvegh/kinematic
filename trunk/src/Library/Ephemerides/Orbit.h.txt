@@ -34,6 +34,7 @@ struct Orbit {
 
     uint8  health;
     double acc;
+    int svid;
 
     FromRawOrbit(RawOrbit& r);
     bool getSatPos(Time t, Position& satpos, double& adjust);
@@ -61,12 +62,13 @@ struct RawOrbit {
 
     int8   t_gd;       // 2^-31   seconds
     uint16 t_oc;       // 2^4    seconds
-    int8  a_f2;        // 2^-55 
+    int8  a_f3;        // 2^-55 TODO: Verify!!!
     int16 a_f1;        // 2^-43
     int32 a_f2;        // 2^-31
       
     uint8  health;
     uint8  acc;  // TODO: check these out!!!
+    int svid;
 
     FromOrbit(Orbit& o);
 };

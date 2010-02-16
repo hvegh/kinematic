@@ -18,7 +18,8 @@
 #include "InputFile.h"
 #include "Rinex.h"
 #include "Rtcm3Station.h"
-#include "DgpsStation.h"
+#include "SqliteLogger.h"
+//#include "DgpsStation.h"
 #include "NewRawReceiver.h" 
 #include <stdio.h>
 
@@ -26,13 +27,15 @@ bool Configure(int argc, const char** argv);
 void DisplayHelp();
 
 Rinex* NewRinex(const char* FileName, RawReceiver& gps);
-RtcmStation* NewRtcm(const char* FileName, RawReceiver& gps);
-DgpsStation* NewDgps(const char* FileName, RawReceiver& gps);
+Rtcm3Station* NewRtcm(const char* FileName, RawReceiver& gps);
+SqliteLogger* NewLogger(const char* FileName, RawReceiver& gps);
+//DgpsStation* NewDgps(const char* FileName, RawReceiver& gps);
 
 // Globals which are set up by "configure"
 const char *RinexName;
 const char *RawName;
 const char *RtcmName;
+const char *LogName;
 const char *DgpsName;
 const char *Model;
 const char *PortName;
@@ -65,12 +68,16 @@ int main(int argc, const char** argv)
 	if (rinex == NULL && RinexName != NULL) return ShowErrors();
 
 	// Create the RTCM output file
-	RtcmStation* rtcm = NewRtcm(RtcmName, *gps);
+	Rtcm3Station* rtcm = NewRtcm(RtcmName, *gps);
 	if (rtcm == NULL && RtcmName != NULL) return ShowErrors();
 
 	// Create the DGPS output file
 	//DgpsStation* dgps= NewDgps(DgpsName, *gps);
 	//if (dgps == NULL && DgpsName != NULL) return ShowErrors();
+
+        // Create an sqlite log file
+        SqliteLogger* logger = NewLogger(LogName, *gps);
+        if (logger == NULL && LogName != NULL) return ShowErrors();
 
 	// Get first epoch
 	printf("Waiting for data from %s on port %s\n", Model, PortName);
@@ -105,6 +112,9 @@ int main(int argc, const char** argv)
 		if (rtcm != NULL)
 			if (rtcm->OutputEpoch() != OK) return ShowErrors();
 
+                if (logger != NULL)
+                    if (logger->OutputEpoch() != OK) return ShowErrors();
+
 		// Write it out as DGPS
 //		if (dgps != NULL)
 //			if (dgps->OutputEpoch() != OK) return ShowErrors();
@@ -117,6 +127,7 @@ int main(int argc, const char** argv)
 	delete rinex;
 //	delete dgps;
 	delete rtcm;
+        delete logger;
 	delete gps;
 
 	return 0;
@@ -136,6 +147,7 @@ bool Configure(int argc, const char** argv)
 	PortName = NULL;
 	RinexName = NULL;
 	RtcmName = NULL;
+        LogName = NULL;
 	HZ = 1;
 
 	// Process each option
@@ -145,6 +157,7 @@ bool Configure(int argc, const char** argv)
 		if      (Match(argv[i], "-raw=", RawName))        ;
 		else if (Match(argv[i], "-rinex=", RinexName))    ;
 		else if (Match(argv[i], "-rtcm=", RtcmName))      ;
+                else if (Match(argv[i], "-log=", LogName))        ;
 		else if (Match(argv[i], "-dgps=", DgpsName))      ;
 		else if (Match(argv[i], "-x=", val))  InitialPos.x = atof(val);
 		else if (Match(argv[i], "-y=", val))  InitialPos.y = atof(val);
@@ -211,13 +224,24 @@ Rinex* NewRinex(const char* name, RawReceiver& gps)
 
 Rtcm3Station* NewRtcm(const char* name, RawReceiver& gps)
 {
+        Rtcm3Station::Attributes Station;
 	if (name == NULL) return NULL;
 	if (gps.GetError() != OK) return NULL;
 	Stream* s = NewOutputStream(name);
 	if (s == NULL) return NULL;
-	Rtcm3Station* r = new Rtcm3Station(*s, gps);
+	Rtcm3Station* r = new Rtcm3Station(*s, gps, Station);
 	if (r == NULL || r->GetError() != OK) return NULL;
 	return r;
+}
+
+
+SqliteLogger* NewLogger(const char* name, RawReceiver& gps)
+{
+    if (name == NULL) return NULL;
+    if (gps.GetError() != OK) return NULL;
+    SqliteLogger* logger = new SqliteLogger(name, gps, 1234);
+    if (logger == NULL || logger->GetError() != OK) return NULL;
+    return logger;
 }
 
 

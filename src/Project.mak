@@ -1,5 +1,24 @@
+#ARCH:=mips-openwrt-linux
+#CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
+#CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
+#ARCH:=mips-openwrt
+#ARCH:=x86-ubuntu
+ARCH:=cygwin
 
-.SUFFIXES : .cpp .o .lib .exe .h .dll .a
+AR:=$(CROSSBIN)ar
+LD:=$(CROSSBIN)ld
+GCC:=$(CROSSBIN)gcc
+CC:=$(GCC)
+CXX:=$(CROSSBIN)g++
+
+CPPOPT:= -Os
+#LDOPT:= -s
+
+CPPFLAGS:= -I $(CROSS)/usr/include -I $(CROSS)/include $(CPPOPT)
+CFLAGS:=$(CPPFLAGS)
+LDFLAGS:= -static -L $(CROSS)/usr/lib -L $(CROSS)/lib $(LDOPT)
+
+.SUFFIXES : .cpp .c .o .lib .exe .h .dll .a
 
 # We are linking C++, not C
 #  (take the normal link rule and change from $(CC) to $(CXX) )
@@ -40,8 +59,8 @@ CreateDir = $(eval $1 : | $(dir $1))$(call eval,$(dir $1) :: ; @ mkdir -p $(dir 
 
 
 # Where to put generated files
-OBJDIR := $(PROJECT_ROOT)/../Obj/
-BINDIR := $(PROJECT_ROOT)/../Bin/
+OBJDIR := $(PROJECT_ROOT)/../Obj/$(ARCH)/
+BINDIR := $(PROJECT_ROOT)/../Bin/$(ARCH)/
 INCDIR := $(PROJECT_ROOT)/../Include/
 
 # 

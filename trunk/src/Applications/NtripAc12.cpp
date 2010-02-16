@@ -27,6 +27,8 @@ bool GpsSession(const char *PortName, const char *CasterName, int Port, const ch
 void Display(RawReceiver& gps);
 
 // Globals which are set up by "configure"
+const char *User;
+const char *Password;
 const char *CasterName;
 int Port;
 const char *Mount;
@@ -37,6 +39,10 @@ extern int DebugLevel;
 
 int main(int argc, const char** argv)
 {
+
+    // Display output immediately
+    setlinebuf(stdout);
+
     // Get configured according to arguments
     if (Configure(argc, argv) != OK) {
         DisplayHelp();
@@ -117,6 +123,8 @@ void Display(RawReceiver& gps)
 bool Configure(int argc, const char** argv)
 {
 	// Set the defaults
+        User="";
+        Password="";
 	Station.ARP = Position(0,0,0);
 	SerialName = NULL;
         Port = 0;
@@ -135,12 +143,14 @@ bool Configure(int argc, const char** argv)
 		else if (Match(argv[i], "y=", val))  Station.ARP.y = atof(val);
 		else if (Match(argv[i], "z=", val))  Station.ARP.z = atof(val);
 		else if (Match(argv[i], "debug=", val)) DebugLevel = atoi(val);
+                else if (Match(argv[i], "user=", User))  ;
+                else if (Match(argv[i], "password=", Password))  ;
 		else    return Error("Didn't recognize option %s\n", argv[i]);
 	}
 	
 
         if (SerialName == NULL  || Mount == NULL || Port == 0)
-            return Error("Must specify SerialName, PortName and mount\n");
+            return Error("Must specify SerialDevice, TcpPortNumber and mount\n");
 
 	return OK;
 }
@@ -152,8 +162,10 @@ void DisplayHelp()
 	printf("NtripAc12 caster=CasterName port=PortNr mount=MountPoint serial=SerialPort x=xxx y=yyyy z=zzz\n");
 	printf("   Acquires rtcm data from an AC12 GPS receiver.\n");
 	printf("\n");
-	printf("   SerialPort  - the name of the Rs-232 port to talk to the receiver\n");
+	printf("   SerialDevice  - the name of the Rs-232 device to talk to the receiver\n");
 	printf("               eg. /dev/ttyUSB0\n");
+        printf("   TcpPortNr - the tcp port number of the NTRIP caster we want to talk to\n");
+        printf("   CasterName - the name or ip address of the NTRIP caster\n");
         printf("   x, y, z  are ECEF station coordinates\n");
 	printf("\n");
 

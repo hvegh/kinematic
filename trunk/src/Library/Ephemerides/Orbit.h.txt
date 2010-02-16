@@ -27,9 +27,9 @@ struct Orbit {
 
     double t_gd;
     Time   t_oc;
+    double a_f0;
     double a_f1;
     double a_f2;
-    double a_f3;
     uint8  ioce;
 
     uint8  health;
@@ -62,7 +62,7 @@ struct RawOrbit {
 
     int8   t_gd;       // 2^-31   seconds
     uint16 t_oc;       // 2^4    seconds
-    int8  a_f3;        // 2^-55 TODO: Verify!!!
+    int8  a_f0;        // 2^-55 TODO: Verify!!!
     int16 a_f1;        // 2^-43
     int32 a_f2;        // 2^-31
       

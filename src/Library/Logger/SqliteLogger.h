@@ -14,7 +14,11 @@ class SqliteLogger
     RawReceiver &gps;
     const char* filename;
     sqlite3* db;
+
+    sqlite3_stmt* begin;
     sqlite3_stmt* insert;
+    sqlite3_stmt* end;
+
     
 public:
     bool GetError() {return ErrCode;}

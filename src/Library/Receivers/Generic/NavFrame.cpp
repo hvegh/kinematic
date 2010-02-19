@@ -23,13 +23,65 @@
 #include "NavFrame.h"
 
 
-//////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-//
-// Start with some useful inline procedures
-//
-////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
+bool NavFrame::GetEphemeris(EphemerisXmitRaw& r)
+{
+	f.Display("addFrame");
+
+	// Make sure the 3 subframes are the same version
+	int NewIode = f.GetField(2,61,8);
+	int NewIode2 = f.GetField(3,271,8);
+	int NewIode3 = f.GetField(1,211,8);
+	if (NewIode != NewIode2 || NewIode != NewIode3)
+		return Error("Inconsistent Ephemeris for sat=%d iode=(%d,%d,%d)\n",
+		                SatIndex, NewIode,NewIode2,NewIode3);
+
+     int NewIodc = (f.GetField(1,83,2)<<8) + NewIode;
+
+	// If this is the same ephemeris we already have, then done
+	if (NewIode == r.iode && NewIodc == r.iodc)
+		return OK;
+
+	// Make note we have a new ephemeris
+	debug("New raw xmit ephemeris  old=%d  new=%d\n", r.iode, NewIode);
+	r.iode = NewIode;
+     r.iodc = NewIodc;
+
+	// Read the clock data, subframe 1
+	r.WN = f.GetField(1,61,10);
+	r.acc = f.GetField(1,73,4);
+	r.Health = f.GetField(1,77,6);
+	r.t_gd = f.GetSigned(1,197,8);
+	r.t_oc = f.GetField(1,219,16);
+	r.a_f2 = f.GetSigned(1,241,8);
+	r.a_f1 = f.GetSigned(1,249,16);
+	r.a_f0 = f.GetSigned(1,271,22);
+
+	// Read the ephemeris, subframe 2
+	r.c_rs = f.GetSigned(2,69,16);
+	r.delta_n = f.GetSigned(2,91,16);
+	r.m_0 = (f.GetField(2,107,8)<<24) + f.GetField(2,121,24);
+	r.c_uc = f.GetSigned(2,151,16);
+	r.e = (f.GetField(2,167,8)<<24) + f.GetField(2,181,24);
+	r.c_us = f.GetSigned(2,211,16);
+	r.sqrt_a = (f.GetField(2,227,8)<<24) + f.GetField(2,241,24);
+	r.t_oe = f.GetField(2,271,16);
+	int32 FitIntervalFlag = f.GetField(2,286,1);
+	int32 aODO = f.GetField(2,287,5);
+
+	// Read the ephemeris, subframe 3
+	r.c_ic = f.GetSigned(3,61,16);
+	r.omega_0 = (f.GetField(3,77,8)<<24) + f.GetField(3,91,24);
+	r.c_is = f.GetSigned(3,121,16);
+	r.i_0 = (f.GetField(3,137,8)<<24)+ f.GetField(3,151,24);
+	r.c_rc = f.GetSigned(3,181,16);
+	r.mu = (f.GetField(3,197,8)<<24) + f.GetField(3,211,24);
+	r.omegaDot = f.GetSigned(3,241,24);
+	r.idot = f.GetSigned(3,279,14);
+
+	return OK;
+}
+
+
 
 
 inline uint32 ExtractBits(uint32 word, int32 BitNr, int32 NrBits)

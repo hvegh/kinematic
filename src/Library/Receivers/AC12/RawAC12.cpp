@@ -39,9 +39,11 @@ RawAC12::RawAC12(Stream& s)
 	if (comm.ReadOnly()) return;
 
 	// Turn off NMEA messages
+        ErrCode = Command("$PASHS,NME,ALL,A,OFF"); if (ErrCode != OK) return;
 
-	// Configure the unit to use WAAS and no smoothing of pseudoranges
-	ErrCode = Command("$PASHS,WAS,ON");  if (ErrCode != OK) return;
+	// Disable WAAS so we can get 12 channels of raw measurements
+	ErrCode = Command("$PASHS,WAS,OFF");  if (ErrCode != OK) return;
+
 	//ErrCode = Command("$PASHS,SMI,0");   if (ErrCode != OK) return;
 	Command("$PASHS,SMI,0");  // Older firmware doesn't recognize it
 
@@ -49,7 +51,7 @@ RawAC12::RawAC12(Stream& s)
 	ErrCode = Command("$PASHS,NME,PBN,A,ON,1");  if (ErrCode != OK) return;
 	ErrCode = Command("$PASHS,NME,MCA,A,ON,1");  if (ErrCode != OK) return;
         ErrCode = Command("$PASHS,NME,RRE,A,ON,1");  if (ErrCode != OK) return;
-        ErrCode = Command("$PASHS,NME,SNV,A,ON,2");  if (ErrCode != OK) return;
+        ErrCode = Command("$PASHS,NME,SNV,A,ON,1");  if (ErrCode != OK) return;
 }
 
 
@@ -314,7 +316,7 @@ bool RawAC12::Command(const char* cmd)
 
 bool RawAC12::AckOrNak()
 {
-	for (int i=0; i<10; i++) {
+	for (int i=0; i<20; i++) {
 		Block b;
 		if (comm.GetBlock(b) != OK)  return Error();
 		else if (b.Id == 'ACK')      return OK;

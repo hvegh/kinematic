@@ -1,9 +1,8 @@
-#ARCH:=mips-openwrt-linux
-#CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
-#CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
-#ARCH:=mips-openwrt
+ARCH:=mips-openwrt
+CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
+CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
 #ARCH:=x86-ubuntu
-ARCH:=cygwin
+#ARCH:=cygwin
 
 AR:=$(CROSSBIN)ar
 LD:=$(CROSSBIN)ld
@@ -11,12 +10,12 @@ GCC:=$(CROSSBIN)gcc
 CC:=$(GCC)
 CXX:=$(CROSSBIN)g++
 
-CPPOPT:= -Os
-#LDOPT:= -s
+CPPOPT:= -Os -pthread
+LDOPT:= -s
 
 CPPFLAGS:= -I $(CROSS)/usr/include -I $(CROSS)/include $(CPPOPT)
-CFLAGS:=$(CPPFLAGS)
-LDFLAGS:= -static -L $(CROSS)/usr/lib -L $(CROSS)/lib $(LDOPT)
+CFLAGS:=$(CPPFLAGS) -DSQLITE_OMIT_LOAD_EXTENSION
+LDFLAGS:= -static -L $(CROSS)/usr/lib -L $(CROSS)/lib $(LDOPT) 
 
 .SUFFIXES : .cpp .c .o .lib .exe .h .dll .a
 
@@ -65,5 +64,3 @@ INCDIR := $(PROJECT_ROOT)/../Include/
 
 # 
 CPPFLAGS += -I$(INCDIR) 
-CXXFLAGS += -g
-LDFLAGS +=  -static-libgcc

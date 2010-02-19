@@ -48,6 +48,7 @@ bool MoreToDo = true;
 
 int main(int argc, const char** argv)
 {
+        setlinebuf(stdout);
 
 	// Get configured according to arguments
 	if (Configure(argc, argv) != OK) {

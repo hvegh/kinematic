@@ -132,16 +132,16 @@ bool Configure(int argc, const char** argv)
 	int i;
 	const char* val;
 	for (i=1; i<argc; i++) {
-		if      (Match(argv[i], "caster=", LogName))      ;
-                else if (Match(argv[i], "log=", val)) LogName=val;
-                else if (Match(argv[i], "mount=", Mount)) ;
-                else if (Match(argv[i], "serial=", SerialName))      ;
-		else if (Match(argv[i], "x=", val))  Station.ARP.x = atof(val);
-		else if (Match(argv[i], "y=", val))  Station.ARP.y = atof(val);
-		else if (Match(argv[i], "z=", val))  Station.ARP.z = atof(val);
-		else if (Match(argv[i], "debug=", val)) DebugLevel = atoi(val);
-                else if (Match(argv[i], "user=", User))  ;
-                else if (Match(argv[i], "password=", Password))  ;
+		if      (Match(argv[i], "-caster=", LogName))      ;
+                else if (Match(argv[i], "-log=", val)) LogName=val;
+                else if (Match(argv[i], "-mount=", Mount)) ;
+                else if (Match(argv[i], "-serial=", SerialName))      ;
+		else if (Match(argv[i], "-x=", val))  Station.ARP.x = atof(val);
+		else if (Match(argv[i], "-y=", val))  Station.ARP.y = atof(val);
+		else if (Match(argv[i], "-z=", val))  Station.ARP.z = atof(val);
+		else if (Match(argv[i], "-debug=", val)) DebugLevel = atoi(val);
+                else if (Match(argv[i], "-user=", User))  ;
+                else if (Match(argv[i], "-password=", Password))  ;
 		else    return Error("Didn't recognize option %s\n", argv[i]);
 	}
 	

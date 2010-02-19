@@ -36,14 +36,17 @@ typedef uint32 NavWord;
 class NavFrame
 {
 public:
-	NavFrame();
+    NavFrame();
+    void Display(const char *str);
+    bool Valid();
+    bool GetEphemeris(RawXmitEphemeris& raw);
+
     uint32 GetField(int32 FrameNr, int32 BitNr, int32 NrBits);
-	int32 GetSigned(int32 FrameNr, int32 BitNr, int32 NrBits);
-	bool Valid();
-	void Display(const char *str);
+    int32 GetSigned(int32 FrameNr, int32 BitNr, int32 NrBits);
+  
 
 //protected:
-	NavWord Data[NavWordsPerFrame];
+    NavWord Data[NavWordsPerFrame];
 };
 
 

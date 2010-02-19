@@ -110,6 +110,10 @@ T abs(T val)
 }
 
 
+// powers of two for scaling.
+inline double p2(int32 n) {return ((uint64)1) << n;}
+
+
 int SvidToSat(int svid);
 int SatToSvid(int s);
 

@@ -21,7 +21,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "util.h"
+#include "Util.h"
 
 Position RotateEarth(Position p, double secs);
 
@@ -42,6 +42,8 @@ public:
 
 protected:
 	bool ErrCode;
+        Time MinTime;
+        Time MaxTime;
 
 public:
 	int32 SatIndex;

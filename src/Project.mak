@@ -1,8 +1,8 @@
-ARCH:=mips-openwrt
-CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
-CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
+#ARCH:=mips-openwrt
+#CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
+#CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
 #ARCH:=x86-ubuntu
-#ARCH:=cygwin
+ARCH:=cygwin
 
 AR:=$(CROSSBIN)ar
 LD:=$(CROSSBIN)ld

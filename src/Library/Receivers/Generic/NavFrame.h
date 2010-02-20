@@ -22,7 +22,7 @@
 
 
 #include "util.h"
-
+#include "EphemerisXmitRaw.h"
 
 static const int NavWordsPerFrame = 50;
 static const int NavWordsPerSubframe = 10;
@@ -39,7 +39,7 @@ public:
     NavFrame();
     void Display(const char *str);
     bool Valid();
-    bool GetEphemeris(RawXmitEphemeris& raw);
+    bool GetEphemeris(EphemerisXmitRaw& raw);
 
     uint32 GetField(int32 FrameNr, int32 BitNr, int32 NrBits);
     int32 GetSigned(int32 FrameNr, int32 BitNr, int32 NrBits);

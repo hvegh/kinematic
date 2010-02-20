@@ -20,6 +20,7 @@
 
 
 #include "util.h"
+#include "EphemerisXmitRaw.h"
 
 
 class Frame
@@ -40,6 +41,9 @@ public:
 	uint32 GetField(int wordnr, int first, int last);
 	int32 GetSigned(int wordnr, int first, int last);
 	void Display(const char *str);
+
+        bool GetEphemeris(EphemerisXmitRaw& r);
+        bool PutEphemeris(EphemerisXmitRaw& r);
 };
 
 uint32 AddParity(uint32 w, uint32 PrevD29, uint32 PrevD30);

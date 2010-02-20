@@ -1,21 +1,22 @@
 #ifndef EphemerisXmit1_INCLUDED
 #define EphemerisXmit1_INCLUDED
 
+#include "EphemerisXmitRaw.h"
+#include "Ephemeris.h"
 
-class RawEphemerisXmit;
-
-struct EphemerisXmit1 : public Ephemeris 
+class EphemerisXmit1 : public Ephemeris 
 {
+public:
     double m_0;      // Mean Anomaly at reference time
     double delta_n;  // Mean Motion Difference from Computed Value
     double e;        // Eccentricity
-    double root_a;   // Square root of the Semi-Major Axis
-    double omega_o;  // Longitude of Ascending Node of orbit Plan at Weekly Epoch
+    double sqrt_a;   // Square root of the Semi-Major Axis
+    double omega_0;  // Longitude of Ascending Node of orbit Plan at Weekly Epoch
     double i_0;      // Inclination Angle at Reference Time
     double mu;       // Argument of Perigee
     double omegadot; // Rate of Right Ascension
     double idot;     // Rate of Inclination angle
-    double c_uc      // Amplitude of the Cosine Harmonic Correction to Latitude
+    double c_uc;     // Amplitude of the Cosine Harmonic Correction to Latitude
     double c_us;     // Amplitude of the Sine Harmonic correction to Latitude
     double c_rc;     // Amplitude of the Cosine Harmonic Correction to Orbit Radius
     double c_rs;     // Amplitude of the Sine Harmonic Correction to Orbit Radius
@@ -29,49 +30,30 @@ struct EphemerisXmit1 : public Ephemeris
     double a_f0;
     double a_f1;
     double a_f2;
-    uint8  ioce;
+    uint8  iodc;
 
     uint8  health;
     double acc;
 
-    bool FromRaw(RawEphemerisXmit& r);
-    bool ToRaw(RawEphemerisXmit& r);
+    bool FromRaw(EphemerisXmitRaw& r);
+    bool ToRaw(EphemerisXmitRaw& r);
 
-    bool getSatPos(Time t, Position& satpos, double& adjust);
+    bool SatPos(Time t, Position& satpos, double& adjust);
     bool Valid(Time gpsTime);
     double Accuracy(Time gpsTime);
+
+    void Display(const char* title="");
+
+    EphemerisXmit1(int sat, const char* desription);
+    ~EphemerisXmit1();
+
+protected:
+    double SvaccToAcc(int svacc);
+    int AccToSvacc(double acc);
+
 };
 
-
-struct RawEphemerisXmit {
-    int32  m_0;        // 2^-31  semicircles
-    int16  delta_n;    // 2^-43  semicircles/sec
-    uint32 e;          // 2^-33  n/a
-    uint32 root_a;     // 2^-19  meters^1/2
-    int32  omega_0;    // 2^-31  semicircles
-    int32  i_0;        // 2^-31  semicircles
-    int32  mu;         // 2^-31  semicircles
-    int32  omegadot;   // 2^-43  semicircles/sec
-    int16  idot;       // 2^-43  semicircles/sec
-    int16  c_uc;       // 2^-29  radians
-    int16  c_us;       // 2^-23  radians
-    int16  c_rc;       // 2^-5   meters
-    int16  c_rs;       // 2^-5   meters
-    int16  c_ic;       // 2^-29  radians
-    int16  c_is;       // 2^-29  radians
-    uint16 t_oe;       // 2^4    seconds from start of week
-    uint8  iode;  
-
-    int8   t_gd;       // 2^-31   seconds
-    uint16 t_oc;       // 2^4    seconds
-    int8  a_f2;        // 2^-55 
-    int16 a_f1;        // 2^-43
-    int32 a_f2;        // 2^-31
-      
-    uint8  health;
-    uint8  acc;  // TODO: check these out!!!
-
-    FromEphemerisXmit(EphemerisXmit1& e);
-};
+    static const double AccuracyIndex[16] = {2.4, 3.4, 4.85, 6.85, 9.65, 
+	  13.65, 24, 48, 96, 192, 384, 768, 1536, 3072, 6144, INFINITY};
 
 #endif

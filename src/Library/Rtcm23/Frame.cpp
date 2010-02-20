@@ -19,6 +19,7 @@
 
 
 #include "Frame.h"
+#include "EphemerisXmitRaw.h"
 
 
 inline uint32 ExtractBits(uint32 word, int32 BitNr, int32 NrBits)
@@ -197,18 +198,18 @@ void Frame::Display(const char *str)
 }
 
 
+
 bool Frame::GetEphemeris(EphemerisXmitRaw& r)
 {
 	// If we already have this set of values, then done
-	if (iode == f.GetField(4, 1, 8))
+	if (r.iode == GetField(4, 1, 8))
 		return OK;
 
 	// Extract the fields from the RTCM Ephemeris frame
-     r.WN =   GetField(  3,  1, 10);
+        r.wn =   GetField(  3,  1, 10);
 	r.idot = GetSigned( 3, 11, 24);
 	r.iode = GetField(  4,  1,  8);
 	r.t_oc = GetField( 4, 9, 24);
-     r.a_f0 = ???
 	r.a_f1 = GetSigned( 5,  1, 16);
 	r.a_f2 = GetSigned( 5, 17, 24);
 	r.c_rs =  GetSigned( 6,  1, 16);
@@ -224,17 +225,17 @@ bool Frame::GetEphemeris(EphemerisXmitRaw& r)
 	r.c_is =    GetSigned(15,  9, 24);
 	r.mu =   Get32(16);
 	r.c_rc =   GetSigned(17,  9, 24);
-	r.omegaDot= GetSigned(18,  1, 24);
+	r.omegadot= GetSigned(18,  1, 24);
 	r.m_0     = Get32(19);
-	r.iodc    = (GetField(20,  9, 18)<<8) + iode;
-	r.a_f0    = (GetSigned(20, 19, 24)<<16) | GetField(21,  1, 16) );
-	r.svid   = GetField( 21, 17, 21);
-	if (r.svid == 0) r.svid = 32;
+	r.iodc    = (GetField(20,  9, 18)<<8) + r.iode;
+	r.a_f0    = (GetSigned(20, 19, 24)<<16) | GetField(21,  1, 16);
+	//r.svid   = GetField( 21, 17, 21);
+	//if (r.svid == 0) r.svid = 32;
 	r.t_gd    = GetSigned(22,  1,  8);
-	r.L2Code  = GetField( 22,  9, 10);
-	r.acc     = f.GetField(22, 11, 14);
-	r.Health  = f.GetField( 22, 14, 20);
-	r.L2Pcode = f.GetField( 22, 21, 21);
+	//r.L2Code  = GetField( 22,  9, 10);
+	r.acc     = GetField(22, 11, 14);
+	r.health  = GetField( 22, 14, 20);
+	//r.L2Pcode = GetField( 22, 21, 21);
 
 	return OK;
 }
@@ -245,12 +246,12 @@ bool Frame::PutEphemeris(EphemerisXmitRaw& r)
 	Init(22);
 
 	// Insert the fields, as given in the standard
-	PutField( 3,  1, 10, r.WN);
+	PutField( 3,  1, 10, r.wn);
 	PutField( 3, 11, 24, r.idot);
 	PutField( 4,  1,  8, r.iode); 
 	PutField( 4,  9, 24, r.t_oc);
 	PutField( 5,  1, 16, r.a_f1);
-     PutField( 5, 17, 24, r.a_f2);
+        PutField( 5, 17, 24, r.a_f2);
 	PutField( 6,  1, 16, r.c_rs);
 	PutField( 6, 17, 24, r.delta_n>>8);
 	PutField( 7,  1,  8, r.delta_n);
@@ -265,18 +266,18 @@ bool Frame::PutEphemeris(EphemerisXmitRaw& r)
 	PutField(15,  9, 24, r.c_is);
 	Put32   (16,         r.mu);
 	PutField(17,  9, 24, r.c_rc);
-	PutField(18,  1, 24, r.omegaDot);
+	PutField(18,  1, 24, r.omegadot);
 	Put32   (19,         r.m_0);
 	PutField(20,  9, 18, r.iodc>>8);
 	PutField(20, 19, 24, r.a_f0>>16);
 	PutField(21,  1, 16, r.a_f0);
-	PutField(21, 17, 21, r.svid
+	PutField(21, 17, 21, r.svid);
 	PutField(21, 22, 24, 0x3);   // FILL
 	PutField(22,  1,  8, r.t_gd);
-	PutField(22,  9, 10, r.L2Code);
+	//PutField(22,  9, 10, r.L2Code);
 	PutField(22, 11, 14, r.acc);
-	PutField(22, 14, 20, r.Health);
-	PutField(22, 21, 21, r.L2Pcode);
+	PutField(22, 14, 20, r.health);
+	//PutField(22, 21, 21, r.L2Pcode);
 	PutField(22, 22, 24, 0x3);  // FILL
 
 	return OK;

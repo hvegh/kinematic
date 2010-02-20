@@ -42,8 +42,8 @@ public:
 	int32 GetSigned(int wordnr, int first, int last);
 	void Display(const char *str);
 
-        bool GetEphemeris(EphemerisXmitRaw& r);
-        bool PutEphemeris(EphemerisXmitRaw& r);
+        bool GetEphemeris(EphemerisXmitRaw& r, int& svid);
+        bool PutEphemeris(EphemerisXmitRaw& r, int svid);
 };
 
 uint32 AddParity(uint32 w, uint32 PrevD29, uint32 PrevD30);

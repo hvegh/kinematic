@@ -13,7 +13,7 @@ public:
     double sqrt_a;   // Square root of the Semi-Major Axis
     double omega_0;  // Longitude of Ascending Node of orbit Plan at Weekly Epoch
     double i_0;      // Inclination Angle at Reference Time
-    double mu;       // Argument of Perigee
+    double omega;       // Argument of Perigee
     double omegadot; // Rate of Right Ascension
     double idot;     // Rate of Inclination angle
     double c_uc;     // Amplitude of the Cosine Harmonic Correction to Latitude
@@ -39,13 +39,15 @@ public:
     bool ToRaw(EphemerisXmitRaw& r);
 
     bool SatPos(Time t, Position& satpos, double& adjust);
-    bool Valid(Time gpsTime);
-    double Accuracy(Time gpsTime);
 
     void Display(const char* title="");
 
     EphemerisXmit1(int sat, const char* desription);
     ~EphemerisXmit1();
+
+    bool Valid(Time t) {return (MinTime <= t && t <= MaxTime);}
+    double Accuracy(Time t) {return acc;}
+
 
 protected:
     double SvaccToAcc(int svacc);

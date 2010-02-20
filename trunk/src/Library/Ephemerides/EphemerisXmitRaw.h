@@ -11,7 +11,7 @@ struct EphemerisXmitRaw
     uint32 sqrt_a;     // 2^-19  meters^1/2
     int32  omega_0;    // 2^-31  semicircles
     int32  i_0;        // 2^-31  semicircles
-    int32  mu;         // 2^-31  semicircles
+    int32  omega;      // 2^-31  semicircles
     int32  omegadot;   // 2^-43  semicircles/sec
     int16  idot;       // 2^-43  semicircles/sec
     int16  c_uc;       // 2^-29  radians

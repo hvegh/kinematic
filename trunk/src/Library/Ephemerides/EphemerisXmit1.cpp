@@ -69,7 +69,7 @@ bool EphemerisXmit1::SatPos(Time xmitTime, Position& XmitPos, double& adjust)
 	debug("  S_nu=%.6f  c_nu=%.6f  nu=%.6f\n", S_nu, c_nu, nu);
 
 	// argument of latitude
-	double phi = nu + mu;
+	double phi = nu + omega;
 
 	// Second harmonic perturbations (latitude, radius, inclination)
 	double du = c_uc*cos(2*phi) + c_us*sin(2*phi);
@@ -124,7 +124,7 @@ bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
     sqrt_a = r.sqrt_a / p2(19);
     omega_0 = r.omega_0 / p2(31) * PI;
     i_0 = r.i_0 / p2(31) * PI;
-    mu = r.mu / p2(31) * PI;
+    omega = r.omega / p2(31) * PI;
     omegadot = r.omegadot / p2(32) * PI;
     idot = r.idot / p2(43);
     c_uc = r.c_uc / p2(29);
@@ -164,7 +164,7 @@ bool EphemerisXmit1::ToRaw(EphemerisXmitRaw& r)
     r.sqrt_a = sqrt_a * p2(19);
     r.omega_0 = omega_0 * p2(31) / PI;
     r.i_0 = i_0 * p2(31) / PI;
-    r.mu = mu * p2(31) / PI;
+    r.omega = omega * p2(31) / PI;
     r.omegadot = omegadot * p2(32) / PI;
     r.idot = idot * p2(43);
     r.c_uc = c_uc * p2(29);

@@ -19,7 +19,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, Ma  02111-1307, USa.
 
 
-#include "EphemerisXmit11.h"
+#include "EphemerisXmit1.h"
 
 static const double RelativisticConstant = -4.442807633e-10;
 
@@ -30,7 +30,8 @@ EphemerisXmit1::EphemerisXmit1(int Sat, const char* description)
       iodc = -1;
 }
 
-EphemerisXmit1::~EphemerisXmit1(void)
+
+EphemerisXmit1::~EphemerisXmit1()
 {
 }
 
@@ -88,12 +89,12 @@ bool EphemerisXmit1::SatPos(Time xmitTime, Position& XmitPos, double& adjust)
 	debug("  xdash = %.3f  ydash=%.3f\n", xdash, ydash); 
 
 	// Corrected longitude of ascending node, including transit time
-	double omega_c = omega_0 - GpsTow(t_oe)*omegaEDot 
-		           + (omegaDot - omegaEDot)*t;
-	debug("omega_c=%g  omega_0=%g  omegaDot=%g  omegaEDot=%g  t=%g Tow=%g\n",
-		omega_c, omega_0, omegaDot, omegaEDot, t, GpsTow(t));
+	double omega_c = omega_0 - GpsTow(t_oe)*OmegaEDot 
+		           + (omegadot - OmegaEDot)*t;
+	debug("omega_c=%g  omega_0=%g  omegadot=%g  OmegaEDot=%g  t=%g Tow=%g\n",
+		omega_c, omega_0, omegadot, OmegaEDot, t, GpsTow(t));
 
-	debug("  ToW*omegaEDot=%.3f  (O-Oe)*t=%.3f\n", GpsTow(t_oe)*omegaEDot, (omegaDot-omegaEDot)*t);
+	debug("  ToW*OmegaEDot=%.3f  (O-Oe)*t=%.3f\n", GpsTow(t_oe)*OmegaEDot, (omegadot-OmegaEDot)*t);
 	
 	// Earth fixed coordinates
 	XmitPos.x = xdash*cos(omega_c) - ydash*cos(i)*sin(omega_c);
@@ -120,10 +121,10 @@ bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
     m_0 = r.m_0  / p2(31) * PI;
     delta_n = r.delta_n / p2(43) * PI;
     e = r.e / p2(33);
-    root_a = r.root_a / p2(19);
+    sqrt_a = r.sqrt_a / p2(19);
     omega_0 = r.omega_0 / p2(31) * PI;
     i_0 = r.i_0 / p2(31) * PI;
-    mu = r.mu / p2(31) * PI
+    mu = r.mu / p2(31) * PI;
     omegadot = r.omegadot / p2(32) * PI;
     idot = r.idot / p2(43);
     c_uc = r.c_uc / p2(29);
@@ -132,12 +133,12 @@ bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
     c_rs = r.c_rs / p2(5);
     c_ic = r.c_ic / p2(29);
     c_is = r.c_is / p2(31);  // verify
-    t_oe = ConvertGpsTime(r.WN, r.t_oe * p2(4));
+    t_oe = ConvertGpsTime(r.wn, r.t_oe * p2(4));
     iode = r.iode;
 
     // Get the clock parameters
     t_gd = r.t_gd / p2(31);
-    t_oc = ConvertGpsTime(r.WN, r.t_oc * p2(5));
+    t_oc = ConvertGpsTime(r.wn, r.t_oc * p2(5));
     a_f0 = r.a_f0 / p2(55);
     a_f1 = r.a_f1 / p2(43);
     a_f2 = r.a_f2 / p2(31);
@@ -154,16 +155,16 @@ bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
 }
     
 
-bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
+bool EphemerisXmit1::ToRaw(EphemerisXmitRaw& r)
 {
     // scale the raw orbit parameters
     r.m_0 = m_0  * p2(31) / PI;
     r.delta_n = delta_n * p2(43) / PI;
     r.e = e * p2(33);
-    r.root_a = root_a * p2(19);
+    r.sqrt_a = sqrt_a * p2(19);
     r.omega_0 = omega_0 * p2(31) / PI;
     r.i_0 = i_0 * p2(31) / PI;
-    r.mu = mu * p2(31) / PI
+    r.mu = mu * p2(31) / PI;
     r.omegadot = omegadot * p2(32) / PI;
     r.idot = idot * p2(43);
     r.c_uc = c_uc * p2(29);
@@ -172,13 +173,13 @@ bool EphemerisXmit1::FromRaw(EphemerisXmitRaw& r)
     r.c_rs = c_rs * p2(5);
     r.c_ic = c_ic * p2(29);
     r.c_is = c_is * p2(31); 
-    r.WN = GpsWeek(t_oe);
-    r.t_oe = GpsTow(t_ow) / p2(4);
+    r.wn = GpsWeek(t_oe);
+    r.t_oe = GpsTow(t_oe) / p2(4);
     r.iode = iode;
 
     // Get the clock parameters
     r.t_gd = t_gd * p2(31);
-    r.t_oc = TOW(t_oc) / p2(5));
+    r.t_oc = GpsTow(t_oc) / p2(5);
     r.a_f0 = a_f0 * p2(55);
     r.a_f1 = a_f1 * p2(43);
     r.a_f2 = a_f2 * p2(31);
@@ -204,13 +205,13 @@ void EphemerisXmit1::Display(const char* str)
 		return;
 	}
 
-	debug("   Mintime=%.0f  Maxtime=%.0f  Health=%d accuracy=%.3f\n", 
-		      S(MinTime), S(MaxTime), Health, acc);
+	debug("   Mintime=%.0f  Maxtime=%.0f  health=%d accuracy=%.3f\n", 
+		      S(MinTime), S(MaxTime), health, acc);
 	debug("  iode=%d  t_oc=%.0f   t_oe=%.0f\n", iode, S(t_oc), S(t_oe));
 	debug("  a_f2=%g  a_f1=%g  a_f0=%g\n", a_f2, a_f1, a_f0);
 
-	debug("  omega=%g omega_0=%g omegaDot=%g  idot=%g\n",
-		     omega,     omega_0,    omegaDot,      idot);
+	debug("  mu=%g omega_0=%g omegadot=%g  idot=%g\n",
+		     mu,     omega_0,    omegadot,      idot);
 
 	debug("  c_rs=%g  c_rc=%g  c_is=%g  c_ic=%g\n", c_rs, c_rc, c_is, c_ic);
 	debug("  c_us=%g  c_uc=%g\n", c_us, c_uc);
@@ -221,17 +222,17 @@ void EphemerisXmit1::Display(const char* str)
 
 
 
-int EphemerisXmit1::accToSvacc(double acc)
+int EphemerisXmit1::AccToSvacc(double acc)
 {
-	int i;
+    int i;
     for (i=0; i<15; i++)
-		if (accuracyIndex[i] > acc)
-			break;
-	return i;
+        if (AccuracyIndex[i] > acc)
+            break;
+    return i;
 }
 
-double EphemerisXmit1::SvaccToacc(int svacc)
+double EphemerisXmit1::SvaccToAcc(int svacc)
 {
-	return accuracyIndex[svacc];
+    return AccuracyIndex[svacc];
 }
 

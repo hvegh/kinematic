@@ -129,8 +129,7 @@ bool EphemerisXmit::SatPos(Time XmitTime, Position& XmitPos, double& Adjust)
 	return OK;
 }
 
-// powers of two for scaling.
-inline double p2(int32 n) {return ((uint64)1) << n;}
+
 
 bool EphemerisXmit::AddFrame(NavFrame& f)
 {

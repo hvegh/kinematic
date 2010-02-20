@@ -40,7 +40,7 @@ public:
 	virtual void Display(const char* str) 
 	    {debug("Generic Ephemeris [%d] %s  %w\n", SatIndex, str, Description);}
 
-protected:
+//protected:
 	bool ErrCode;
         Time MinTime;
         Time MaxTime;

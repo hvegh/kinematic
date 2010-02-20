@@ -199,7 +199,7 @@ void Frame::Display(const char *str)
 
 
 
-bool Frame::GetEphemeris(EphemerisXmitRaw& r)
+bool Frame::GetEphemeris(EphemerisXmitRaw& r, int& svid)
 {
 	// If we already have this set of values, then done
 	if (r.iode == GetField(4, 1, 8))
@@ -223,13 +223,13 @@ bool Frame::GetEphemeris(EphemerisXmitRaw& r)
 	r.c_ic =    GetSigned(13,  9, 24);
 	r.i_0  =    Get32(14);
 	r.c_is =    GetSigned(15,  9, 24);
-	r.mu =   Get32(16);
+	r.omega =   Get32(16);
 	r.c_rc =   GetSigned(17,  9, 24);
 	r.omegadot= GetSigned(18,  1, 24);
 	r.m_0     = Get32(19);
 	r.iodc    = (GetField(20,  9, 18)<<8) + r.iode;
 	r.a_f0    = (GetSigned(20, 19, 24)<<16) | GetField(21,  1, 16);
-	//r.svid   = GetField( 21, 17, 21);
+	svid   = GetField( 21, 17, 21);
 	//if (r.svid == 0) r.svid = 32;
 	r.t_gd    = GetSigned(22,  1,  8);
 	//r.L2Code  = GetField( 22,  9, 10);
@@ -240,7 +240,7 @@ bool Frame::GetEphemeris(EphemerisXmitRaw& r)
 	return OK;
 }
 
-bool Frame::PutEphemeris(EphemerisXmitRaw& r)
+bool Frame::PutEphemeris(EphemerisXmitRaw& r, int svid)
 {
 	// Clear the frame
 	Init(22);
@@ -264,14 +264,14 @@ bool Frame::PutEphemeris(EphemerisXmitRaw& r)
 	PutField(13,  9, 24, r.c_ic);
 	Put32   (14,         r.i_0);
 	PutField(15,  9, 24, r.c_is);
-	Put32   (16,         r.mu);
+	Put32   (16,         r.omega);
 	PutField(17,  9, 24, r.c_rc);
 	PutField(18,  1, 24, r.omegadot);
 	Put32   (19,         r.m_0);
 	PutField(20,  9, 18, r.iodc>>8);
 	PutField(20, 19, 24, r.a_f0>>16);
 	PutField(21,  1, 16, r.a_f0);
-	PutField(21, 17, 21, r.svid);
+	PutField(21, 17, 21, svid);
 	PutField(21, 22, 24, 0x3);   // FILL
 	PutField(22,  1,  8, r.t_gd);
 	//PutField(22,  9, 10, r.L2Code);

@@ -72,7 +72,7 @@ bool NavFrame::GetEphemeris(EphemerisXmitRaw& r)
 	r.c_is = GetSigned(3,121,16);
 	r.i_0 = (GetField(3,137,8)<<24)+ GetField(3,151,24);
 	r.c_rc = GetSigned(3,181,16);
-	r.mu = (GetField(3,197,8)<<24) + GetField(3,211,24);
+	r.omega = (GetField(3,197,8)<<24) + GetField(3,211,24);
 	r.omegadot = GetSigned(3,241,24);
 	r.idot = GetSigned(3,279,14);
 

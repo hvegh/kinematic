@@ -39,7 +39,8 @@ public:
     NavFrame();
     void Display(const char *str);
     bool Valid();
-    bool GetEphemeris(EphemerisXmitRaw& raw);
+    bool ToRaw(EphemerisXmitRaw& raw);
+    bool FromRaw(EphemerisXmitRaw& raw);
 
     uint32 GetField(int32 FrameNr, int32 BitNr, int32 NrBits);
     int32 GetSigned(int32 FrameNr, int32 BitNr, int32 NrBits);

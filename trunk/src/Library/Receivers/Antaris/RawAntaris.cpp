@@ -17,6 +17,7 @@
 
 
 #include "RawAntaris.h"
+#include "NavFrame.h"
 
 // Message types
 static const int RXM_RAW = 0x0210;   // Raw measurements
@@ -276,7 +277,9 @@ bool RawAntaris::ProcessEphemeris(Block& block)
 
 	// Update the ephemeris
 	EphemerisXmit& e = *(EphemerisXmit*)eph[Sat];
-	e.AddFrame(f);
+        EphemerisXmitRaw r;
+        f.ToRaw(r);
+	e.FromRaw(r);
 
 	return OK;
 }

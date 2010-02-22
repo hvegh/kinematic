@@ -24,19 +24,17 @@
 RawRtcm::RawRtcm(Stream& in)
 : In(in)
 {
-	strcpy(Description, "Rtcm104File");
-	ErrCode = In.GetError();
-	for (int s=0; s<MaxSats; s++) {
-		CarrierLossCount[s] = -1;
-		PreviousPhase[s] = 0;
-	    eph[s] = new EphemerisXmit(s);
-		eph[s]->SatIndex = s;
-		eph[s]->Description = "RTCM";
-	}
+    strcpy(Description, "Rtcm 3.1");
+    ErrCode = In.GetError();
+    for (int s=0; s<MaxSats; s++) {
+        CarrierLossCount[s] = -1;
+        PreviousPhase[s] = 0;
+        eph[s] = new EphemerisXmit(s, "RTCM 3.1");
+    }
 
-	PreviousReceiverTime = -1;
-	Week = -1;
-	HourOfWeek = -1;
+    PreviousReceiverTime = -1;
+    Week = -1;
+    HourOfWeek = -1;
 }
 
 
@@ -238,11 +236,13 @@ bool RawRtcm::ProcessEphemeris(Frame& f)
 	int s = SvidToSat(svid);
 
 	// Make sure we have an xmitted ephemeris (we do, but check anyway)
-	EphemerisXmit* e = dynamic_cast<EphemerisXmit*>( &(*this)[s] );
-	if (e == NULL) return OK;
+	EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>( &(*this)[s] );
+	if (&e == NULL) return OK;
 
 	// update the ephemeris with the new frame
-	return e->AddFrame(f);
+        EphemerisXmitRaw r;
+        f.ToRaw(r);
+	return e.FromRaw(r);
 }
 
 bool RawRtcm::GetMeasurementTime(Frame& f)

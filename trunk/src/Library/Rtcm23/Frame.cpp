@@ -199,7 +199,7 @@ void Frame::Display(const char *str)
 
 
 
-bool Frame::GetEphemeris(EphemerisXmitRaw& r, int& svid)
+bool Frame::ToRaw(EphemerisXmitRaw& r)
 {
 	// If we already have this set of values, then done
 	if (r.iode == GetField(4, 1, 8))
@@ -229,7 +229,7 @@ bool Frame::GetEphemeris(EphemerisXmitRaw& r, int& svid)
 	r.m_0     = Get32(19);
 	r.iodc    = (GetField(20,  9, 18)<<8) + r.iode;
 	r.a_f0    = (GetSigned(20, 19, 24)<<16) | GetField(21,  1, 16);
-	svid   = GetField( 21, 17, 21);
+	r.svid   = GetField( 21, 17, 21);
 	//if (r.svid == 0) r.svid = 32;
 	r.t_gd    = GetSigned(22,  1,  8);
 	//r.L2Code  = GetField( 22,  9, 10);
@@ -240,7 +240,7 @@ bool Frame::GetEphemeris(EphemerisXmitRaw& r, int& svid)
 	return OK;
 }
 
-bool Frame::PutEphemeris(EphemerisXmitRaw& r, int svid)
+bool Frame::FromRaw(EphemerisXmitRaw& r)
 {
 	// Clear the frame
 	Init(22);
@@ -271,7 +271,7 @@ bool Frame::PutEphemeris(EphemerisXmitRaw& r, int svid)
 	PutField(20,  9, 18, r.iodc>>8);
 	PutField(20, 19, 24, r.a_f0>>16);
 	PutField(21,  1, 16, r.a_f0);
-	PutField(21, 17, 21, svid);
+	PutField(21, 17, 21, r.svid);
 	PutField(21, 22, 24, 0x3);   // FILL
 	PutField(22,  1,  8, r.t_gd);
 	//PutField(22,  9, 10, r.L2Code);

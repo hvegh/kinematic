@@ -37,9 +37,10 @@ public:
 	virtual ~RawRtcm3(void);
 
 private:
-	bool ProcessStationRef(Bits& b);
-	bool ProcessAntennaRef(Bits& b);
-	bool ProcessObservations(Bits& b);
+	bool ProcessStationRef(Block& b);
+	bool ProcessAntennaRef(Block& b);
+	bool ProcessObservations(Block& b);
+     bool ProcessEphemeris(Block& b);
 
         double PreviousPhaseRange[MaxSats];
         int PreviousLockTime[MaxSats];

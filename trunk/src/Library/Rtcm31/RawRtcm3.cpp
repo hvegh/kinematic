@@ -24,41 +24,40 @@
 RawRtcm3::RawRtcm3(Stream& in)
 : In(in)
 {
-	strcpy(Description, "Rtcm104File");
-	ErrCode = In.GetError();
-	for (int s=0; s<MaxSats; s++) {
-		PreviousPhase[s] = 0;
-                PhaseAdjust[s] = 0;
-	}
+    strcpy(Description, "Rtcm104File");
+    ErrCode = In.GetError();
+    for (int s=0; s<MaxSats; s++) {
+        PreviousPhase[s] = 0;
+        PhaseAdjust[s] = 0;
+        eph[s] = new EphemerisXmit(s, "RTCM");
+    }
 }
 
 
 bool RawRtcm3::NextEpoch()
 {
-	// repeat until we get an observation record or an error
-        bool errcode;
-        int msgid;
-	do {
+    // repeat until we get an observation record or an error
+    bool errcode;
+    Block b;
+    do {
 
-		// Read a frame
-                Block blk;
-		if (In.GetBlock(blk) != OK) return Error();
+        // Read a frame
+        if (In.GetBlock(b) != OK) return Error();
 
-                // Process according to the type of block
-                Bits b(blk);
-                msgid = b.GetBits(12);
-                int StationId = b.GetBits(12);
+        // Process according to type of frame
+        if      (b.Id == 1002)   errcode = ProcessObservations(b);
+        else if (b.Id == 1005)   errcode = ProcessAntennaRef(b);
+        else if (b.Id == 1012)   errcode = ProcessEphemeris(b);
+        else                     errcode = OK;
 
-                if (msgid == 1002)        errcode = ProcessObservations(b);
-                else if (msgid == 1005)   errcode = ProcessStationRef(b);
-                else                      errcode = OK;
+    } until (b.Id == 1002 || errcode != OK);
 
-	} until (msgid == 1002 || errcode != OK);
-
-	return errcode;
+    return errcode;
 }
 
-bool RawRtcm3::ProcessObservations(Bits& b)
+
+
+bool RawRtcm3::ProcessObservations(Block& blk)
 {
 
     static const double MaxDelta = 0x7ffff;
@@ -69,6 +68,9 @@ bool RawRtcm3::ProcessObservations(Bits& b)
         obs[s].Valid = false;
 
     // Get the header info from the record
+    Bits b(blk);
+    int MessageId = b.GetBits(12);
+    int StationId = b.GetBits(12);
     int32 Tow = b.GetBits(20);
     int Synch = b.GetBits(1);
     int NrSats = b.GetBits(5);
@@ -133,8 +135,61 @@ bool RawRtcm3::ProcessObservations(Bits& b)
     return OK;
 }
 
-bool RawRtcm3::ProcessAntennaRef(Bits& b)
+bool RawRtcm3::ProcessAntennaRef(Block& blk)
 {
+    Bits b(blk);
+    int MessageId = b.GetBits(12);
+    int StationId = b.GetBits(12);
+
+    return OK;
+}
+
+
+bool RawRtcm3::ProcessEphemeris(Block& blk)
+{
+    // Extract the raw ephemeris parameters
+    EphemerisXmitRaw r;
+    Bits b(blk);
+    r.svid = b.GetBits(6);
+    if (r.svid == 0) r.svid = 32;
+    r.wn = b.GetBits(10);
+    r.acc = b.GetBits(4);
+    int code_on_l2 = b.GetBits(2);
+    r.idot = b.GetSignedBits(14);
+    r.iode = b.GetBits(4);
+    r.t_oc = b.GetBits(15);
+    r.a_f2 = b.GetSignedBits(8);
+    r.a_f1 = b.GetSignedBits(16);
+    r.a_f2 = b.GetSignedBits(22);
+    r.iodc = b.GetBits(10);
+    r.c_rs = b.GetSignedBits(16);
+    r.delta_n = b.GetSignedBits(16);
+    r.m_0 = b.GetSignedBits(32);
+    r.c_uc = b.GetSignedBits(16);
+    r.e = b.GetBits(32);
+    r.c_us = b.GetSignedBits(16);
+    r.sqrt_a = b.GetBits(32);
+    r.t_oe = b.GetBits(16);
+    r.c_ic = b.GetSignedBits(16);
+    r.c_is = b.GetSignedBits(16);
+    r.i_0 = b.GetSignedBits(32);
+    r.c_rc = b.GetSignedBits(16);
+    r.omega = b.GetSignedBits(32);
+    r.omegadot = b.GetSignedBits(24);
+    r.t_gd = b.GetSignedBits(8);
+    r.health = b.GetBits(6);
+    int l2pflag = b.GetBits(1);
+    int fit_interval = b.GetBits(1);
+
+    // Get a reference to the current ephemeris for this satellite
+    int sat = SvidToSat(r.svid);
+    EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>(eph[sat]);
+    if (&e == 0) return Error("rtcm ephemeris isn't correct\n");
+
+    // If ephemeris changed, then update it
+    if (e.iode != r.iode || e.iodc != r.iodc)
+        if (e.FromRaw(r) != OK) return Error(); 
+
     return OK;
 }
 

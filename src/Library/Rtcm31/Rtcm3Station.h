@@ -46,11 +46,13 @@ protected:
 	Time StationRefTime;
 	Time AntennaRefTime;
 	Time AuxiliaryTime;
+        Time EphemerisTime[MaxSats];
 
         int StationRefCount;
         int AntennaRefCount;
         int AuxiliaryCount;
         int ObservationsCount;
+        int EphemerisCount;
     
 
 	// keep track of whether we are locked to each satellite
@@ -69,6 +71,7 @@ private:
         bool OutputAntennaRef(Time& NextTime);
 	bool OutputAuxiliary(Time& NextTime);
         bool OutputObservations();
+        bool OutputEphemeris(int s, Time& NextTime);
 
         uint32 LockTime(uint32 TrackingTime);
         int32 RtcmPhase(uint32 PR, uint32 Modulus, double phase, int32& adjust);

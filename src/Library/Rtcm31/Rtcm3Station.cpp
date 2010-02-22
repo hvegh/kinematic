@@ -20,53 +20,67 @@
 
 #include "Rtcm3Station.h"
 #include "Util.h"
+#include "EphemerisXmit.h"
+
 
 
 
 Rtcm3Station::Rtcm3Station(Stream& com, RawReceiver& gps, Attributes& attr)
 : Gps(gps), comm(com), Station(attr)
 {
-	ErrCode = comm.GetError();
+    ErrCode = comm.GetError();
 
-	// Setup times so we output all records at the beginning
-	StationRefTime = -1;
-	AntennaRefTime = -1;
-        AuxiliaryTime = -1;
+    // Setup times so we output all records at the beginning
+    StationRefTime = -1;
+    AntennaRefTime = -1;
+    AuxiliaryTime = -1; 
+    for (int s=0; s<MaxSats; s++)
+        EphemerisTime[s] = -1;
+        
 
-        // Keep count of the number of each record type
-        StationRefCount = 0;
-        AntennaRefCount = 0;
-        AuxiliaryCount = 0;
-        ObservationsCount = 0;
+    // Keep count of the number of each record type
+    StationRefCount = 0;
+    AntennaRefCount = 0;
+    AuxiliaryCount = 0;
+    ObservationsCount = 0;
+    EphemerisCount = 0;
 
-	// We need to keep track of slips
-	for (int s=0; s<MaxSats; s++) {
-             TrackingTime[s] = 0;
-             PreviouslyValid[s] = false;
-             PhaseAdjust[s] = 0;
-        }
-		
+    // We need to keep track of slips
+    for (int s=0; s<MaxSats; s++) {
+        TrackingTime[s] = 0;
+        PreviouslyValid[s] = false;
+        PhaseAdjust[s] = 0;
+    }		
 }
 
 
 bool Rtcm3Station::OutputEpoch()
 {
-        // Use the gps position if we haven't set it already
-        if (Station.ARP == Position(0,0,0))
-            Station.ARP = Gps.Pos;
+    // Use the gps position if we haven't set it already
+    if (Station.ARP == Position(0,0,0))
+        Station.ARP = Gps.Pos;
 
-	// if the time is right, output the various records
-	if (StationRefTime <= Gps.GpsTime)
-	   if (OutputStationRef(StationRefTime) != OK) return Error();
-	if (AntennaRefTime <= Gps.GpsTime)
-            if (OutputAntennaRef(AntennaRefTime) != OK) return Error();
-        if (AuxiliaryTime <= Gps.GpsTime) 
-            if (OutputAuxiliary(AuxiliaryTime) != OK) return Error();
+    // if the time is right, output the various records
+    if (StationRefTime <= Gps.GpsTime)
+        if (OutputStationRef(StationRefTime) != OK) return Error();
+    
+    if (AntennaRefTime <= Gps.GpsTime)
+        if (OutputAntennaRef(AntennaRefTime) != OK) return Error();
+    if (AuxiliaryTime <= Gps.GpsTime) 
+        if (OutputAuxiliary(AuxiliaryTime) != OK) return Error();
 
-	// Send the measurements for this epoch
-	if (OutputObservations() != OK) return Error();
+    // Send the measurements for this epoch
+    if (OutputObservations() != OK) return Error();
 
-	return OK;
+    // Send the epemerides if appropriate
+    for (int s=0; s<MaxSats; s++) {
+       if (EphemerisTime[s] <= Gps.GpsTime 
+               && Gps.obs[s].Valid 
+               && Gps[s].Valid(Gps.GpsTime))
+           if (OutputEphemeris(s, EphemerisTime[s]) != OK) return Error();
+    }
+
+    return OK;
 }
 
 // MaxDelta is the largest phase-pseudo range which can be stored
@@ -193,6 +207,66 @@ bool Rtcm3Station::OutputAuxiliary(Time& time)
 }
 
 
+bool Rtcm3Station::OutputEphemeris(int s, Time& NextTime)
+{
+
+    // if not a broadcast ephemeris, don't schedule again
+    EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>(&Gps[s]);
+    if (&e == NULL) {
+        NextTime = MaxTime;
+        return OK;
+    }
+	
+    // Schedule every two minutes, spread out on odd seconds
+    NextTime = Gps.GpsTime - Gps.GpsTime%(2*NsecPerMinute) + 2*NsecPerMinute
+     	  + s*2*NsecPerSec + NsecPerSec;
+
+    // If not currently valid, then skip it
+    if (!e.Valid(Gps.GpsTime) || !Gps.obs[s].Valid) return OK;
+	
+    // Convert broadcast ephemeris to "raw" form
+    EphemerisXmitRaw r;
+    e.ToRaw(r);
+
+    // Build up the RTCM message
+    Block  blk;
+    Bits   b(blk);
+
+    // Assemble the Ephemeris record
+    b.PutBits(1019, 12);                   // Message id 1019
+    b.PutBits(SatToSvid(s), 6);            // Satelite number
+    b.PutBits(GpsWeek(Gps.GpsTime), 10);   // Week number
+    b.PutBits(r.acc, 4);                   // Accuracy
+    b.PutBits(2, 2);                       // C/A on L2  TODO: is this right?
+    b.PutBits(r.idot, 14);
+    b.PutBits(r.iode, 8);
+    b.PutBits(r.t_oc, 16);
+    b.PutBits(r.a_f2, 8);
+    b.PutBits(r.a_f2, 16);
+    b.PutBits(r.a_f0, 22);
+    b.PutBits(r.iodc, 10);
+    b.PutBits(r.c_rs, 16);
+    b.PutBits(r.delta_n, 16);
+    b.PutBits(r.m_0, 32);
+    b.PutBits(r.c_uc, 16);
+    b.PutBits(r.e, 32);
+    b.PutBits(r.c_us, 16);
+    b.PutBits(r.sqrt_a, 32);
+    b.PutBits(r.t_oe, 16);
+    b.PutBits(r.c_ic, 16);
+    b.PutBits(r.omega_0, 32);
+    b.PutBits(r.c_is, 16);
+    b.PutBits(r.i_0, 32);
+    b.PutBits(r.omega, 32);
+    b.PutBits(r.omegadot, 24);
+    b.PutBits(r.t_gd, 8);
+    b.PutBits(r.health, 6);
+    b.PutBits(1, 1);   // L2 P data is OFF
+    b.PutBits(0, 1);   // Fit interval is OFF  TODO: Is this right?
+
+    return comm.PutBlock(blk);
+}
+
 
 
 uint32 Rtcm3Station::LockTime(uint32 i)
@@ -201,11 +275,12 @@ uint32 Rtcm3Station::LockTime(uint32 i)
 ////////////////////////////////////////////////////////////////////////
 {
     if (i < 24)   return i;
-    if (i < 72)   return i*2 - 24;
-    if (i < 168)  return i*4 - 120;
-    if (i < 360)  return i*8 - 408;
-    if (i < 937)  return i*16 - 1176;
-    return 127;  // TODO
+    if (i < 72)   return (i + 24) / 2;
+    if (i < 168)  return (i + 120) / 4; 
+    if (i < 360)  return (i + 408) / 8;
+    if (i < 744)  return (i + 1172) / 16;
+    if (i < 937)  return (i + 3096) / 32;
+    return 127;
 }
 
 

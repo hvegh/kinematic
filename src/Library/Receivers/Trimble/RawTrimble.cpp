@@ -273,7 +273,7 @@ bool RawTrimble::ProcessSatData(Block& blk)
 	byte codeL2 = b.Get();
 	byte L2pdata = b.Get();
 	byte SVacc_raw = b.Get();
-	e.Health = b.Get();
+	e.health = b.Get();
 	e.iodc = b.Get2();
 
 	e.t_gd = b.GetFloat();
@@ -285,28 +285,28 @@ bool RawTrimble::ProcessSatData(Block& blk)
 	e.acc = b.GetFloat();
 	e.iode = b.Get();
 	byte fitinterval = b.Get();
-	e.C_rs = b.GetFloat();
+	e.c_rs = b.GetFloat();
 	e.delta_n = b.GetFloat();
-	e.M_0 = b.GetDouble();
-	e.C_uc = b.GetFloat();
+	e.m_0 = b.GetDouble();
+	e.c_uc = b.GetFloat();
 	e.e = b.GetDouble();
-	e.C_us = b.GetFloat();
-	e.sqrt_A = b.GetDouble();
+	e.c_us = b.GetFloat();
+	e.sqrt_a = b.GetDouble();
 	double tow_oe = b.GetFloat();
 	e.t_oe = ConvertGpsTime(weeknum, tow_oe);
-	e.C_ic = b.GetFloat();
-	e.Omega_0 = b.GetDouble();
-	e.C_is = b.GetFloat();
+	e.c_ic = b.GetFloat();
+	e.omega_0 = b.GetDouble();
+	e.c_is = b.GetFloat();
 	e.i_0 = b.GetDouble();
-	e.C_rc = b.GetFloat();
+	e.c_rc = b.GetFloat();
 	e.omega = b.GetDouble();
-	e.OmegaDot = b.GetFloat();
-	e.IDOT = b.GetFloat();
+	e.omegadot = b.GetFloat();
+	e.idot = b.GetFloat();
 	double Axis = b.GetDouble();
 	double n = b.GetDouble();
 	double r1me2 = b.GetDouble();
-	double OMEGA_n = b.GetDouble();
-	double ODOT_n = b.GetDouble();
+	double omega_n = b.GetDouble();
+	double odot_n = b.GetDouble();
 
 	// LATER. For now, assume valid for two hours
 	e.MinTime = e.t_oe - 2*NsecPerHour;
@@ -314,7 +314,7 @@ bool RawTrimble::ProcessSatData(Block& blk)
 	e.Display();
 
 	// Check for validity. Trimble may not have data yet.
-	if (e.sqrt_A < 1) {
+	if (e.sqrt_a < 1) {
 		e.MinTime = -1;
 		e.MaxTime = -2;
 		return OK;

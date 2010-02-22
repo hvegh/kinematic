@@ -1,74 +1,63 @@
-#ifndef EPHEMERISXMIT_INCLUDED
-#define EPHEMERISXMIT_INCLUDED
+#ifndef EphemerisXmit_INCLUDED
+#define EphemerisXmit_INCLUDED
 
-#include "Util.h"
+#include "EphemerisXmitRaw.h"
 #include "Ephemeris.h"
 #include "NavFrame.h"
-#include "Frame.h"
 
-static const double AccuracyIndex[16] = {2.4, 3.4, 4.85, 6.85, 9.65, 
-	  13.65, 24, 48, 96, 192, 384, 768, 1536, 3072, 6144, INFINITY};
-
-
-struct EphemerisXmit: public Ephemeris
+class EphemerisXmit : public Ephemeris 
 {
-    virtual bool Valid(Time t);
-    virtual double Accuracy(Time t);
-	virtual bool SatPos(Time t, Position& XmitPos, double& Adjust);
+public:
+    double m_0;      // Mean Anomaly at reference time
+    double delta_n;  // Mean Motion Difference from Computed Value
+    double e;        // Eccentricity
+    double sqrt_a;   // Square root of the Semi-Major Axis
+    double omega_0;  // Longitude of Ascending Node of orbit Plan at Weekly Epoch
+    double i_0;      // Inclination Angle at Reference Time
+    double omega;       // Argument of Perigee
+    double omegadot; // Rate of Right Ascension
+    double idot;     // Rate of Inclination angle
+    double c_uc;     // Amplitude of the Cosine Harmonic Correction to Latitude
+    double c_us;     // Amplitude of the Sine Harmonic correction to Latitude
+    double c_rc;     // Amplitude of the Cosine Harmonic Correction to Orbit Radius
+    double c_rs;     // Amplitude of the Sine Harmonic Correction to Orbit Radius
+    double c_ic;     // Amplitude of the Cosine Harmonic Correction to Angle of Inclination
+    double c_is;     // Amplitude of the Sine Harmonic Correction to Angle of Inclination
+    Time   t_oe;     // Reference time
+    uint8  iode;     // Issue of Data (Ephemeris)
 
-	EphemerisXmit(int Sat, const char* description = "Xmit Ephemeris");
-	virtual ~EphemerisXmit();
+    double t_gd;
+    Time   t_oc;
+    double a_f0;
+    double a_f1;
+    double a_f2;
+    uint8  iodc;
 
-	bool AddFrame(NavFrame& frame);
-	bool AddFrame(Frame& frame);
-	bool GetFrame(Frame& frame);
+    uint8  health;
+    double acc;
 
-	// Convert accuracy index to meters (and back)
-	int AccToSvacc(double acc);
-	double SvaccToAcc(int svacc);
-	virtual void Display(const char* str = "");
+    bool FromRaw(EphemerisXmitRaw& r);
+    bool ToRaw(EphemerisXmitRaw& r);
+    bool AddFrame(NavFrame& f);
 
-//protected:
+    bool SatPos(Time t, Position& satpos, double& adjust);
 
-    // Validity
-    Time MinTime;
-    Time MaxTime;
+    void Display(const char* title="");
 
-	// Clock adjustment
-	Time t_oc;                // reference time of clock
-	double a_f0, a_f1, a_f2;  // polynomial equation
+    EphemerisXmit(int sat, const char* desription);
+    ~EphemerisXmit();
 
-	// Orbit parameters. All angles are radians.
-	Time t_oe;       // Reference time of ephemeris
-	double M_0;      // Mean Anomaly at Reference Time
-	double delta_n;  // Mean motion difference from computed value
-	double e;        // Eccentricity
-	double sqrt_A;   // Square Root of the Semi-Major Axis
-    double Omega_0;  // Longitude of Ascending node at weekly epoch.
-	double i_0;      // Inclination angle at reference time
-	double omega;     // Argument of Perigee
-	double OmegaDot;  // Rate of right ascension
-	double IDOT;      // Rate inclination angle
-	double C_uc;      // Amplitude of Cosine harmonic - Latitude
-	double C_us;      // Amplitude of Sine harminic - Latitude
-	double C_rc;      // Amplitude of Cosine harmonic - radius
-	double C_rs;      // Amplitude of Sine harmonic - radius
-	double C_ic;      // Amplitude of Cosine harmonic - inclination
-	double C_is;      // Amplitude of Sine harmonic - inclination
+    bool Valid(Time t) {return (MinTime <= t && t <= MaxTime);}
+    double Accuracy(Time t) {return acc;}
 
-	// L2 information
-	int L2Pcode;
-	int L2Code;
-	double t_gd;      // L2 adjustment(seconds) ????
 
-	// Status
-	int PrnId;
-     int Health;
-	int iode;
-	int iodc;
-	double acc;       // accuracy in meters
+protected:
+    double SvaccToAcc(int svacc);
+    int AccToSvacc(double acc);
+
 };
 
+    static const double AccuracyIndex[16] = {2.4, 3.4, 4.85, 6.85, 9.65, 
+	  13.65, 24, 48, 96, 192, 384, 768, 1536, 3072, 6144, INFINITY};
 
-#endif // EPHEMERISXMIT_INCLUDED
-
+#endif

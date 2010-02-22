@@ -260,8 +260,8 @@ bool RtcmStation::OutputCarrierPhase(Time& NextTime)
 bool RtcmStation::OutputEphemeris(int s, Time& NextTime)
 {
 	// if not a broadcast ephemeris, don't schedule again
-	EphemerisXmit* e = dynamic_cast<EphemerisXmit*>(&Gps[s]);
-	if (e == NULL) {
+	EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>(&Gps[s]);
+	if (&e == 0) {
 		NextTime = MaxTime;
 		return OK;
 	}
@@ -271,13 +271,13 @@ bool RtcmStation::OutputEphemeris(int s, Time& NextTime)
 		  + s*2*NsecPerSec + NsecPerSec;
 
 	// If the ephemeris isn't valid, then done
-	if (!e->Valid(Gps.GpsTime))
+	if (!e.Valid(Gps.GpsTime))
 		return OK;
 
 	// Get the ephemeris frame
-	Frame f;
-	if (e->GetFrame(f) != OK)
-		return Error();
+	Frame f;  EphemerisXmitRaw r;
+	e.ToRaw(r);   f.FromRaw(r);
+        
 	Header(f, Gps.GpsTime, 17);
 
 	// Output it

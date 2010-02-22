@@ -34,6 +34,8 @@ struct EphemerisXmitRaw
     uint8  health;
     uint8  acc;  // TODO: check these out!!!
     uint32 wn;
+
+    int svid;
 };
 
 #endif

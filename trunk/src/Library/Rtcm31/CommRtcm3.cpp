@@ -50,9 +50,47 @@ bool CommRtcm3::PutBlock(Block& blk)
 }
 
 
-bool CommRtcm3::GetBlock(Block& blk)
+bool CommRtcm3::GetBlock(Block& b)
 {
+restart:
+    // read the preamble byte
+    byte preamble;
+    if (com.Read(preamble) != OK) return Error();
+    if (preamble != 0xD3)         goto restart;
+
+    // read the length
+    byte LenHi, LenLo;
+    if (com.Read(LenHi) != OK) return Error();
+    if (com.Read(LenLo) != OK) return Error();
+    b.Length = ((((int)LenHi)<<8)+LenLo);
+    if (b.Length > 1023) goto restart;
+
+    // read the packet contents
+    if (com.Read(b.Data, b.Length) != OK) return Error();
+
+    // Calculate the expected checksum
+    Crc24 crc;
+    crc.Add(preamble); crc.Add(LenHi); crc.Add(LenLo);
+    crc.Add(b.Data, b.Length);
+    byte *bytes = crc.AsBytes();
+  
+    // Read the checksum and make sure it matches
+    byte c;
+    if (com.Read(c) != OK)  return Error();
+    if (c != bytes[0])           goto restart;
+    if (com.Read(c) != OK) return Error();
+    if (c != bytes[1])           goto restart;
+    if (com.Read(c) != OK) return Error();
+    if (c != bytes[2])           goto restart;
+
+    // Get the message id
+    b.Id = (b.Data[0]<<4) | (b.Data[1]>>4);
+    b.Display("Read Antaris Block");
+
+    // done
+    return OK;
 }
+
 
 
 CommRtcm3::~CommRtcm3()

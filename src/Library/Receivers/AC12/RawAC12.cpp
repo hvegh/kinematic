@@ -225,30 +225,30 @@ bool RawAC12::ProcessEphemeris(Block& blk)
 	// Get the ephemeris information
 	e.iode = b.Get4();               // ephemeris issue of data
 	e.delta_n = b.GetFloat() * PI;   // mean anomaly correction (radians)
-	e.M_0 = b.GetDouble() * PI;      // mean anomaly at reference time (radians)
+	e.m_0 = b.GetDouble() * PI;      // mean anomaly at reference time (radians)
 	e.e = b.GetDouble();             // Eccentricity
-	e.sqrt_A = b.GetDouble();        // square root of semi-major axis
+	e.sqrt_a = b.GetDouble();        // square root of semi-major axis
 	double tow_oe = b.Get4();        // Reference time for ephemeris (sec)
 	e.t_oe = ConvertGpsTime(WN, tow_oe);  
 
 	// Harmonic corrections
-	e.C_ic = b.GetFloat();      // harmonic correction term (radians)
-	e.C_rc = b.GetFloat();      // harmonic correction term (meters)
-	e.C_is = b.GetFloat();      // harmonic correction term (radians)
-	e.C_rs = b.GetFloat();      // harmonic correction term(meters)
-	e.C_uc = b.GetFloat();      // harmonic correction term (radians)
-	e.C_us = b.GetFloat();      // harmonic correction term (radians)
+	e.c_ic = b.GetFloat();      // harmonic correction term (radians)
+	e.c_rc = b.GetFloat();      // harmonic correction term (meters)
+	e.c_is = b.GetFloat();      // harmonic correction term (radians)
+	e.c_rs = b.GetFloat();      // harmonic correction term(meters)
+	e.c_uc = b.GetFloat();      // harmonic correction term (radians)
+	e.c_us = b.GetFloat();      // harmonic correction term (radians)
 
 	// Orbit description
-	e.Omega_0 = b.GetDouble() * PI; // longitude of ascending node (radians)
+	e.omega_0 = b.GetDouble() * PI; // longitude of ascending node (radians)
 	e.omega = b.GetDouble() * PI;   // argument of perigee (radians)
 	e.i_0 = b.GetDouble() * PI;     // inclination angle (radians)
-	e.OmegaDot = b.GetFloat() * PI; // rate of right ascension (radians/sec)
-	e.IDOT = b.GetFloat() * PI;     // rate of inclination (radians/sec)
+	e.omegadot = b.GetFloat() * PI; // rate of right ascension (radians/sec)
+	e.idot = b.GetFloat() * PI;     // rate of inclination (radians/sec)
 	
 	// Satellite state
 	e.acc = b.Get2();     // user range accuracy TODO - what units?
-	e.Health = b.Get2();           // satellite health
+	e.health = b.Get2();           // satellite health
 	int fit = b.Get2();            // curve fit interval
 	byte prnnum = b.Get();         // svid - 1
 	e.MinTime = e.t_oe - 2*NsecPerHour;  // TODO: should be based on fit

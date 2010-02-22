@@ -17,6 +17,8 @@
 
 
 #include "RawAllstar.h"
+#include "NavFrame.h"
+
 
 // Message types
 static const int CONTINUOUS = 128;
@@ -132,7 +134,9 @@ bool RawAllstar::ProcessEphemeris(Block& block)
 
 	// Update the ephemeris
 	EphemerisXmit& e = *(EphemerisXmit*)eph[Sat];
-	e.AddFrame(f);
+        EphemerisXmitRaw r;
+	f.ToRaw(r);
+        e.FromRaw(r);
 
 	return OK;
 }

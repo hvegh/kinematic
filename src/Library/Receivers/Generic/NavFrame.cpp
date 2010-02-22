@@ -23,7 +23,7 @@
 #include "NavFrame.h"
 
 
-bool NavFrame::GetEphemeris(EphemerisXmitRaw& r)
+bool NavFrame::ToRaw(EphemerisXmitRaw& r)
 {
 	// Make sure the 3 subframes are the same version
 	int NewIode = GetField(2,61,8);

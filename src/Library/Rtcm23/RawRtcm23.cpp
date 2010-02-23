@@ -18,18 +18,18 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "RawRtcm.h"
+#include "RawRtcm23.h"
 #include "EphemerisXmit.h"
 
-RawRtcm::RawRtcm(Stream& in)
+RawRtcm23::RawRtcm23(Stream& in)
 : In(in)
 {
-    strcpy(Description, "Rtcm 3.1");
+    strcpy(Description, "Rtcm23 3.1");
     ErrCode = In.GetError();
     for (int s=0; s<MaxSats; s++) {
         CarrierLossCount[s] = -1;
         PreviousPhase[s] = 0;
-        eph[s] = new EphemerisXmit(s, "RTCM 3.1");
+        eph[s] = new EphemerisXmit(s, "Rtcm23 3.1");
     }
 
     PreviousReceiverTime = -1;
@@ -38,7 +38,7 @@ RawRtcm::RawRtcm(Stream& in)
 }
 
 
-bool RawRtcm::NextEpoch()
+bool RawRtcm23::NextEpoch()
 {
 	// Clear out our observations
 	for (int s=0; s<MaxSats; s++)
@@ -61,7 +61,7 @@ bool RawRtcm::NextEpoch()
 		int zcount = f.GetField(2, 1, 13);
 		int seqnr = f.GetField(2, 14, 16);
 		int StationHealth = f.GetField(2, 22, 24);
-		debug("Rtcm::NextEpoch - type=%d  zcount=%d  StationId=%d  Health=%d  seqnr=%d\n",
+		debug("Rtcm23::NextEpoch - type=%d  zcount=%d  StationId=%d  Health=%d  seqnr=%d\n",
 			                     type,    zcount,    StationId,    StationHealth, seqnr);
 		
         // Update the sequence number
@@ -100,7 +100,7 @@ bool RawRtcm::NextEpoch()
 	return OK;
 }
 
-bool RawRtcm::ProcessTimeTag(Frame& f)
+bool RawRtcm23::ProcessTimeTag(Frame& f)
 {
 	Week = f.GetField(3, 1, 10);
 	HourOfWeek = f.GetField(3, 11, 18);
@@ -111,7 +111,7 @@ bool RawRtcm::ProcessTimeTag(Frame& f)
 }
 
 
-bool RawRtcm::ProcessAntennaRef(Frame& f)
+bool RawRtcm23::ProcessAntennaRef(Frame& f)
 {
 	int64 x = ((int64)f.GetSigned(3, 1, 24)<<14) | f.GetField(4, 1, 14);
 	int64 y = ((int64)f.GetSigned(4, 17, 24)<<30) | (f.GetField(5, 1, 24)<<6) | f.GetField(6,1,6);
@@ -127,12 +127,12 @@ bool RawRtcm::ProcessAntennaRef(Frame& f)
 	return OK;
 }
 
-bool RawRtcm::ProcessAntennaTypeDef(Frame& f)
+bool RawRtcm23::ProcessAntennaTypeDef(Frame& f)
 {
 	return OK;
 }
 
-bool RawRtcm::ProcessCarrierPhase(Frame& f)
+bool RawRtcm23::ProcessCarrierPhase(Frame& f)
 {
 	// Get the time of measurement
 	if (GetMeasurementTime(f) != OK)
@@ -154,7 +154,7 @@ bool RawRtcm::ProcessCarrierPhase(Frame& f)
 		// which satellite?
 		int svid = f.GetField(4+2*i, 4, 8);
 		int Sat = SvidToSat(svid);
-		if (Sat == -1) return Error("RawRtcm: didn't recognize svid=%d\n", svid);
+		if (Sat == -1) return Error("RawRtcm23: didn't recognize svid=%d\n", svid);
 		HasPhase[Sat] = true;
 
 		// Phase
@@ -177,13 +177,13 @@ bool RawRtcm::ProcessCarrierPhase(Frame& f)
 
 		// More?
 		MoreToCome = (f.GetField(4+2*i, 1, 1) != 0);
-		debug("RawRtcm: Sat=%d  Phase=%.3f  MoreToComm=%d\n", Sat,obs[Sat].Phase, MoreToCome);
+		debug("RawRtcm23: Sat=%d  Phase=%.3f  MoreToComm=%d\n", Sat,obs[Sat].Phase, MoreToCome);
 	}
 
 	return OK;
 }
 
-bool RawRtcm::ProcessPseudorange(Frame& f)
+bool RawRtcm23::ProcessPseudorange(Frame& f)
 {
 	// Get the time of measurement
 	if (GetMeasurementTime(f) != OK)
@@ -211,7 +211,7 @@ bool RawRtcm::ProcessPseudorange(Frame& f)
 		// Pseudorange
 		uint32 pr = (f.GetField(4+2*i, 17, 24)<<24) | f.GetField(5+2*i, 1, 24);
 		obs[Sat].PR = pr / 50.0;
-		debug("RawRtcm::ProcessPseudorange  s=%d  PR=%.3f  pr=0x%08x\n",
+		debug("RawRtcm23::ProcessPseudorange  s=%d  PR=%.3f  pr=0x%08x\n",
 			                                Sat, obs[Sat].PR, pr);
 
 		// Quality
@@ -221,14 +221,14 @@ bool RawRtcm::ProcessPseudorange(Frame& f)
 
 		// More?
 		MoreToCome = (f.GetField(4+2*i, 1, 1) != 0);
-		debug("RawRtcm: Sat=%d  PR=%.3f  MoreToComm=%d\n", Sat,obs[Sat].PR, MoreToCome);
+		debug("RawRtcm23: Sat=%d  PR=%.3f  MoreToComm=%d\n", Sat,obs[Sat].PR, MoreToCome);
 	}
 
 	return OK;
 }
 
 
-bool RawRtcm::ProcessEphemeris(Frame& f)
+bool RawRtcm23::ProcessEphemeris(Frame& f)
 {
 	// Figure out which satellite
 	int svid = f.GetField(31, 17, 21);
@@ -245,7 +245,7 @@ bool RawRtcm::ProcessEphemeris(Frame& f)
 	return e.FromRaw(r);
 }
 
-bool RawRtcm::GetMeasurementTime(Frame& f)
+bool RawRtcm23::GetMeasurementTime(Frame& f)
 {
 	if (HourOfWeek < 0 || Week < 0)
 		return Error("Haven't received a time tag yet\n");
@@ -254,12 +254,12 @@ bool RawRtcm::GetMeasurementTime(Frame& f)
 	int zcount = f.GetField(2, 1, 13);
 	int GNSST = f.GetField(3, 5, 24);
 	double ETOM = GNSST/1000000.0 + zcount*.6;
-	debug("RawRtcm::GetMeasurementTime zcount=%d  GNSST=%d  ETOM=%.6f\n",zcount,GNSST,ETOM);
+	debug("RawRtcm23::GetMeasurementTime zcount=%d  GNSST=%d  ETOM=%.6f\n",zcount,GNSST,ETOM);
 	double ReceiverTime = round(ETOM, .01); // Epochs are at most 100 hz
 
 	// If we moved backwards, then we missed a clock record
 	if (ReceiverTime < PreviousReceiverTime) {
-		debug("RawRtcm - Clock moved backwards prev=%.2f\n", PreviousReceiverTime);
+		debug("RawRtcm23 - Clock moved backwards prev=%.2f\n", PreviousReceiverTime);
 		HourOfWeek++;
 		if (HourOfWeek >= 7*24) {
 			HourOfWeek = 0;
@@ -279,7 +279,7 @@ bool RawRtcm::GetMeasurementTime(Frame& f)
 }
 
 
-RawRtcm::~RawRtcm(void)
+RawRtcm23::~RawRtcm23(void)
 {
 }
 

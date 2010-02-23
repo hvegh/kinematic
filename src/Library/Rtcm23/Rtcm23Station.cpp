@@ -18,16 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "RtcmStation.h"
+#include "Rtcm23Station.h"
 #include "EphemerisXmit.h"
 
 
 
 
-RtcmStation::RtcmStation(Stream& out, RawReceiver& gps, int id, int health)
+Rtcm23Station::Rtcm23Station(Stream& out, RawReceiver& gps, int id, int health)
 : Gps(gps), Out(out)
 {
-	debug("RtcmStation: id=%d  health=%d\n", id, health);
+	debug("Rtcm23Station: id=%d  health=%d\n", id, health);
 	Health = health;
 	StationId = id;
 	SequenceNr=0;
@@ -49,7 +49,7 @@ RtcmStation::RtcmStation(Stream& out, RawReceiver& gps, int id, int health)
 }
 
 
-bool RtcmStation::OutputEpoch()
+bool Rtcm23Station::OutputEpoch()
 {
 	ErrCode = OK;
 
@@ -78,7 +78,7 @@ bool RtcmStation::OutputEpoch()
 
 
 
-bool RtcmStation::OutputTimeTag(Time& NextTime)
+bool Rtcm23Station::OutputTimeTag(Time& NextTime)
 {
     // Schedule the TimeTag every two minutes on the hour
 	NextTime = Gps.GpsTime - Gps.GpsTime%(2*NsecPerMinute) + 2*NsecPerMinute;
@@ -91,20 +91,20 @@ bool RtcmStation::OutputTimeTag(Time& NextTime)
 		Week, HourOfWeek, LeapSec);
 
 	// Create the frame
-	Frame rtcm(3);
-	Header(rtcm, Gps.GpsTime, 14);
-	rtcm.PutWord(3, (Week<<20)|(HourOfWeek<<12)|(LeapSec<<6));
+	Frame Rtcm23(3);
+	Header(Rtcm23, Gps.GpsTime, 14);
+	Rtcm23.PutWord(3, (Week<<20)|(HourOfWeek<<12)|(LeapSec<<6));
 
-	return Out.WriteFrame(rtcm);
+	return Out.WriteFrame(Rtcm23);
 }
 
-bool RtcmStation::OutputAntennaTypeDef(Time& NextTime)
+bool Rtcm23Station::OutputAntennaTypeDef(Time& NextTime)
 {
 	NextTime = Gps.GpsTime + 2*NsecPerMinute;
 	return OK;
 }
 	
-bool RtcmStation::OutputAntennaRef(Time& NextTime)
+bool Rtcm23Station::OutputAntennaRef(Time& NextTime)
 {
 	// Schedule the record every two minutes, one minute after the hour
 	NextTime = Gps.GpsTime - Gps.GpsTime%(2*NsecPerMinute) + 3*NsecPerMinute;
@@ -131,27 +131,27 @@ bool RtcmStation::OutputAntennaRef(Time& NextTime)
 	uint32 zlow = z & 0x3fffff;
 
 	// Build up the frame, no antenna height for now.
-	Frame rtcm(7);
-	Header(rtcm, Gps.GpsTime, 24);
-	rtcm.PutField(3, 1, 24, x>>14);
-	rtcm.PutField(4, 1, 14, x);
-	rtcm.PutField(4, 17, 24, y>>30);
-	rtcm.PutField(5, 1, 24, y>>8);
-	rtcm.PutField(6, 1, 6, y);
-	rtcm.PutField(6, 9, 24, z>>22);
-	rtcm.PutField(7, 1, 22, z);
-	return Out.WriteFrame(rtcm);
+	Frame Rtcm23(7);
+	Header(Rtcm23, Gps.GpsTime, 24);
+	Rtcm23.PutField(3, 1, 24, x>>14);
+	Rtcm23.PutField(4, 1, 14, x);
+	Rtcm23.PutField(4, 17, 24, y>>30);
+	Rtcm23.PutField(5, 1, 24, y>>8);
+	Rtcm23.PutField(6, 1, 6, y);
+	Rtcm23.PutField(6, 9, 24, z>>22);
+	Rtcm23.PutField(7, 1, 22, z);
+	return Out.WriteFrame(Rtcm23);
 }
 
 
-bool RtcmStation::OutputPseudorange(Time& NextTime)
+bool Rtcm23Station::OutputPseudorange(Time& NextTime)
 {
 	debug("OutputPseudorange\n");
 	// Schedule the next epoch
 	NextTime = Gps.GpsTime + 1;
 
 	// Create a frame, reserving space for header
-	Frame rtcm(3);
+	Frame Rtcm23(3);
 
 	// Do for each valid satellite
 	for (int s=0; s<MaxSats; s++) {
@@ -168,40 +168,40 @@ bool RtcmStation::OutputPseudorange(Time& NextTime)
 		uint32 Pr = Gps.obs[s].PR * 50;
 		uint32 PrHi = (Pr >> 24) & 0xff;
 		uint32 PrLow = Pr & 0xffffff;
-		debug("RtcmStation::OutputPseudorange: Sat=%d PR=%.3f  pr=0x%08x\n", 
+		debug("Rtcm23Station::OutputPseudorange: Sat=%d PR=%.3f  pr=0x%08x\n", 
 			s, Pr/50.0, Pr);
 
 		// build up the satellite's portion of the record (More to come)
-		rtcm.AddWord((1<<29)|(satid<<22)|(quality<<18)|(multipath<<14)|(PrHi<<6));
-		rtcm.AddWord(PrLow<<6);
+		Rtcm23.AddWord((1<<29)|(satid<<22)|(quality<<18)|(multipath<<14)|(PrHi<<6));
+		Rtcm23.AddWord(PrLow<<6);
 	}
 
-	// Do the rtcm header
-	Header(rtcm, Gps.GpsTime, 19);
+	// Do the Rtcm23 header
+	Header(Rtcm23, Gps.GpsTime, 19);
 
 	// figure out how much time since the zcount
-	int zcount = rtcm.GetField(2, 1, 13);
+	int zcount = Rtcm23.GetField(2, 1, 13);
 	Time nsec = (Gps.GpsTime%NsecPerHour) - zcount*NsecPerSec*6/10;
 	assert(S(nsec) < .6 && S(nsec) >= 0);
 
 	// Do the pseudorange header. 
 	uint32 GnssTime = nsec / 1000;
 	uint32 smoothing = 0;  // 0-1 minute
-	rtcm.PutWord(3, (smoothing<<27) | (GnssTime<<6));
+	Rtcm23.PutWord(3, (smoothing<<27) | (GnssTime<<6));
 	debug("OutputPseudorange: GnssTime=%d\n", GnssTime);
 
-	return Out.WriteFrame(rtcm);
+	return Out.WriteFrame(Rtcm23);
 }
 
 
-bool RtcmStation::OutputCarrierPhase(Time& NextTime)
+bool Rtcm23Station::OutputCarrierPhase(Time& NextTime)
 {
 	debug("OutputCarrierPhase\n");
 	// Schedule for the next epoch
 	NextTime = Gps.GpsTime + 1;
 
 	// Create a CarrierPhase header. 
-	Frame rtcm(3);
+	Frame Rtcm23(3);
 
 	// Do for each satellite
 	for (int s=0; s<MaxSats; s++) {
@@ -231,33 +231,33 @@ bool RtcmStation::OutputCarrierPhase(Time& NextTime)
 			s, Gps.obs[s].Phase*L1WaveLength, lockloss);
 
 		// build up the satellite's portion of the record (no more to come)
-		rtcm.AddWord((satid<<22)|(quality<<19)|(lockloss<<14)|(PhaseHi<<6));
-		rtcm.AddWord(PhaseLow<<6);
+		Rtcm23.AddWord((satid<<22)|(quality<<19)|(lockloss<<14)|(PhaseHi<<6));
+		Rtcm23.AddWord(PhaseLow<<6);
 	}
 
 	// Keep track of which sats were valid
 	for (int s=0; s<MaxSats; s++)
 		PreviouslyValid[s] = Gps.obs[s].Valid;
 	
-	// create rtcm header
-	Header(rtcm, Gps.GpsTime, 18);
+	// create Rtcm23 header
+	Header(Rtcm23, Gps.GpsTime, 18);
 
 	// Figure out how much time since last zcount
-	int zcount = rtcm.GetField(2, 1, 13);
+	int zcount = Rtcm23.GetField(2, 1, 13);
 	Time nsec = (Gps.GpsTime%NsecPerHour) - zcount*NsecPerSec*6/10;
 	assert(nsec >= 0 && S(nsec) < .6);
 
 	// Do the pseudorange header. 
 	uint32 GnssTime = nsec/1000;
-	rtcm.PutWord(3,GnssTime<<6);
+	Rtcm23.PutWord(3,GnssTime<<6);
 	debug("OutputPseudorange: Gnsstime=%d\n", GnssTime);
 
-	return Out.WriteFrame(rtcm);
+	return Out.WriteFrame(Rtcm23);
 }
 
 
 
-bool RtcmStation::OutputEphemeris(int s, Time& NextTime)
+bool Rtcm23Station::OutputEphemeris(int s, Time& NextTime)
 {
 	// if not a broadcast ephemeris, don't schedule again
 	EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>(&Gps[s]);
@@ -286,17 +286,17 @@ bool RtcmStation::OutputEphemeris(int s, Time& NextTime)
 
 
 
-RtcmStation::~RtcmStation(void)
+Rtcm23Station::~Rtcm23Station(void)
 {
 }
 
 
 
-void RtcmStation::Header(Frame& f, Time time, int type)
+void Rtcm23Station::Header(Frame& f, Time time, int type)
 {
 	uint32 zcount = (time % NsecPerHour) * 10 / 6 / NsecPerSec;
 	if (type == 64) type = 0;
-	debug("RtcmFrame  type=%d  zcount=%d seqnr=%d\n", type, zcount,SequenceNr);
+	debug("Rtcm23Frame  type=%d  zcount=%d seqnr=%d\n", type, zcount,SequenceNr);
 
 	f.PutWord(1, (0x66<<22) | (type<<16) | (StationId<<6));
 	f.PutWord(2, (zcount<<17) | (SequenceNr<<14) | (f.NrWords<<9) | (Health<<6));

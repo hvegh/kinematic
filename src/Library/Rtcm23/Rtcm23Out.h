@@ -1,5 +1,5 @@
-#ifndef RTCMOUT_INCLUDED
-#define RTCMOUT_INCLUDED
+#ifndef Rtcm23OUT_INCLUDED
+#define Rtcm23OUT_INCLUDED
 // Part of Kinematic, a utility for GPS positioning
 //
 // Copyright (C) 2006  John Morris    www.precision-gps.org
@@ -23,7 +23,7 @@
 #include "Frame.h"
 
 
-class RtcmOut
+class Rtcm23Out
 {
 protected:
 	Stream& Out;
@@ -31,15 +31,15 @@ protected:
 	uint32 PreviousWord;
 
 public:
-	RtcmOut(Stream& out);
+	Rtcm23Out(Stream& out);
 	bool GetError() {return ErrCode;}
 	virtual bool WriteFrame(Frame& f);
-	virtual ~RtcmOut(void);
+	virtual ~Rtcm23Out(void);
 
 private:
 	bool WriteWord(uint32 word);
 };
 
 
-#endif // RTCMOUT_INCLUDED
+#endif // Rtcm23OUT_INCLUDED
 

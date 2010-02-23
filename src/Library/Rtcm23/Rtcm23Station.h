@@ -1,5 +1,5 @@
-#ifndef RTCMSTATION_INCLUDED
-#define RTCMSTATION_INCLUDED
+#ifndef Rtcm23STATION_INCLUDED
+#define Rtcm23STATION_INCLUDED
 // Part of Kinematic, a utility for GPS positioning
 //
 // Copyright (C) 2006  John Morris    www.precision-gps.org
@@ -21,15 +21,15 @@
 
 #include "util.h"
 #include "Frame.h"
-#include "RtcmOut.h"
+#include "Rtcm23Out.h"
 #include "RawReceiver.h"
 
 
-class RtcmStation
+class Rtcm23Station
 {
 protected:
 	RawReceiver& Gps;
-	RtcmOut Out;
+	Rtcm23Out Out;
 	int StationId;
 	int Health;
 	int SequenceNr;
@@ -41,7 +41,7 @@ protected:
 	//   an approximate and consistent value. 
 	Position StationPos;
 
-	// When to output the next rtcm frames
+	// When to output the next Rtcm23 frames
 	Time TimeTagTime;
 	Time AntennaRefTime;
 	Time EphemerisTime[MaxSats];
@@ -52,10 +52,10 @@ protected:
 	double PhaseAdjust[MaxSats];
 
 public:	
-	RtcmStation(Stream& out, RawReceiver& gps, int id=0, int health=0);
+	Rtcm23Station(Stream& out, RawReceiver& gps, int id=0, int health=0);
     bool OutputEpoch();
 	bool GetError() {return ErrCode;}
-	virtual ~RtcmStation(void);
+	virtual ~Rtcm23Station(void);
 
 private:
 	bool OutputTimeTag(Time& NextTime);
@@ -70,5 +70,5 @@ private:
 	bool WriteFrame();
 };
 
-#endif // RTCMSTATION_INCLUDED
+#endif // Rtcm23STATION_INCLUDED
 

@@ -2,8 +2,9 @@
 #include "Parse.h"
 
 
-NtripClient::NtripClient(Socket::Address addr, char *mount, char *user, char *passwd)
-: Socket(addr)
+NtripClient::NtripClient(const char* host, const char* port, const char *mount, 
+                         const char *user, const char *passwd)
+: Socket(host, port)
 {
     debug("NtripClient: user=%s passwd=%s  mount=%s\n", user, passwd, mount);
     if (ErrCode != OK) return;

@@ -2,8 +2,9 @@
 #include "Parse.h"
 
 
-NtripServer::NtripServer(Socket::Address addr, char *mount, char *user, char *passwd)
-: Socket(addr)
+NtripServer::NtripServer(const char* host, const char* port, const char *mount, 
+                         const char *user, const char *passwd)
+: Socket(host, port)
 {
     debug("NtripServer: user=%s passwd=%s  mount=%s\n", user, passwd, mount);
     ErrCode = ErrCode 

@@ -1,5 +1,5 @@
-#ifndef RAWRTCM_INCLUDED
-#define RAWRTCM_INCLUDED
+#ifndef RAWRtcm23_INCLUDED
+#define RAWRtcm23_INCLUDED
 // Part of Kinematic, a utility for GPS positioning
 //
 // Copyright (C) 2006  John Morris    www.precision-gps.org
@@ -19,13 +19,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "RtcmIn.h"
+#include "Rtcm23In.h"
 #include "RawReceiver.h"
 
-class RawRtcm: public RawReceiver
+class RawRtcm23: public RawReceiver
 {
 protected:
-	RtcmIn In;
+	Rtcm23In In;
 
 	// To keep track of slips and overflows between epochs
 	int32 CarrierLossCount[MaxSats];
@@ -43,9 +43,9 @@ protected:
 	bool HasPhase[MaxSats];
 
 public:
-	RawRtcm(Stream& in);
+	RawRtcm23(Stream& in);
 	virtual bool NextEpoch();
-	virtual ~RawRtcm(void);
+	virtual ~RawRtcm23(void);
 
 private:
 	bool ProcessTimeTag(Frame& f);
@@ -58,5 +58,5 @@ private:
 	bool GetMeasurementTime(Frame& f);
 };
 
-#endif // RAWRTCM_INCLUDED
+#endif // RAWRtcm23_INCLUDED
 

@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 
-#include "RtcmOut.h"
+#include "Rtcm23Out.h"
 
 // reverse the bits of a 6 bit byte
 static byte Reverse[] = {0x00, 0x20, 0x10, 0x30, 0x08, 0x28, 0x18, 0x38,
@@ -30,14 +30,14 @@ static byte Reverse[] = {0x00, 0x20, 0x10, 0x30, 0x08, 0x28, 0x18, 0x38,
 						 0x03, 0x23, 0x13, 0x33, 0x0b, 0x2b, 0x1b, 0x3b,
 						 0x07, 0x27, 0x17, 0x37, 0x0f, 0x2f, 0x1f, 0x3f};
 
-RtcmOut::RtcmOut(Stream& out)
+Rtcm23Out::Rtcm23Out(Stream& out)
 : Out(out)
 {
 	ErrCode = Out.GetError();
 	PreviousWord = 0;
 }
 
-bool RtcmOut::WriteFrame(Frame &f)
+bool Rtcm23Out::WriteFrame(Frame &f)
 {
 	f.Display("WriteFrame");
 
@@ -48,7 +48,7 @@ bool RtcmOut::WriteFrame(Frame &f)
 	return OK;
 }
 
-bool RtcmOut::WriteWord(uint32 w)
+bool Rtcm23Out::WriteWord(uint32 w)
 {
 		// Add parity to the word
 	    uint32 PreviousD29 = (PreviousWord>>1)&1;
@@ -69,7 +69,7 @@ bool RtcmOut::WriteWord(uint32 w)
 }
 
 
-RtcmOut::~RtcmOut(void)
+Rtcm23Out::~Rtcm23Out(void)
 {
 }
 

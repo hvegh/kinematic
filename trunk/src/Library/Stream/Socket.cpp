@@ -1,12 +1,9 @@
 #include "Socket.h"
 
 #include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h>
-
-
+#include <netdb.h>
 
 
 Socket::Socket()
@@ -15,9 +12,9 @@ Socket::Socket()
 }
 
 
-Socket::Socket(Address& addr)
+Socket::Socket(const char* name, const char* port)
 {
-    ErrCode = Init() || Connect(addr);
+    ErrCode == Init() || Connect(name, port);
 }
 
 
@@ -35,14 +32,32 @@ bool Socket::Init()
     return SetTimeout(10000);
 }
 
-bool Socket::Connect(Address& addr)
+
+bool Socket::Connect(const char* host, const char* port)
+{
+    // We are interested only in internet streams (tcp) for now
+    struct addrinfo hint;
+    hint.ai_family = PF_INET;
+    hint.ai_socktype = SOCK_STREAM;
+
+    // Look up address of the host and port
+    struct addrinfo* info;
+    int err = getaddrinfo(host, port, &hint, &info);
+    if (err != 0)
+        return Error("Unable to connect to %s:%s  - $s\n",
+                         host, port, gai_strerror(err));
+    freeaddrinfo(info);
+ 
+    // Connect to the address
+    return Connect(*info->ai_addr);
+}
+
+
+bool Socket::Connect(struct sockaddr& addr)
 {
     // Connect to the address
-    if (::connect(fd, &addr.InAddr, sizeof(addr.InAddr)) == -1)
-        return SysError("Cannot connect to IP addr %d.%d.%d.%d port %d\n",
-              addr.InAddr.sa_data[2], addr.InAddr.sa_data[3],
-              addr.InAddr.sa_data[4], addr.InAddr.sa_data[5],
-              (addr.InAddr.sa_data[0]<<8) | addr.InAddr.sa_data[1]);
+    if (::connect(fd, &addr, sizeof(addr)) == -1)
+        return SysError("Socket cannot connect\n");
 
     // Set socket options.
     int temp = 1;
@@ -54,6 +69,7 @@ bool Socket::Connect(Address& addr)
 
     return OK;
 }
+
 
 bool Socket::Read(byte* buf, size_t size, size_t& actual)
 {
@@ -105,29 +121,5 @@ bool Socket::SetTimeout(uint32 msec)
 }
 
 
-Socket::Address::Address(uint32 ipaddr, uint32 port)
-{
-    ErrCode = Init(ipaddr, port);
-}
 
 
-
-
-bool Socket::Address::Init(uint32 ipaddr, uint32 port)
-{
-    // Cast it to a ipv4 socket address
-    struct sockaddr_in &ip = *(sockaddr_in*)&InAddr;
-
-    // Actually must be big endian. 
-    InAddr.sa_family = AF_INET;
-    InAddr.sa_data[0] = port>>8;
-    InAddr.sa_data[1] = port;
-    InAddr.sa_data[2] = ipaddr>>24;
-    InAddr.sa_data[3] = ipaddr>>16;
-    InAddr.sa_data[4] = ipaddr>>8;
-    InAddr.sa_data[5] = ipaddr;
-    for (int i=6; i<sizeof(InAddr.sa_data); i++)
-        InAddr.sa_data[i] = 0;
-
-    return OK;
-}

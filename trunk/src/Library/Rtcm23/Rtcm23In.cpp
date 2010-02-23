@@ -19,7 +19,7 @@
 
 
 
-#include "RtcmIn.h"
+#include "Rtcm23In.h"
 #include "util.h"
 
 // reverse the bits of a 6 bit byte
@@ -33,7 +33,7 @@ static byte Reverse[] = {0x00, 0x20, 0x10, 0x30, 0x08, 0x28, 0x18, 0x38,
 						 0x07, 0x27, 0x17, 0x37, 0x0f, 0x2f, 0x1f, 0x3f};
 
 
-RtcmIn::RtcmIn(Stream& s)
+Rtcm23In::Rtcm23In(Stream& s)
 :In(s)
 {
 	RawWord = 0;
@@ -42,7 +42,7 @@ RtcmIn::RtcmIn(Stream& s)
 }
 
 
-bool RtcmIn::ReadFrame(Frame& f, bool& slip)
+bool Rtcm23In::ReadFrame(Frame& f, bool& slip)
 {
 	// Start with an empty frame and expect just the header
 	f.Init();
@@ -82,7 +82,7 @@ bool RtcmIn::ReadFrame(Frame& f, bool& slip)
 
 
 
-bool RtcmIn::ReadWord(uint32& word, bool& slip)
+bool Rtcm23In::ReadWord(uint32& word, bool& slip)
 {
 	// read 5 bytes and shift them into the raw data 
 	for (int i=0; i<5; i++) {
@@ -106,7 +106,7 @@ bool RtcmIn::ReadWord(uint32& word, bool& slip)
 }
 
 
-bool RtcmIn::Synchronize(uint32& word)
+bool Rtcm23In::Synchronize(uint32& word)
 {
 	// Repeat until we are synchronized  (parity match, sync bits)
 	do {
@@ -136,7 +136,7 @@ bool RtcmIn::Synchronize(uint32& word)
 }
 
 
-RtcmIn::~RtcmIn(void)
+Rtcm23In::~Rtcm23In(void)
 {
 }
 

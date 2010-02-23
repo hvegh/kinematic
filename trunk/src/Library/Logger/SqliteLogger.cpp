@@ -20,14 +20,9 @@ bool SqliteLogger::OutputEpoch()
     // Calculate the satellite positions, but outside the transaction
     Position pos[MaxSats];
     double adjust[MaxSats];
-
-    // For each valid satellite
     for (int s=0; s<MaxSats; s++) {
-        if (!gps.obs[s].Valid) continue;
-
-        // Calculate satellite position if known
         adjust[s] = 0;  pos[s] = Position(0);
-        if (gps[s].Valid(gps.GpsTime)) 
+        if (gps.obs[s].Valid && gps[s].Valid(gps.GpsTime)) 
            gps[s].SatPos(gps.GpsTime, pos[s], adjust[s]);
     }
 
@@ -111,7 +106,8 @@ bool SqliteLogger::Initialize()
 
     // Prepare an insert statement
     sql = "insert into observation "
-                "(station_id, time, svid, PR, phase, doppler,snr, slipped) "
+                "(station_id, time, svid, PR, phase, doppler,snr, slipped, "
+                    " sat_x, sat_y, sat_z, sat_t) "
                 "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     if (sqlite3_prepare_v2(db, sql, -1, &insert, 0) != SQLITE_OK)
         return Error("Unable to precompile insert stmt: %s\n", sqlite3_errmsg(db));

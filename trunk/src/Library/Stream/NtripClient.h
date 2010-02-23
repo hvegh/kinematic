@@ -8,7 +8,8 @@ class NtripClient: public Socket
 {
 public:
 
-    NtripClient(Socket::Address addr, char *mount, char *user, char *password);
+    NtripClient(const char* host, const char* port, const char *mount, 
+                const char *user, const char *password);
     ~NtripClient();
 
 protected:

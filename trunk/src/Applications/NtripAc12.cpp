@@ -23,17 +23,17 @@
 
 bool Configure(int argc, const char** argv);
 void DisplayHelp();
-bool GpsSession(const char *PortName, const char *CasterName, int Port, const char* Mount);
+bool GpsSession();
 void Display(RawReceiver& gps);
 
 // Globals which are set up by "configure"
 const char *User;
 const char *Password;
 const char *CasterName;
-int Port;
+const char *Port;
 const char *Mount;
 const char *SerialName;
-Rtcm3Station::Attributes Station;
+Rtcm3Station::Attributes attr;
 extern int DebugLevel;
 
 
@@ -54,7 +54,7 @@ int main(int argc, const char** argv)
 
         // Start a GPS session
         printf("Starting Session\n");
-        GpsSession(SerialName, CasterName, Port, Mount);
+        GpsSession();
 
         ShowErrors();
         ClearError();
@@ -70,7 +70,7 @@ int main(int argc, const char** argv)
 
 
 
-bool GpsSession(const char *SerialName, const char *Castername, int Port, const char *Mount)
+bool GpsSession()
 {
     // Initialize the gps receiver
     Rs232   in(SerialName);
@@ -80,9 +80,8 @@ bool GpsSession(const char *SerialName, const char *Castername, int Port, const 
 
     // Create the RTCM output file
     //OutputFile out(RtcmName);
-    Socket::Address  addr( (127<<24)|1, Port);
-    NtripServer out(addr, "mnt", "", "password");
-    Rtcm3Station rtcm(out, gps, Station);
+    NtripServer out(CasterName, Port, Mount, User, Password);
+    Rtcm3Station rtcm(out, gps, attr);
     if (rtcm.GetError() != OK) 
         return Error();
 
@@ -94,7 +93,8 @@ bool GpsSession(const char *SerialName, const char *Castername, int Port, const 
         Display(gps);
 
         // Write it out as RTCM
-        if (rtcm.OutputEpoch() != OK) return Error("Can't send RTCM to caster\n");
+        if (rtcm.OutputEpoch() != OK) 
+           return Error("Can't send RTCM to caster\n");
     }
 
     // Done
@@ -125,32 +125,34 @@ bool Configure(int argc, const char** argv)
 	// Set the defaults
         User="";
         Password="";
-	Station.ARP = Position(0,0,0);
-	SerialName = NULL;
-        Port = 0;
-        Mount = NULL;
-        CasterName = NULL;
+	attr.ARP = Position(0,0,0);
+        attr.Id = 0;
+	SerialName = 0;
+        Port = "2101";
+        Mount = 0;
+        CasterName = "localhost";
 
 	// Process each option
 	int i;
 	const char* val;
 	for (i=1; i<argc; i++) {
-		if      (Match(argv[i], "caster=", CasterName))      ;
-                else if (Match(argv[i], "port=", val)) Port=atoi(val);
-                else if (Match(argv[i], "mount=", Mount)) ;
-                else if (Match(argv[i], "serial=", SerialName))      ;
-		else if (Match(argv[i], "x=", val))  Station.ARP.x = atof(val);
-		else if (Match(argv[i], "y=", val))  Station.ARP.y = atof(val);
-		else if (Match(argv[i], "z=", val))  Station.ARP.z = atof(val);
-		else if (Match(argv[i], "debug=", val)) DebugLevel = atoi(val);
-                else if (Match(argv[i], "user=", User))  ;
-                else if (Match(argv[i], "password=", Password))  ;
+		if      (Match(argv[i], "-caster=", CasterName))      ;
+                else if (Match(argv[i], "-port=", Port)) ;
+                else if (Match(argv[i], "-mount=", Mount)) ;
+                else if (Match(argv[i], "-serial=", SerialName))      ;
+		else if (Match(argv[i], "-x=", val))  attr.ARP.x = atof(val);
+		else if (Match(argv[i], "-y=", val))  attr.ARP.y = atof(val);
+		else if (Match(argv[i], "-z=", val))  attr.ARP.z = atof(val);
+		else if (Match(argv[i], "-debug=", val)) DebugLevel = atoi(val);
+                else if (Match(argv[i], "-user=", User))  ;
+                else if (Match(argv[i], "-password=", Password))  ;
+                else if (Match(argv[i], "-stationid=", val)) attr.Id=atoi(val);
 		else    return Error("Didn't recognize option %s\n", argv[i]);
 	}
 	
 
-        if (SerialName == NULL  || Mount == NULL || Port == 0)
-            return Error("Must specify SerialDevice, TcpPortNumber and mount\n");
+        if (SerialName == 0 || Mount == 0)
+            return Error("Must specify at least -serial=xx and -mount=yy\n");
 
 	return OK;
 }
@@ -159,14 +161,17 @@ bool Configure(int argc, const char** argv)
 void DisplayHelp()
 {
 	printf("\n");
-	printf("NtripAc12 caster=CasterName port=PortNr mount=MountPoint serial=SerialPort x=xxx y=yyyy z=zzz\n");
+	printf("NtripAc12 <config options>\n");
 	printf("   Acquires rtcm data from an AC12 GPS receiver.\n");
 	printf("\n");
-	printf("   SerialDevice  - the name of the Rs-232 device to talk to the receiver\n");
+	printf("   -serial=SerialDevice  - name of device to access GPS\n");
 	printf("               eg. /dev/ttyUSB0\n");
-        printf("   TcpPortNr - the tcp port number of the NTRIP caster we want to talk to\n");
-        printf("   CasterName - the name or ip address of the NTRIP caster\n");
-        printf("   x, y, z  are ECEF station coordinates\n");
+        printf("   -id=StationID - RTCM station id of GPS\n");
+        printf("   -x=xxx, -y=-yyy, -z=zzz  ECEF antenna coordinates\n");
+        printf("   -caster=CasterName - name or ip address of NTRIP caster\n");
+        printf("   -port=TcpPortNr - tcp port number of NTRIP caster (2101)\n");
+        printf("   -mnt=MountPoint - NTRIP mount point\n");
+        printf("   -debug=n  Debug level, 0=none ... 9=lots\n");
 	printf("\n");
 
 

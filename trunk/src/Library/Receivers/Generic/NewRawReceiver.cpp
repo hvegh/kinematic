@@ -21,7 +21,8 @@
 #include "RawSirf.h"
 #include "RawAntaris.h"
 #include "RawAllstar.h"
-#include "RawRtcm.h"
+#include "RawRtcm23.h"
+#include "RawRtcm3.h"
 #include "RawRinex.h"
 #include "RawFuruno.h"
 #include "RawSSF.h"
@@ -52,7 +53,9 @@ RawReceiver* NewRawReceiver(const char* model, const char* port, const char* raw
 	else if (Same(model, "FURUNO"))    gps = new RawFuruno(*s);
 	else if (Same(model, "ALLSTAR"))   gps = new RawAllstar(*s);
       else if (Same(model, "SSF"))       gps = new RawSSF(*s);
-	else if (Same(model, "RTCM"))      gps = new RawRtcm(*s);
+	else if (Same(model, "RTCM23"))      gps = new RawRtcm23(*s);
+	else if (Same(model, "RTCM3"))      gps = new RawRtcm3(*s);
+	else if (Same(model, "RTCM31"))      gps = new RawRtcm3(*s);
 	else if (Same(model, "RINEX"))     gps = new RawRinex(*s);
 	else if (Same(model, "XENIR"))    gps = new RawReverseRinex(*s);
 	//else if (Same(model, "GPS18"))   gps = new RawGarmin(*s);

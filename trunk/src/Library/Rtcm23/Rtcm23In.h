@@ -16,12 +16,12 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
-#ifndef RTCMIN_INCLUDED
-#define RTCMIN_INCLUDED
+#ifndef Rtcm23IN_INCLUDED
+#define Rtcm23IN_INCLUDED
 #include "Stream.h"
 #include "Frame.h"
 
-class RtcmIn  // Later, make this CommRtcm
+class Rtcm23In  // Later, make this CommRtcm23
 {
 protected:
 	Stream& In;
@@ -30,14 +30,14 @@ protected:
 	bool ErrCode;
 
 public:
-	RtcmIn(Stream& in);
+	Rtcm23In(Stream& in);
 	bool ReadFrame(Frame& f, bool& slip);
 	bool GetError() {return ErrCode;}
-	virtual ~RtcmIn(void);
+	virtual ~Rtcm23In(void);
 private:
 	bool ReadWord(uint32& word, bool& slip);
 	bool Synchronize(uint32& word);
 };
 
-#endif // RTCMIN_INCLUDED
+#endif // Rtcm23IN_INCLUDED
 

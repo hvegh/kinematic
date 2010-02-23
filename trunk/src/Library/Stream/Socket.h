@@ -3,30 +3,20 @@
 
 #include "Util.h"
 #include "Stream.h"
+#include <sys/types.h>
 #include <sys/socket.h>
 
 
 
 class Socket: public Stream {
 public:
-    class Address {
-    public:
-        Address(uint32 ipaddr, uint32 port);
-        Address(char* hostname, uint32 port);
-       
-        bool GetError() {return ErrCode;}
-        sockaddr InAddr;
-    protected:
-        bool ErrCode;
-        bool Init(uint32 ipaddr, uint32 port);
-    };
-
     Socket();
-    Socket(Address& addr);
+    Socket(const char* host, const char* port);
     virtual ~Socket();
     
     bool SetTimeout(uint32 msec);
-    virtual bool Connect(Address& addr);
+    virtual bool Connect(const char* host, const char* port);
+    virtual bool Connect(struct sockaddr& addr);
     virtual bool Close();
 
     bool Read(byte*, size_t size, size_t& actual);

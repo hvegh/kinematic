@@ -25,8 +25,7 @@ int main(int argc, const char** argv)
 {
 
     debug("Starting NtripServer\n");
-    NtripServer::Address addr((127<<24)+1, 9999);
-    NtripServer com(addr, "mnt", "", "password");
+    NtripServer com("localhost", "2101", "mnt", "", "password");
     if (com.GetError() != OK) return ShowErrors();
 
 

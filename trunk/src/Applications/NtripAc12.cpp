@@ -137,7 +137,7 @@ bool Configure(int argc, const char** argv)
 	int i;
 	const char* val;
 	for (i=1; i<argc; i++) {
-                debug("Configure: argv[%d]=%s\n", i. argv[i]);
+                debug("Configure: argv[%d]=%s\n", i, argv[i]);
 		if      (Match(argv[i], "-caster=", CasterName))      ;
                 else if (Match(argv[i], "-port=", Port)) ;
                 else if (Match(argv[i], "-mount=", Mount)) ;

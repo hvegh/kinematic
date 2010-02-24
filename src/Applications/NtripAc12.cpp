@@ -39,7 +39,6 @@ extern int DebugLevel;
 
 int main(int argc, const char** argv)
 {
-
     // Display output immediately
     setlinebuf(stdout);
 
@@ -72,6 +71,7 @@ int main(int argc, const char** argv)
 
 bool GpsSession()
 {
+    debug("GpsSession: starting\n");
     // Initialize the gps receiver
     Rs232   in(SerialName);
     RawAC12 gps(in);
@@ -122,6 +122,7 @@ void Display(RawReceiver& gps)
 
 bool Configure(int argc, const char** argv)
 {
+        debug("Configure: starting out\n");
 	// Set the defaults
         User="";
         Password="";
@@ -136,6 +137,7 @@ bool Configure(int argc, const char** argv)
 	int i;
 	const char* val;
 	for (i=1; i<argc; i++) {
+                debug("Configure: argv[%d]=%s\n", i. argv[i]);
 		if      (Match(argv[i], "-caster=", CasterName))      ;
                 else if (Match(argv[i], "-port=", Port)) ;
                 else if (Match(argv[i], "-mount=", Mount)) ;
@@ -160,6 +162,7 @@ bool Configure(int argc, const char** argv)
 
 void DisplayHelp()
 {
+        debug("DisplayHelp:\n");
 	printf("\n");
 	printf("NtripAc12 <config options>\n");
 	printf("   Acquires rtcm data from an AC12 GPS receiver.\n");

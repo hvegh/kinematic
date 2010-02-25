@@ -52,6 +52,8 @@ RawAC12::RawAC12(Stream& s)
 	ErrCode = Command("$PASHS,NME,MCA,A,ON,1");  if (ErrCode != OK) return;
         ErrCode = Command("$PASHS,NME,RRE,A,ON,1");  if (ErrCode != OK) return;
         ErrCode = Command("$PASHS,NME,SNV,A,ON,1");  if (ErrCode != OK) return;
+
+    debug("RawAc12::RawAc12 - Success!\n");
 }
 
 

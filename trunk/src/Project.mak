@@ -11,12 +11,12 @@ GCC:=$(CROSSBIN)gcc
 CC:=$(GCC)
 CXX:=$(CROSSBIN)g++
 
-CPPOPT:= -Os -pthread
-LDOPT:= -s
+CPPOPT:= -Os 
+LDOPT:= -s 
 
 CPPFLAGS:= -I $(CROSS)/usr/include -I $(CROSS)/include $(CPPOPT)
 CFLAGS:=$(CPPFLAGS) -DSQLITE_OMIT_LOAD_EXTENSION
-LDFLAGS:= -static -L $(CROSS)/usr/lib -L $(CROSS)/lib $(LDOPT) 
+LDFLAGS:= -L $(CROSS)/usr/lib -L $(CROSS)/lib -lpthread
 
 .SUFFIXES : .cpp .c .o .lib .exe .h .dll .a
 

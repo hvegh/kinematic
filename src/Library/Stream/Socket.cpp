@@ -25,6 +25,7 @@ bool Socket::Init()
 //   common code for the various constructors.
 ///////////////////////////////////////////////////////////////////
 {
+    debug("Socket::Init() - creating a new socket\n");
     fd = ::socket(PF_INET, SOCK_STREAM, 0);
     if (fd == -1) return SysError("Can't create a new tcp socket\n");
 
@@ -35,16 +36,19 @@ bool Socket::Init()
 
 bool Socket::Connect(const char* host, const char* port)
 {
+    debug("Socket::Connect(%s, %s)\n", host, port);
     // We are interested only in internet streams (tcp) for now
     struct addrinfo hint;
     hint.ai_family = PF_INET;
     hint.ai_socktype = SOCK_STREAM;
+    hint.ai_flags = 0;
+    hint.ai_protocol = 0;
 
     // Look up address of the host and port
     struct addrinfo* info;
     int err = getaddrinfo(host, port, &hint, &info);
     if (err != 0)
-        return Error("Unable to connect to %s:%s  - $s\n",
+        return Error("Unable to connect to %s:%s  - %s\n",
                          host, port, gai_strerror(err));
     freeaddrinfo(info);
  
@@ -66,7 +70,8 @@ bool Socket::Connect(struct sockaddr& addr)
     static const struct linger l = {1, 5};
     if (setsockopt(fd, SOL_SOCKET, SO_LINGER, &l, sizeof(l)) == -1)
         return SysError("Can't set socket linger option\n");
-
+ 
+    debug("Socket::Connect - successfully connected\n");
     return OK;
 }
 

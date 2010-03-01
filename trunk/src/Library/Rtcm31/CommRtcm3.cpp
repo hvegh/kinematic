@@ -31,6 +31,8 @@ CommRtcm3::CommRtcm3(Stream& com)
 
 bool CommRtcm3::PutBlock(Block& blk)
 {
+    blk.Display("Writing RTCM 3.1 Block");
+
     byte LenHi = (blk.Length>>8) & 0x3;
     byte LenLo = blk.Length;
 
@@ -85,7 +87,7 @@ restart:
 
     // Get the message id
     b.Id = (b.Data[0]<<4) | (b.Data[1]>>4);
-    b.Display("Read Antaris Block");
+    b.Display("Read Rtcm 3.1 Block");
 
     // done
     return OK;

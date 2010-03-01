@@ -6,15 +6,17 @@ NtripServer::NtripServer(const char* host, const char* port, const char *mount,
                          const char *user, const char *passwd)
 : Socket(host, port)
 {
-    debug("NtripServer::NtripServer(%s, %s, %s, %s, %s, %s) ErrCode=%d\n",
+    debug("NtripServer::NtripServer(%s, %s, %s, %s, %s) ErrCode=%d\n",
                 host, port, mount, user, passwd, ErrCode);
     if (ErrCode != OK) return;
 
-    if (Printf("SOURCE %s/%s\r\n", passwd, mount) != OK
-        || Printf("Source-Agent NTRIP 1.0 Precision-gps.org\r\n") != OK
-        || Printf("\r\n") != OK
-        || ParseHeader() != OK)
-         ErrCode = Error("NtripServer protocol error starting up\n");
+    ErrCode = Printf("SOURCE %s/%s\r\n", passwd, mount) 
+        || Printf("Source-Agent NTRIP 1.0 Precision-gps.org\r\n") 
+        || Printf("\r\n") 
+        || ParseHeader();
+
+    if (ErrCode != OK)
+         Error("NtripServer protocol error starting up\n");
 }
 
 

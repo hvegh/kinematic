@@ -29,7 +29,7 @@ RawRtcm3::RawRtcm3(Stream& in)
     for (int s=0; s<MaxSats; s++) {
         PreviousPhase[s] = 0;
         PhaseAdjust[s] = 0;
-        eph[s] = new EphemerisXmit(s, "RTCM");
+        eph[s] = new EphemerisXmit(s, "RTCM 3.1");
     }
 }
 

@@ -82,7 +82,7 @@ bool GpsSession()
     //OutputFile out(RtcmName);
     NtripServer out(CasterName, Port, Mount, User, Password);
     if (out.GetError() != OK)
-        return Error("Can't initialize the NTRIP stream");
+        return Error("Can't initialize the NTRIP stream\n");
     Rtcm3Station rtcm(out, gps, attr);
     if (rtcm.GetError() != OK) 
         return Error();

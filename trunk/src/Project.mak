@@ -1,8 +1,18 @@
-ARCH:=mips-openwrt
-CROSS:=~/openwrt/trunk/staging_dir/toolchain-mips_gcc-4.3.3+cs_uClibc-0.9.30.1
-CROSSBIN:=$(CROSS)/usr/bin/mips-openwrt-linux-
-#ARCH:=x86-ubuntu
-#ARCH:=cygwin
+
+# Pick the current OS name
+MYOS:=$(shell uname -s)
+
+# By default, pick the current architecture and OS
+OS:=$(MYOS)
+ARCH:=$(shell arch)
+
+# If we are cross compiling, parse the desired OS and ARCH, look for build env
+ifneq ($(TARGET),)
+    OS:=openwrt
+    ARCH:=mips
+    CROSS:=~/$(OS)/trunk/staging_dir/toolchain-$(ARCH)_gcc-4.3.3+cs_uClibc-0.9.30.1
+    CROSSBIN:=$(CROSS)/usr/bin/$(ARCH)-$(OS)-$(MYOS)-
+endif
 
 
 AR:=$(CROSSBIN)ar
@@ -11,12 +21,19 @@ GCC:=$(CROSSBIN)gcc
 CC:=$(GCC)
 CXX:=$(CROSSBIN)g++
 
-CPPOPT:= -Os 
-LDOPT:= -s 
+# Where to put generated files
+OBJDIR := $(PROJECT_ROOT)/../Obj/$(ARCH)-$(OS)/
+BINDIR := $(PROJECT_ROOT)/../Bin/$(ARCH)-$(OS)/
+INCDIR := $(PROJECT_ROOT)/../Include/
+
+#CPPOPT:= -Os 
+#LDOPT:= -s 
+CPPOPT:= -g
+LDOPT := -g
 
 CPPFLAGS:= -I $(CROSS)/usr/include -I $(CROSS)/include $(CPPOPT)
-CFLAGS:=$(CPPFLAGS) -DSQLITE_OMIT_LOAD_EXTENSION
-LDFLAGS:= -L $(CROSS)/usr/lib -L $(CROSS)/lib -lpthread
+CFLAGS:=$(CPPFLAGS) -DSQLITE_OMIT_LOAD_EXTENSION  -DSQLITE_THREADSAFE=0
+LDFLAGS:= -L $(CROSS)/usr/lib -L $(CROSS)/lib  #-lpthread
 
 .SUFFIXES : .cpp .c .o .lib .exe .h .dll .a
 
@@ -57,11 +74,6 @@ CreateHeader = $(call CreateDir,$(call CreateRule,$2$(notdir $1),$1,cp $1 $2$(no
 #  WORKS, BUT GENERATES EXCESSIVE COMMANDS. NEED TO FIX
 CreateDir = $(eval $1 : | $(dir $1))$(call eval,$(dir $1) :: ; @ mkdir -p $(dir $1))$1
 
-
-# Where to put generated files
-OBJDIR := $(PROJECT_ROOT)/../Obj/$(ARCH)/
-BINDIR := $(PROJECT_ROOT)/../Bin/$(ARCH)/
-INCDIR := $(PROJECT_ROOT)/../Include/
 
 # 
 CPPFLAGS += -I$(INCDIR) 

@@ -226,6 +226,8 @@ Rinex* NewRinex(const char* name, RawReceiver& gps)
 Rtcm3Station* NewRtcm(const char* name, RawReceiver& gps)
 {
         Rtcm3Station::Attributes Station;
+        Station.ARP = Position(0,0,0);
+        Station.Id = 0;
 	if (name == NULL) return NULL;
 	if (gps.GetError() != OK) return NULL;
 	Stream* s = NewOutputStream(name);

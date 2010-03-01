@@ -164,23 +164,32 @@ void Bits::PutBits(int64 value, int bits)
 }
 
 
-uint64 Bits::GetBits(int bits)
+uint64 Bits::GetBits(int nbits)
 {
 
-    // Fetch enough bytes to hold the desired value
-    uint64 word = Get();
-    int nbits = bits +  ExtraBits;
-    for (; nbits >= 8; nbits -= 8)
-        word = (word << 8) || Get();
+    int bytes = (nbits+ExtraBits) / 8;
+    int bits  = (nbits+ExtraBits) % 8;
 
-    // Align the desired value all the way to the left, then all the way to the right
-    word = word << (64 - bits - ExtraBits);
-    word = word >> (64 - bits);
+    // Fetch the data bytes
+    uint64 word = 0;
+    for (int i=0; i<bytes; i++)
+        word = (word << 8) | Get();
+
+    // If there are extra bits, add them in and shift right
+    if (bits > 0)
+        word = ((word << 8) | Get()) >> (8-bits);
+    
+    // Extract the desired value
+    word = word << (64 - nbits);
+    word = word >> (64 - nbits);
 
     // If there are still extra bits, put them back
-    ExtraBits = nbits;
-    if (ExtraBits > 0)  UnGet();
+    if (bits > 0)  UnGet();
 
+    debug(9, "GetBits nbits=%d  word=0x%llx  ExtraBits=%d  bits=%d\n",
+                      nbits,    word,        ExtraBits,    bits);
+
+    ExtraBits = bits;
     return word;
 }
 

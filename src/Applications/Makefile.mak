@@ -1,8 +1,8 @@
-APPS := Process Acquire NtripAc12
+APPS:= NtripLogger NtripAc12  Process Acquire
 
 all: $(addprefix $(BINDIR), $(APPS))
 
-$(BINDIR)% : %.cpp $(BINDIR)kinematic.a
+$(BINDIR)% : %.cpp  $(BINDIR)Kinematic.a
 	$(CXX) $^ $(CPPFLAGS) $(LDFLAGS) $(CPPOOPT) $(LDOPT) -o $@
 
 $(BINDIR)kinematic.a :

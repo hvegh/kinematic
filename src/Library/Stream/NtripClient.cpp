@@ -7,22 +7,19 @@ NtripClient::NtripClient(const char* host, const char* port, const char *mount,
 : Socket(host, port)
 {
     debug("NtripClient: user=%s passwd=%s  mount=%s\n", user, passwd, mount);
-    if (ErrCode != OK) return;
-    ErrCode = Error();
 
-    if (Printf("GET /%s HTTP/1.0\r\n", mount) != OK) return;
-    if (Printf("User-Agent NTRIP 1.0 Precision-gps.org\r\n") != OK) return;
+    ErrCode = ErrCode
+       || Printf("GET /%s HTTP/1.0\r\n", mount) 
+       || Printf("User-Agent NTRIP 1.0 Precision-gps.org\r\n");
 
     if (!IsEmpty(user) || !IsEmpty(passwd)) {
         char buf[256];
         Encode(buf, user, passwd);
-        if (printf("Authorization: Basic %s\r\n", buf) != OK) return;
+        ErrCode = ErrCode || Printf("Authorization: Basic %s\r\n", buf);
     }
-    if (Printf("\r\n") != OK) return;
-
-    if (ParseHeader() != OK) return;
-
-    ErrCode = OK;
+    ErrCode = ErrCode 
+            || Printf("\r\n")
+            || ParseHeader();
 }
 
 

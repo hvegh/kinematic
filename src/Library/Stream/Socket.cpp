@@ -14,7 +14,7 @@ Socket::Socket()
 
 Socket::Socket(const char* name, const char* port)
 {
-    ErrCode == Init() || Connect(name, port);
+    ErrCode = Init() || Connect(name, port);
 }
 
 

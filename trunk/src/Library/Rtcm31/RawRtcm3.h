@@ -31,6 +31,9 @@ protected:
         int32 PhaseAdjust[MaxSats];
         int32 OldPhase[MaxSats];
 
+        // Guess we are using current time until we get ephemeris
+        bool GuessTime;
+
 public:
 	RawRtcm3(Stream& in);
 	virtual bool NextEpoch();
@@ -40,7 +43,7 @@ private:
 	bool ProcessStationRef(Block& b);
 	bool ProcessAntennaRef(Block& b);
 	bool ProcessObservations(Block& b);
-     bool ProcessEphemeris(Block& b);
+        bool ProcessEphemeris(Block& b);
 
         double PreviousPhaseRange[MaxSats];
         int PreviousLockTime[MaxSats];

@@ -39,7 +39,7 @@ RawAC12::RawAC12(Stream& s)
 	if (comm.ReadOnly()) return;
 
 	// Turn off NMEA messages
-        ErrCode = Command("$PASHS,NME,ALL,A,OFF"); if (ErrCode != OK) return;
+     ErrCode = Command("$PASHS,NME,ALL,A,OFF"); if (ErrCode != OK) return;
 
 	// Disable WAAS so we can get 12 channels of raw measurements
 	ErrCode = Command("$PASHS,WAS,OFF");  if (ErrCode != OK) return;
@@ -50,8 +50,8 @@ RawAC12::RawAC12(Stream& s)
 	// Enable the Position, raw measurements, ephemeris and error
 	ErrCode = Command("$PASHS,NME,PBN,A,ON,1");  if (ErrCode != OK) return;
 	ErrCode = Command("$PASHS,NME,MCA,A,ON,1");  if (ErrCode != OK) return;
-        ErrCode = Command("$PASHS,NME,RRE,A,ON,1");  if (ErrCode != OK) return;
-        ErrCode = Command("$PASHS,NME,SNV,A,ON,1");  if (ErrCode != OK) return;
+      ErrCode = Command("$PASHS,NME,RRE,A,ON,1");  if (ErrCode != OK) return;
+      ErrCode = Command("$PASHS,NME,SNV,A,ON,1");  if (ErrCode != OK) return;
 
     debug("RawAc12::RawAc12 - Success!\n");
 }
@@ -81,10 +81,10 @@ bool RawAC12::NextEpoch()
 		if      (b.Id == 'PBN')   ProcessPosition(b);
 		else if (b.Id == 'MCA')   ProcessMeasurement(b);
 		else if (b.Id == 'SNV')   ProcessEphemeris(b);
-                else if (b.Id == 'RRE')   ProcessResiduals(b);
+           else if (b.Id == 'RRE')   ProcessResiduals(b);
 		else                      b.Display("AC12: Unknown block");
 
-	} until (b.Id == 'PBN');  // while (MeasurementTag != PositionTag);
+	} until (b.Id == 'PBN' && GpsTime != -1);  // while (MeasurementTag != PositionTag);
 
 	debug("AC12 NextEpoch: GpsTime=%.1f\n", S(GpsTime));
 

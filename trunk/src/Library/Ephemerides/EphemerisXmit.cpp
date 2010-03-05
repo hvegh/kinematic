@@ -125,7 +125,7 @@ bool EphemerisXmit::FromRaw(EphemerisXmitRaw& r)
     omega_0 = r.omega_0 / p2(31) * PI;
     i_0 = r.i_0 / p2(31) * PI;
     omega = r.omega / p2(31) * PI;
-    omegadot = r.omegadot / p2(32) * PI;
+    omegadot = r.omegadot / p2(23) * PI;
     idot = r.idot / p2(43);
     c_uc = r.c_uc / p2(29);
     c_us = r.c_us / p2(29);
@@ -150,6 +150,7 @@ bool EphemerisXmit::FromRaw(EphemerisXmitRaw& r)
     MinTime = t_oe - 2*NsecPerHour;
     MaxTime = t_oe + 2*NsecPerHour;
 
+    debug("  r.omegadot=%d\n", r.omegadot);
     Display("From Raw");
     return OK;
 }
@@ -165,7 +166,7 @@ bool EphemerisXmit::ToRaw(EphemerisXmitRaw& r)
     r.omega_0 = omega_0 * p2(31) / PI;
     r.i_0 = i_0 * p2(31) / PI;
     r.omega = omega * p2(31) / PI;
-    r.omegadot = omegadot * p2(32) / PI;
+    r.omegadot = omegadot * p2(23) / PI;
     r.idot = idot * p2(43);
     r.c_uc = c_uc * p2(29);
     r.c_us = c_us * p2(29);
@@ -188,7 +189,8 @@ bool EphemerisXmit::ToRaw(EphemerisXmitRaw& r)
     r.acc = AccToSvacc(acc);
     r.iode = iode;
 
-    Display("From Raw");
+    debug("  r.omegadot=%d\n", r.omegadot);
+    Display("To Raw");
     return OK;
 }
     

@@ -23,7 +23,8 @@
 //
 //////////////////////////////////////////////////////////////////////
 #include "util.h"
-#include "math.h"
+#include <math.h>
+#include <sys/time.h>
 
 
 Time ConvertGarminTime(int32 GarminDays, double TOW)
@@ -155,7 +156,7 @@ void TimeToDate(Time time, int32& year, int32& month, int32& day)
 
 
 
-char *MonthName[] = {"", "Jan","Feb","Mar","Apr", "May","Jun","Jul","Aug", 
+const char *MonthName[] = {"", "Jan","Feb","Mar","Apr", "May","Jun","Jul","Aug", 
 "Sep", "Oct", "Dec"};
 
 
@@ -217,3 +218,17 @@ Time DoyToTime(int32 year, int32 doy)
 	return (leapyears*(4*365+1) + years*365 + doy - 1) * NsecPerDay;
 }
 
+
+
+Time GetCurrentTime()
+{
+    // Get time since Jan 1, 1970
+    struct timeval tv;
+    if (gettimeofday(&tv, 0) == -1)  return 0;
+
+    // time is since Jan 1, 170. Convert to time since Jan 1, 1981
+    tv.tv_sec -= (11*365+3)*24*60*60;
+
+    // Convert to nanoseconds
+    return tv.tv_sec * NsecPerSec + tv.tv_usec * 1000ll;
+}

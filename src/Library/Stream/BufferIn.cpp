@@ -38,7 +38,7 @@ void BufferIn::Child(void *param)
         byte buf[512];
         size_t actual;
         if (in.Read(buf, sizeof(buf), actual) != OK)
-            return Error("Child failed to read\n); // And notify parent
+            return Error("Child failed to read\n"); // And notify parent
 
         for (size_t i=0; i<actual; i++)
             circ.Push(buf[i]);

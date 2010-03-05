@@ -88,8 +88,9 @@ inline Time NearestSecond(Time t)  // defunct
 }
 
 
+Time GetCurrentTime();
 
-extern char *MonthName[];
+extern const char *MonthName[];
 
 #endif // !defined(AFX_TIME_H__A50736A9_6AED_45EB_99CC_80CEC4D6AE91__INCLUDED_)
 

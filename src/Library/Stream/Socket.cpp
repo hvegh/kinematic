@@ -34,19 +34,20 @@ bool Socket::Init()
 }
 
 
+// Note: Cygwin's getaddrinfo doesn't like hints, and linux needs it
+#ifdef __CYGWIN__
+static struct addrinfo* hint = NULL;
+#else
+static struct addrinfo hint[1] = {{AI_ADDRCONFIG, AF_INET, SOCK_STREAM}};
+#endif
+
 bool Socket::Connect(const char* host, const char* port)
 {
     debug("Socket::Connect(%s, %s)\n", host, port);
-    // We are interested only in internet streams (tcp) for now
-    struct addrinfo hint;
-    hint.ai_family = PF_INET;
-    hint.ai_socktype = SOCK_STREAM;
-    hint.ai_flags = 0;
-    hint.ai_protocol = 0;
 
     // Look up address of the host and port
     struct addrinfo* info;
-    int err = getaddrinfo(host, port, &hint, &info);
+    int err = getaddrinfo(host, port, hint, &info);
     if (err != 0)
         return Error("Unable to connect to %s:%s  - %s\n",
                          host, port, gai_strerror(err));

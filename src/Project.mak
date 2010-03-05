@@ -1,6 +1,6 @@
 
 # Pick the current OS name
-MYOS:=$(shell uname -s)
+MYOS:=$(shell uname -s | tr A-Z a-z)
 
 # By default, pick the current architecture and OS
 OS:=$(MYOS)

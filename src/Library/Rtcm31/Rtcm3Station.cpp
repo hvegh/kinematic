@@ -63,14 +63,10 @@ bool Rtcm3Station::OutputEpoch()
     // if the time is right, output the various records
     if (StationRefTime <= Gps.GpsTime)
         if (OutputStationRef(StationRefTime) != OK) return Error();
-    
     if (AntennaRefTime <= Gps.GpsTime)
         if (OutputAntennaRef(AntennaRefTime) != OK) return Error();
     if (AuxiliaryTime <= Gps.GpsTime) 
         if (OutputAuxiliary(AuxiliaryTime) != OK) return Error();
-
-    // Send the measurements for this epoch
-    if (OutputObservations() != OK) return Error();
 
     // Send the epemerides if appropriate
     for (int s=0; s<MaxSats; s++) {
@@ -79,6 +75,12 @@ bool Rtcm3Station::OutputEpoch()
                && Gps[s].Valid(Gps.GpsTime))
            if (OutputEphemeris(s, EphemerisTime[s]) != OK) return Error();
     }
+
+    // Send the measurements for this epoch
+    //   Note we send the observations last. The earlier records may be
+    //   needed to process the observations. (Ephemeride, antenna position ...)
+    if (OutputObservations() != OK) return Error();
+    
 
     return OK;
 }
@@ -99,11 +101,11 @@ bool Rtcm3Station::OutputObservations()
             nrsats++;
 
     // Create the RTCM Observation header
-    Block blk;
+    Block blk(1002);
     Bits b(blk);
     b.PutBits(1002, 12);         // Message Number 1002
     b.PutBits(Station.Id, 12);   // Station Id
-    b.PutBits(GpsTow(Gps.GpsTime), 20); // TOW TODO: Round? 20bits?
+    b.PutBits(round(GpsTow(Gps.GpsTime)*1000), 30); 
     b.PutBits(0, 1);             // Synchronous GNSS flag
     b.PutBits(nrsats, 5);        // No. of GPS Satellites Processed
     b.PutBits(0, 1);             // Smoothing (none)
@@ -169,7 +171,7 @@ bool Rtcm3Station::OutputObservations()
 
 bool Rtcm3Station::OutputStationRef(Time& time)
 {
-    Block  blk;
+    Block  blk(1005);
     Bits   b(blk);
 
     // Assemble the Station Reference record
@@ -178,11 +180,11 @@ bool Rtcm3Station::OutputStationRef(Time& time)
     b.PutBits(0,6);
     b.PutBits(1,1);   // GPS measurements
     b.PutBits(0, 3);
-    b.PutBits(Station.ARP.x/.0005, 38);
+    b.PutBits(round(Station.ARP.x/.0005), 38);
     b.PutBits(0,2);
-    b.PutBits(Station.ARP.y/.0005, 38);
+    b.PutBits(round(Station.ARP.y/.0005), 38);
     b.PutBits(0,2);
-    b.PutBits(Station.ARP.z/.0005, 38);
+    b.PutBits(round(Station.ARP.z/.0005), 38);
 
     // Reschedule in a minute
     time = Gps.GpsTime + 60*NsecPerSec;
@@ -209,27 +211,29 @@ bool Rtcm3Station::OutputAuxiliary(Time& time)
 
 bool Rtcm3Station::OutputEphemeris(int s, Time& NextTime)
 {
+    debug("OutputEphemeris: s=%d\n", s);
+
 
     // if not a broadcast ephemeris, don't schedule again
     EphemerisXmit& e = *dynamic_cast<EphemerisXmit*>(&Gps[s]);
     if (&e == NULL) {
         NextTime = MaxTime;
-        return OK;
+        return Error("Rtcm31: No xmit ephemeris\n");
     }
 	
+
     // Schedule every two minutes, spread out on odd seconds
     NextTime = Gps.GpsTime - Gps.GpsTime%(2*NsecPerMinute) + 2*NsecPerMinute
      	  + s*2*NsecPerSec + NsecPerSec;
-
-    // If not currently valid, then skip it
-    if (!e.Valid(Gps.GpsTime) || !Gps.obs[s].Valid) return OK;
 	
     // Convert broadcast ephemeris to "raw" form
     EphemerisXmitRaw r;
     e.ToRaw(r);
+    debug("Rtcm3Station::OutputEphemeris svid=%d wn=%d t_oe=%d iode=%d\n",
+           r.svid, r.wn, r.t_oe, r.iode);
 
     // Build up the RTCM message
-    Block  blk;
+    Block  blk(1019);
     Bits   b(blk);
 
     // Assemble the Ephemeris record
@@ -257,6 +261,7 @@ bool Rtcm3Station::OutputEphemeris(int s, Time& NextTime)
     b.PutBits(r.omega_0, 32);
     b.PutBits(r.c_is, 16);
     b.PutBits(r.i_0, 32);
+    b.PutBits(r.c_rc, 16);
     b.PutBits(r.omega, 32);
     b.PutBits(r.omegadot, 24);
     b.PutBits(r.t_gd, 8);

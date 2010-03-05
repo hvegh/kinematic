@@ -24,13 +24,19 @@
 RawRtcm3::RawRtcm3(Stream& in)
 : In(in)
 {
-    strcpy(Description, "Rtcm104File");
+    strcpy(Description, "Rtcm3.1");
     ErrCode = In.GetError();
     for (int s=0; s<MaxSats; s++) {
         PreviousPhase[s] = 0;
         PhaseAdjust[s] = 0;
         eph[s] = new EphemerisXmit(s, "RTCM 3.1");
     }
+
+    // We don't know the time until we receive an ephemeris message
+    //  Some streams may not have epemerides, so assume they are
+    //  running realtime and get week number from current date.
+    GuessTime = true;
+    GpsTime = GetCurrentTime();
 }
 
 
@@ -46,11 +52,11 @@ bool RawRtcm3::NextEpoch()
 
         // Process according to type of frame
         if      (b.Id == 1002)   errcode = ProcessObservations(b);
-        else if (b.Id == 1005)   errcode = ProcessAntennaRef(b);
-        else if (b.Id == 1012)   errcode = ProcessEphemeris(b);
+        else if (b.Id == 1005)   errcode = ProcessStationRef(b);
+        else if (b.Id == 1019)   errcode = ProcessEphemeris(b);
         else                     errcode = OK;
 
-    } until (b.Id == 1002 || errcode != OK);
+    } until ( (b.Id == 1002 && GpsTime != -1) || errcode != OK);
 
     return errcode;
 }
@@ -71,15 +77,17 @@ bool RawRtcm3::ProcessObservations(Block& blk)
     Bits b(blk);
     int MessageId = b.GetBits(12);
     int StationId = b.GetBits(12);
-    int32 Tow = b.GetBits(20);
+    double Tow = b.GetBits(30) / 1000.0;
     int Synch = b.GetBits(1);
     int NrSats = b.GetBits(5);
     int Smoothing = b.GetBits(1);
     int Interval = b.GetBits(3);
     debug("RawRtcm3::ProcessObservations \n");
-    debug(" Tow=%d Synch=%d NrSats=%d Smoothing=%d Interval=%d\n",
+    debug(" Tow=%.3f Synch=%d NrSats=%d Smoothing=%d Interval=%d\n",
             Tow,   Synch,   NrSats,   Smoothing,   Interval);
 
+    // Upate the time. 
+    GpsTime = UpdateGpsTime(GpsTime, Tow);
 
     // Do for each measurement
     debug("   Svid Code   iPR  iDelta  Modulus  Locktime Snr\n");
@@ -116,7 +124,7 @@ bool RawRtcm3::ProcessObservations(Block& blk)
         o.Phase = PhaseRange / L1WaveLength;
         o.SNR = LevelToSnr(Snr);
         o.Slip = (LockTime < PreviousLockTime[s] || PreviousPhaseRange[s] == 0);
-        o.Doppler = PhaseRange - PreviousPhaseRange[s];
+        o.Doppler = -(PhaseRange - PreviousPhaseRange[s]) / L1WaveLength;
         o.Valid = true;
 
         if (iDelta == 0x80000) 
@@ -135,11 +143,22 @@ bool RawRtcm3::ProcessObservations(Block& blk)
     return OK;
 }
 
-bool RawRtcm3::ProcessAntennaRef(Block& blk)
+bool RawRtcm3::ProcessStationRef(Block& blk)
 {
     Bits b(blk);
     int MessageId = b.GetBits(12);
     int StationId = b.GetBits(12);
+    int rsvd1 = b.GetBits(6);
+    int gps = b.GetBits(1);
+    int rdvd2 = b.GetBits(3);
+    double x = b.GetSignedBits(38) * .0005;
+    int rsvd3 = b.GetBits(2);
+    double y = b.GetSignedBits(38) * .0005;
+    int rsvd4 = b.GetBits(2);
+    double z = b.GetSignedBits(38) * .0005;
+
+    Pos = Position(x, y, z);
+
 
     return OK;
 }
@@ -150,14 +169,15 @@ bool RawRtcm3::ProcessEphemeris(Block& blk)
     // Extract the raw ephemeris parameters
     EphemerisXmitRaw r;
     Bits b(blk);
+    int msgid = b.GetBits(12);
     r.svid = b.GetBits(6);
     if (r.svid == 0) r.svid = 32;
     r.wn = b.GetBits(10);
     r.acc = b.GetBits(4);
     int code_on_l2 = b.GetBits(2);
     r.idot = b.GetSignedBits(14);
-    r.iode = b.GetBits(4);
-    r.t_oc = b.GetBits(15);
+    r.iode = b.GetBits(8);
+    r.t_oc = b.GetBits(16);
     r.a_f2 = b.GetSignedBits(8);
     r.a_f1 = b.GetSignedBits(16);
     r.a_f2 = b.GetSignedBits(22);
@@ -171,6 +191,7 @@ bool RawRtcm3::ProcessEphemeris(Block& blk)
     r.sqrt_a = b.GetBits(32);
     r.t_oe = b.GetBits(16);
     r.c_ic = b.GetSignedBits(16);
+    r.omega_0 = b.GetSignedBits(32);
     r.c_is = b.GetSignedBits(16);
     r.i_0 = b.GetSignedBits(32);
     r.c_rc = b.GetSignedBits(16);
@@ -180,6 +201,8 @@ bool RawRtcm3::ProcessEphemeris(Block& blk)
     r.health = b.GetBits(6);
     int l2pflag = b.GetBits(1);
     int fit_interval = b.GetBits(1);
+    debug("RawRtcm3::ProcessEphemeris  svid=%d iode=%d wn=%d\n",
+                                       r.svid, r.iode, r.wn);
 
     // Get a reference to the current ephemeris for this satellite
     int sat = SvidToSat(r.svid);
@@ -189,6 +212,14 @@ bool RawRtcm3::ProcessEphemeris(Block& blk)
     // If ephemeris changed, then update it
     if (e.iode != r.iode || e.iodc != r.iodc)
         if (e.FromRaw(r) != OK) return Error(); 
+
+    // If we guessed the time, now update it with the ephemeris time
+    if (GuessTime) {
+        GpsTime = e.t_oe;
+        GuessTime = false;
+        debug("ProcessEphemeris - wn=%d  tow=%.2f\n", 
+                          GpsWeek(GpsTime), GpsTow(GpsTime));
+    }
 
     return OK;
 }

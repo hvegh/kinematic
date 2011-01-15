@@ -1,10 +1,11 @@
 
 # Pick the current OS name
 MYOS:=$(shell uname -s | tr A-Z a-z)
+MYARCH:=$(shell arch)
 
 # By default, pick the current architecture and OS
 OS:=$(MYOS)
-ARCH:=$(shell arch)
+ARCH:=$(MYARCH)
 
 # If we are cross compiling, parse the desired OS and ARCH, look for build env
 ifneq ($(TARGET),)

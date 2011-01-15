@@ -22,7 +22,7 @@ NtripServer::NtripServer(const char* host, const char* port, const char *mount,
 
 bool NtripServer::ParseHeader()
 {
-    char msg[256];
+    // repeat until we read a blank line
     char line[256];
     forever {
 
@@ -35,7 +35,7 @@ bool NtripServer::ParseHeader()
 
         // Look for "ICY 200". Good news. 
         if (p == "ICY") {
-           if (p.Next(" "), p != "200") 
+           if (p.Next(" ") != "200") 
                return Error("ParseHeader: Bad code - %s\n", line);
         }
 
